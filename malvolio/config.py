@@ -19,6 +19,7 @@ class StaticPage:
     output: str
     title: str
     description: str = SITE_DESCRIPTION
+    standalone: bool = False   # rendered as-is, without base.html's chrome
 
 
 @dataclass
@@ -59,6 +60,14 @@ class Config:
                     output="cv.html",
                     title=f"CV — {SITE_TITLE}",
                     description="Curriculum vitae: education, systems, and client work.",
+                ),
+                StaticPage(
+                    name="splat",
+                    template="splat.html",
+                    output="splat.html",
+                    title="Scan",
+                    description="Gaussian-splat viewer.",
+                    standalone=True,
                 ),
                 StaticPage(
                     name="music",

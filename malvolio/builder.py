@@ -73,7 +73,10 @@ class SiteBuilder:
             page: Static page configuration.
         """
         content = self.env.get_template(page.template).render()
-        rendered_html = self._wrap(content, page.title, page.description, nav=page.name)
+        rendered_html = (
+            content if page.standalone
+            else self._wrap(content, page.title, page.description, nav=page.name)
+        )
 
         output_file = self.config.public_dir / page.output
         self._write_output(output_file, rendered_html)

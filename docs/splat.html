@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex" />
+<title>Scan</title>
+<style>
+    * { box-sizing: border-box; margin: 0; padding: 0 }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #04060a }
+    canvas { display: block; width: 100%; height: 100% }
+    #bar {
+        position: fixed; left: 0; right: 0; bottom: 0; height: 2px;
+        background: #00e5ff; width: 0; transition: width .2s;
+    }
+    #bar.done { opacity: 0; transition: opacity .5s }
+    #msg {
+        position: fixed; inset: 0; display: none; place-items: center;
+        color: #ff2e3f; font: 600 14px/1.5 system-ui, sans-serif;
+        letter-spacing: .18em; text-transform: uppercase;
+    }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="bar"></div>
+<div id="msg"></div>
+
+<script type="module">
+const canvas = document.getElementById('c');
+const bar = document.getElementById('bar');
+const msg = document.getElementById('msg');
+
+function fail(text) {
+    bar.classList.add('done');
+    msg.textContent = text;
+    msg.style.display = 'grid';
+}
+
+if (!document.createElement('canvas').getContext('webgl2')) {
+    fail('WebGL2 unavailable');
+} else {
+    try {
+        const SPLAT = await import('/static/vendor/gsplat/gsplat.js');
+
+        // Same opening view as the homepage panel.
+        const ALPHA = -0.0730;
+        const BETA  = 0.0560;
+        const BASE  = 11.271;
+        const TARGET = new SPLAT.Vector3(0, 0, 0);
+
+        const renderer = new SPLAT.WebGLRenderer(canvas);
+        renderer.backgroundColor = new SPLAT.Color32(4, 6, 10, 0);
+
+        const scene = new SPLAT.Scene();
+        const camera = new SPLAT.Camera();
+
+        function makeControls() {
+            const c = new SPLAT.OrbitControls(camera, canvas, ALPHA, BETA, BASE);
+            c.setCameraTarget(TARGET);
+            c.minZoom = BASE * 0.3;
+            c.maxZoom = BASE * 3.0;
+            c.orbitSpeed = 1.6;
+            c.panSpeed = 1.4;
+            return c;
+        }
+        let controls = makeControls();
+
+        // gsplat sizes in CSS pixels, so drive it at devicePixelRatio.
+        function resize() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            renderer.setSize(
+                Math.round(innerWidth * dpr), Math.round(innerHeight * dpr));
+        }
+        addEventListener('resize', resize);
+        resize();
+
+        const splat = await SPLAT.Loader.LoadAsync(
+            '/static/media/face.splat', scene, p => { bar.style.width = (p * 100) + '%'; });
+        bar.classList.add('done');
+        resize();
+
+        const MAX_YAW = 20 * Math.PI / 180;
+        const RESUME_MS = 3000;
+        const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        let swayT = 0, wasIdle = true, lastInput = -1e9, dragging = false;
+        const markInput = () => { lastInput = performance.now(); };
+        const grab = () => { dragging = true; markInput(); };
+        const release = () => { if (dragging) { dragging = false; markInput(); } };
+
+        canvas.addEventListener('contextmenu', e => e.preventDefault());
+        canvas.addEventListener('wheel', markInput, { passive: true });
+        canvas.addEventListener('mousedown', grab);
+        canvas.addEventListener('touchstart', grab, { passive: true });
+        canvas.addEventListener('touchmove', markInput, { passive: true });
+        addEventListener('mouseup', release);
+        addEventListener('touchend', release);
+        addEventListener('touchcancel', release);
+        addEventListener('blur', release);
+        addEventListener('dblclick', () => { controls.dispose(); controls = makeControls(); });
+
+        // gsplat binds mousemove on the canvas only; forward what it misses so
+        // a drag survives leaving the element.
+        addEventListener('mousemove', e => {
+            if (!dragging) return;
+            if (e.buttons === 0) { release(); return; }
+            markInput();
+            if (e.target === canvas) return;
+            canvas.dispatchEvent(new MouseEvent('mousemove', {
+                clientX: e.clientX, clientY: e.clientY,
+                button: e.button, buttons: e.buttons,
+            }));
+        });
+
+        function frame() {
+            const idle = !dragging && performance.now() - lastInput > RESUME_MS;
+            if (idle && !wasIdle) controls.setState({ radius: BASE, target: TARGET });
+            wasIdle = idle;
+
+            if (idle && !reduced) {
+                swayT += 0.006;
+                splat.rotation = SPLAT.Quaternion.FromEuler(
+                    new SPLAT.Vector3(0, Math.sin(swayT) * MAX_YAW, 0));
+            }
+            controls.update();
+            renderer.render(scene, camera);
+            requestAnimationFrame(frame);
+        }
+        frame();
+    } catch (err) {
+        console.error(err);
+        fail('Scan failed to load');
+    }
+}
+</script>
+</body>
+</html>
