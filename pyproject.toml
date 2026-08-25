@@ -14,6 +14,9 @@ dependencies = [
     "python-frontmatter>=1.1.0",
     "pyyaml>=6.0.3",
     "livereload>=2.7.0",
+    "jupyter>=1.1.1",
+    "matplotlib>=3.10.8",
+    "plotly>=6.5.2",
 ]
 
 [project.scripts]

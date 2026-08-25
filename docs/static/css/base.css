@@ -1004,3 +1004,58 @@ article img:hover {
         padding: 10px 15px;
     }
 }
+
+/* Article header — emitted from meta.yaml by article.html */
+.article-header h1 {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 8px;
+}
+
+.article-summary {
+    color: var(--subtle);
+    font-style: italic;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+}
+
+.article-header .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.article-header .entry-tags {
+    margin-top: 10px;
+}
+
+.article-header + hr {
+    margin-top: 14px;
+}
+
+.draft-badge {
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 3px;
+    color: var(--gold);
+    background: var(--highlight-low);
+    border: 1px solid var(--gold);
+    text-transform: uppercase;
+}
+
+/* Figures */
+.content-figure {
+    margin: 20px 0;
+    text-align: center;
+}
+
+.content-figure figcaption {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+
+blockquote.testimonial .muted {
+    color: var(--muted);
+}

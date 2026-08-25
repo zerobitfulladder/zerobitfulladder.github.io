@@ -3,35 +3,72 @@
 from dataclasses import dataclass, field
 from pathlib import Path
 
+SITE_TITLE = "Tuğrul Ağrikli"
+SITE_DESCRIPTION = (
+    "Systems and machine learning engineer in Istanbul. "
+    "Computer vision on the edge, desktop shells, LLM-driven agents."
+)
+SITE_URL = "https://tagrikli.github.io/Malvolio"
+
+
+@dataclass
+class StaticPage:
+    """A page rendered straight from a template, with no meta.yaml behind it."""
+    name: str
+    template: str
+    output: str
+    title: str
+    description: str = SITE_DESCRIPTION
+
 
 @dataclass
 class PageConfig:
-    """Configuration for a single page type."""
+    """Configuration for a single meta.yaml-driven list page."""
     name: str
     meta_file: Path
     content_dir: str  # URL path for hrefs (e.g., "content/thought")
     template: str
     output_file: Path
     source_dir: Path  # Source directory for content files
+    title: str
 
 
 @dataclass
 class Config:
     """Site configuration with sensible defaults."""
-    
-    # Directory paths
+
     templates_dir: Path = field(default_factory=lambda: Path("templates"))
     public_dir: Path = field(default_factory=lambda: Path("docs"))
     source_dir: Path = field(default_factory=lambda: Path("content"))
-    
-    # Output files
-    index_output: Path = field(default_factory=lambda: Path("docs/index.html"))
-    
-    # Page configurations
+
+    static_pages: list[StaticPage] = field(default_factory=list)
     pages: list[PageConfig] = field(default_factory=list)
-    
+
     def __post_init__(self):
-        """Initialize default page configurations if not provided."""
+        if not self.static_pages:
+            self.static_pages = [
+                StaticPage(
+                    name="index",
+                    template="index.html",
+                    output="index.html",
+                    title=SITE_TITLE,
+                ),
+                StaticPage(
+                    name="cv",
+                    template="cv.html",
+                    output="cv.html",
+                    title=f"CV — {SITE_TITLE}",
+                    description="Curriculum vitae: education, systems, and client work.",
+                ),
+                StaticPage(
+                    name="music",
+                    template="music.html",
+                    output="music.html",
+                    title=f"Music — {SITE_TITLE}",
+                    description="Artists I keep coming back to.",
+                ),
+            ]
+
         if not self.pages:
             self.pages = [
                 PageConfig(
@@ -41,6 +78,7 @@ class Config:
                     template="thought.html",
                     output_file=self.public_dir / "thought.html",
                     source_dir=self.source_dir / "thought",
+                    title=f"Thoughts — {SITE_TITLE}",
                 ),
                 PageConfig(
                     name="experience",
@@ -49,23 +87,22 @@ class Config:
                     template="experience.html",
                     output_file=self.public_dir / "experience.html",
                     source_dir=self.source_dir / "experience",
+                    title=f"Work — {SITE_TITLE}",
                 ),
             ]
-    
+
     @property
     def output_files(self) -> list[Path]:
-        """List of all output files that should be cleaned."""
-        return [self.index_output] + [page.output_file for page in self.pages]
-    
+        """All output files that should be cleaned."""
+        static = [self.public_dir / p.output for p in self.static_pages]
+        return static + [page.output_file for page in self.pages]
+
     @property
     def output_dirs(self) -> list[Path]:
-        """List of output directories that should be cleaned."""
+        """All output directories that should be cleaned."""
         return [self.public_dir / "content"]
-    
+
     @property
     def watch_paths(self) -> list[Path]:
-        """List of paths to watch for changes."""
-        return [
-            self.templates_dir,
-            self.source_dir,
-        ]
+        """Paths to watch for changes."""
+        return [self.templates_dir, self.source_dir]

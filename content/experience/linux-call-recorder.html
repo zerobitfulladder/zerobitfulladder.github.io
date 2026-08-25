@@ -1,76 +1,71 @@
-<article>
-    <h1>Linux Phone Call Recorder</h1>
-    <h4>06/10/2023</h4>
+<p>
+    PCMin was a project to build an automatic call recording system for Linux phones. Running as a background
+    daemon, it monitors cellular calls through ModemManager and captures both audio channels – the microphone and
+    the speaker output – saving each side of the conversation as separate WAV files.
+</p>
 
-    <p>
-        PCMin was a project to build an automatic call recording system for Linux phones. Running as a background
-        daemon, it monitors cellular calls through ModemManager and captures both audio channels – the microphone and
-        the speaker output – saving each side of the conversation as separate WAV files.
-    </p>
+<h3>The Problem</h3>
 
-    <h3>The Problem</h3>
+<p>
+    Linux phones like the Librem 5 or PinePhone lack the polished ecosystem of their Android and iOS counterparts.
+    Call recording, a feature many take for granted, simply didn't exist in a usable form. The goal was to fill
+    that gap with a lightweight, set-and-forget solution.
+</p>
 
-    <p>
-        Linux phones like the Librem 5 or PinePhone lack the polished ecosystem of their Android and iOS counterparts.
-        Call recording, a feature many take for granted, simply didn't exist in a usable form. The goal was to fill
-        that gap with a lightweight, set-and-forget solution.
-    </p>
+<h3>The Solution</h3>
 
-    <h3>The Solution</h3>
+<p>
+    <strong>D-Bus Integration:</strong> The system hooks into ModemManager via D-Bus, listening for call state
+    changes. When a call transitions to active, recording begins automatically. When it terminates, files are
+    saved with timestamps, direction (incoming/outgoing), and the caller's number.
+</p>
 
-    <p>
-        <strong>D-Bus Integration:</strong> The system hooks into ModemManager via D-Bus, listening for call state
-        changes. When a call transitions to active, recording begins automatically. When it terminates, files are
-        saved with timestamps, direction (incoming/outgoing), and the caller's number.
-    </p>
+<p>
+    <strong>Dual Audio Capture:</strong> Using PulseAudio, the application captures from two sources simultaneously
+    – the microphone input and the speaker monitor. This separation preserves audio quality and allows for
+    post-processing if needed.
+</p>
 
-    <p>
-        <strong>Dual Audio Capture:</strong> Using PulseAudio, the application captures from two sources simultaneously
-        – the microphone input and the speaker monitor. This separation preserves audio quality and allows for
-        post-processing if needed.
-    </p>
+<p>
+    <strong>GStreamer Pipeline:</strong> Audio encoding is handled through GStreamer, with raw PulseAudio sources
+    piped through caps filters and WAV encoders. The pipeline runs independently for each audio channel, writing
+    to temporary files before moving them to permanent storage.
+</p>
 
-    <p>
-        <strong>GStreamer Pipeline:</strong> Audio encoding is handled through GStreamer, with raw PulseAudio sources
-        piped through caps filters and WAV encoders. The pipeline runs independently for each audio channel, writing
-        to temporary files before moving them to permanent storage.
-    </p>
+<h3>Challenges Faced</h3>
 
-    <h3>Challenges Faced</h3>
+<p>
+    <strong>Audio Source Detection:</strong> PulseAudio sources can change between calls, especially when
+    switching between earpiece and speakerphone. The system repopulates source names before each recording to
+    ensure the correct devices are captured.
+</p>
 
-    <p>
-        <strong>Audio Source Detection:</strong> PulseAudio sources can change between calls, especially when
-        switching between earpiece and speakerphone. The system repopulates source names before each recording to
-        ensure the correct devices are captured.
-    </p>
+<p>
+    <strong>Event-Driven Architecture:</strong> The application needed to run continuously without polling,
+    responding instantly to call events. GLib's main loop combined with D-Bus signal handlers provided the
+    necessary event-driven foundation.
+</p>
 
-    <p>
-        <strong>Event-Driven Architecture:</strong> The application needed to run continuously without polling,
-        responding instantly to call events. GLib's main loop combined with D-Bus signal handlers provided the
-        necessary event-driven foundation.
-    </p>
+<p>
+    <strong>Resource Constraints:</strong> Linux phones have limited resources. The design avoids unnecessary
+    processing, using temporary files during recording and only performing file operations when the call ends.
+</p>
 
-    <p>
-        <strong>Resource Constraints:</strong> Linux phones have limited resources. The design avoids unnecessary
-        processing, using temporary files during recording and only performing file operations when the call ends.
-    </p>
+<h3>What I Learned</h3>
 
-    <h3>What I Learned</h3>
+<p>
+    This project deepened my understanding of the Linux audio stack – PulseAudio's source/sink model, monitor
+    devices, and the intricacies of capturing system audio. Working with D-Bus and ModemManager also provided
+    insight into how cellular functionality is exposed to userspace on Linux.
+</p>
 
-    <p>
-        This project deepened my understanding of the Linux audio stack – PulseAudio's source/sink model, monitor
-        devices, and the intricacies of capturing system audio. Working with D-Bus and ModemManager also provided
-        insight into how cellular functionality is exposed to userspace on Linux.
-    </p>
+<p>
+    The experience highlighted the challenges of developing for niche platforms, where documentation is sparse and
+    solutions often require piecing together information from multiple sources.
+</p>
 
-    <p>
-        The experience highlighted the challenges of developing for niche platforms, where documentation is sparse and
-        solutions often require piecing together information from multiple sources.
-    </p>
+<hr />
 
-    <hr />
-
-    <p>
-        Built for the Librem 5, but applicable to any Linux phone running ModemManager and PulseAudio.
-    </p>
-</article>
+<p>
+    Built for the Librem 5, but applicable to any Linux phone running ModemManager and PulseAudio.
+</p>

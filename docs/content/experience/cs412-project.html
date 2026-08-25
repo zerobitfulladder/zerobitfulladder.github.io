@@ -3,15 +3,27 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tugrul's Website</title>
+        <title>Instagram Analytics with Machine Learning — Tuğrul Ağrikli</title>
+        <meta name="description" content="A machine learning project for Instagram account classification and engagement prediction." />
+        <meta name="author" content="Tuğrul Ağrikli" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Instagram Analytics with Machine Learning — Tuğrul Ağrikli" />
+        <meta property="og:description" content="A machine learning project for Instagram account classification and engagement prediction." />
+        <meta name="twitter:card" content="summary" />
+
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23191724'/><text y='23' x='6' font-family='monospace' font-size='20' fill='%23c4a7e7'>t</text></svg>"
+        />
         <link rel="stylesheet" href="/static/css/base.css" />
 
-        <!-- KaTeX for LaTeX math rendering -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+        <!-- KaTeX for LaTeX math rendering (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/katex/katex.min.css" />
+        <script defer src="/static/vendor/katex/katex.min.js"></script>
         <script
             defer
-            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+            src="/static/vendor/katex/auto-render.min.js"
             onload="
                 renderMathInElement(document.body, {
                     delimiters: [
@@ -22,16 +34,9 @@
             "
         ></script>
 
-        <!-- Highlight.js for code syntax highlighting -->
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/rose-pine.min.css"
-        />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-
-        <script>
-            hljs.highlightAll();
-        </script>
+        <!-- Highlight.js for code syntax highlighting (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/highlight/rose-pine.min.css" />
+        <script defer src="/static/vendor/highlight/highlight.min.js"></script>
 
         <!-- Starry background effect 
         <script type="module" src="/static/js/stars.js"></script>
@@ -40,115 +45,129 @@
     <body>
         <nav class="main-nav">
             <h3><a href="/">Home</a></h3>
+            <h3><a href="/experience.html">Work</a></h3>
             <h3><a href="/thought.html">Thoughts</a></h3>
-            <h3><a href="/experience.html">Work Experience</a></h3>
+            <h3><a href="/cv.html">CV</a></h3>
             <h3><a href="/music.html">Music</a></h3>
         </nav>
         <div class="page">
             <div class="content"><article>
-    <h1>Instagram Analytics with Machine Learning</h1>
-    <h4>14/01/2025</h4>
-
-    <div class="side-media side-left">
-        <img src="/static/media/cs412-trampoline.gif" class="side-media-img" />
-
-        <div class="text">
-            <p>
-                This project was developed for the CS412 Machine Learning course and focused on building predictive
-                models for large-scale Instagram data. The system addresses two core problems: predicting post
-                engagement and classifying accounts based on their content and behavior patterns.
-                <br />
-            </p>
+    <header class="article-header">
+        <h1>Instagram Analytics with Machine Learning</h1>
+        <p class="article-summary">A machine learning project for Instagram account classification and engagement prediction.</p>
+        <div class="article-meta">
+            <span class="entry-date">14/01/2025</span>
+            <span class="entry-reading-time">(~2 min read)</span>
+            
         </div>
-    </div>
-
-    <p>
-        The overall objective was to explore how statistical features and modern language representations can be
-        combined to model social media dynamics at scale. My primary contribution was the complete design and
-        implementation of the classification pipeline, developed independently.
-    </p>
-
-    <h3>The Challenge</h3>
-
-    <p>
-        The dataset contained thousands of accounts with heterogeneous behavior, noisy metadata, and unstructured
-        textual content. Accurately modeling such data required careful feature engineering and robust representation
-        learning.
-    </p>
-
-    <p>
-        For the classification task, the main challenge was extracting meaningful signals from short, informal, and
-        multilingual text while maintaining generalization across unseen evaluation datasets.
-    </p>
-
-    <h3>The Solution</h3>
-
-    <p>
-        <strong>Data Engineering:</strong> Extensive preprocessing pipelines were implemented to clean profiles,
-        normalize engagement statistics, and generate derived behavioral features capturing long-term interaction
-        patterns.
-    </p>
-
-    <p>
-        <strong>Text Representation:</strong> User biographies and captions were encoded using modern embedding models,
-        including transformer-based sentence encoders and large-scale semantic representations.
-    </p>
-
-    <p>
-        <strong>Classification Pipeline:</strong> I designed and trained multi-class classifiers to categorize Instagram
-        accounts into ten distinct content domains (e.g., fashion, travel, food, entertainment, education). The pipeline
-        combined textual embeddings with structured features for improved accuracy.
-    </p>
-
-    <p>
-        <strong>Model Optimization:</strong> Hyperparameters were tuned using automated optimization frameworks,
-        ensuring strong performance across multiple hidden test sets.
-    </p>
-
-    <p>
-        <strong>Evaluation Strategy:</strong> Models were validated against several independent datasets provided during
-        the course, emphasizing robustness rather than single-test optimization.
-    </p>
-
-    <h3>Results</h3>
-
-    <div class="side-media side-right">
-        <img src="/static/media/cs412-results.png" class="side-media-img" />
-
-        <div class="text">
-            <p>
-                The classification system achieved top performance in the course-wide evaluation, ranking first among
-                all project submissions. The model demonstrated consistent generalization across diverse account types
-                and content styles. <br />
-            </p>
+        
+        <div class="entry-tags">
+            <span class="tag">Machine Learning</span><span class="tag">NLP</span><span class="tag">Classification</span><span class="tag">Python</span><span class="tag">Data Science</span>
         </div>
-    </div>
-
-    <p>
-        The complete project also included a regression component for engagement prediction, enabling comprehensive
-        analysis of both content category and popularity dynamics.
-    </p>
+        
+    </header>
 
     <hr />
 
-    <p>
-        The full codebase is available on <a href="https://github.com/Tagrikli/CS412-Term-Project">GitHub</a>.
-    </p>
+    <div class="side-media side-left">
+    <img src="/static/media/cs412-trampoline.gif" class="side-media-img" />
 
-    <p>
-        I developed the entire classification framework independently, from feature extraction and embedding integration
-        to training, evaluation, and optimization. This work was recognized as the highest-performing classification
-        system in the course.
-    </p>
-
-    <p>
-        The project strengthened my experience in applied machine learning, large-scale data modeling, and modern
-        NLP-based representation learning, while emphasizing reproducibility and rigorous evaluation.
-    </p>
-
-    <img src="/static/media/cs412-msg.jpeg" class="side-media-img" style="max-width: 400px; display: block; margin: 20px auto;" />
-</article>
+    <div class="text">
+        <p>
+            This project was developed for the CS412 Machine Learning course and focused on building predictive
+            models for large-scale Instagram data. The system addresses two core problems: predicting post
+            engagement and classifying accounts based on their content and behavior patterns.
+            <br />
+        </p>
+    </div>
 </div>
+
+<p>
+    The overall objective was to explore how statistical features and modern language representations can be
+    combined to model social media dynamics at scale. My primary contribution was the complete design and
+    implementation of the classification pipeline, developed independently.
+</p>
+
+<h3>The Challenge</h3>
+
+<p>
+    The dataset contained thousands of accounts with heterogeneous behavior, noisy metadata, and unstructured
+    textual content. Accurately modeling such data required careful feature engineering and robust representation
+    learning.
+</p>
+
+<p>
+    For the classification task, the main challenge was extracting meaningful signals from short, informal, and
+    multilingual text while maintaining generalization across unseen evaluation datasets.
+</p>
+
+<h3>The Solution</h3>
+
+<p>
+    <strong>Data Engineering:</strong> Extensive preprocessing pipelines were implemented to clean profiles,
+    normalize engagement statistics, and generate derived behavioral features capturing long-term interaction
+    patterns.
+</p>
+
+<p>
+    <strong>Text Representation:</strong> User biographies and captions were encoded using modern embedding models,
+    including transformer-based sentence encoders and large-scale semantic representations.
+</p>
+
+<p>
+    <strong>Classification Pipeline:</strong> I designed and trained multi-class classifiers to categorize Instagram
+    accounts into ten distinct content domains (e.g., fashion, travel, food, entertainment, education). The pipeline
+    combined textual embeddings with structured features for improved accuracy.
+</p>
+
+<p>
+    <strong>Model Optimization:</strong> Hyperparameters were tuned using automated optimization frameworks,
+    ensuring strong performance across multiple hidden test sets.
+</p>
+
+<p>
+    <strong>Evaluation Strategy:</strong> Models were validated against several independent datasets provided during
+    the course, emphasizing robustness rather than single-test optimization.
+</p>
+
+<h3>Results</h3>
+
+<div class="side-media side-right">
+    <img src="/static/media/cs412-results.png" class="side-media-img" />
+
+    <div class="text">
+        <p>
+            The classification system achieved top performance in the course-wide evaluation, ranking first among
+            all project submissions. The model demonstrated consistent generalization across diverse account types
+            and content styles. <br />
+        </p>
+    </div>
+</div>
+
+<p>
+    The complete project also included a regression component for engagement prediction, enabling comprehensive
+    analysis of both content category and popularity dynamics.
+</p>
+
+<hr />
+
+<p>
+    The full codebase is available on <a href="https://github.com/Tagrikli/CS412-Term-Project">GitHub</a>.
+</p>
+
+<p>
+    I developed the entire classification framework independently, from feature extraction and embedding integration
+    to training, evaluation, and optimization. This work was recognized as the highest-performing classification
+    system in the course.
+</p>
+
+<p>
+    The project strengthened my experience in applied machine learning, large-scale data modeling, and modern
+    NLP-based representation learning, while emphasizing reproducibility and rigorous evaluation.
+</p>
+
+<img src="/static/media/cs412-msg.jpeg" class="side-media-img" style="max-width: 400px; display: block; margin: 20px auto;" />
+</article></div>
         </div>
 
         <!-- Image Lightbox -->
@@ -159,6 +178,8 @@
         <script>
             // Image lightbox functionality
             document.addEventListener('DOMContentLoaded', function() {
+                hljs.highlightAll();
+
                 const lightbox = document.getElementById('lightbox');
                 const lightboxImg = lightbox.querySelector('img');
                 

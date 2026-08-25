@@ -3,15 +3,27 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tugrul's Website</title>
+        <title>Kimiko – Browser Extension Chat Platform — Tuğrul Ağrikli</title>
+        <meta name="description" content="A Chrome extension enabling real-time chat on any website through URL-based chat rooms." />
+        <meta name="author" content="Tuğrul Ağrikli" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Kimiko – Browser Extension Chat Platform — Tuğrul Ağrikli" />
+        <meta property="og:description" content="A Chrome extension enabling real-time chat on any website through URL-based chat rooms." />
+        <meta name="twitter:card" content="summary" />
+
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23191724'/><text y='23' x='6' font-family='monospace' font-size='20' fill='%23c4a7e7'>t</text></svg>"
+        />
         <link rel="stylesheet" href="/static/css/base.css" />
 
-        <!-- KaTeX for LaTeX math rendering -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+        <!-- KaTeX for LaTeX math rendering (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/katex/katex.min.css" />
+        <script defer src="/static/vendor/katex/katex.min.js"></script>
         <script
             defer
-            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+            src="/static/vendor/katex/auto-render.min.js"
             onload="
                 renderMathInElement(document.body, {
                     delimiters: [
@@ -22,16 +34,9 @@
             "
         ></script>
 
-        <!-- Highlight.js for code syntax highlighting -->
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/rose-pine.min.css"
-        />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-
-        <script>
-            hljs.highlightAll();
-        </script>
+        <!-- Highlight.js for code syntax highlighting (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/highlight/rose-pine.min.css" />
+        <script defer src="/static/vendor/highlight/highlight.min.js"></script>
 
         <!-- Starry background effect 
         <script type="module" src="/static/js/stars.js"></script>
@@ -40,99 +45,113 @@
     <body>
         <nav class="main-nav">
             <h3><a href="/">Home</a></h3>
+            <h3><a href="/experience.html">Work</a></h3>
             <h3><a href="/thought.html">Thoughts</a></h3>
-            <h3><a href="/experience.html">Work Experience</a></h3>
+            <h3><a href="/cv.html">CV</a></h3>
             <h3><a href="/music.html">Music</a></h3>
         </nav>
         <div class="page">
             <div class="content"><article>
-    <h1>Kimiko – Browser Extension Chat Platform</h1>
-    <h4>15/12/2021</h4>
-
-    <div class="side-media side-right">
-        <img src="/static/media/kimiko-demo.png" class="side-media-img" />
-
-        <div class="text">
-            <p>
-                Kimiko was a course project for CS308 at Sabanci University – a Chrome extension that brings real-time
-                chat to any website. The idea was simple: people visiting the same URL could communicate with each other
-                through a sidebar overlay, creating impromptu communities around shared web content.
-                <br />
-            </p>
+    <header class="article-header">
+        <h1>Kimiko – Browser Extension Chat Platform</h1>
+        <p class="article-summary">A Chrome extension enabling real-time chat on any website through URL-based chat rooms.</p>
+        <div class="article-meta">
+            <span class="entry-date">15/12/2021</span>
+            <span class="entry-reading-time">(~2 min read)</span>
+            
         </div>
-    </div>
-
-    <h3>The Concept</h3>
-
-    <p>
-        The extension injects an iframe sidebar into any page the user visits. Each URL becomes a chat room, identified
-        by a hashed version of the address. Users can toggle the sidebar with a double-Shift hotkey, resize it to their
-        preference, and start chatting with others on the same page.
-    </p>
-
-    <p>
-        User profiles persist across sessions, storing avatars, usernames, bios, and social links. Clicking on a user
-        in the chat reveals their profile, enabling a basic social layer on top of the anonymous chat experience.
-    </p>
-
-    <h3>The Architecture</h3>
-
-    <p>
-        <strong>Chrome Extension:</strong> A content script injects the sidebar iframe and handles cross-origin
-        communication between the page and the embedded React app. Chrome storage persists user identity and
-        preferences locally.
-    </p>
-
-    <p>
-        <strong>React Frontend:</strong> The sidebar UI was built with React and TypeScript, handling message display,
-        user input, profile management, and real-time updates. CSS transitions provided smooth animations for settings
-        and profile panels.
-    </p>
-
-    <p>
-        <strong>Node.js Backend:</strong> An Express server with WebSocket support managed real-time message routing.
-        MongoDB stored user profiles and message history per URL hash, enabling conversation persistence.
-    </p>
-
-    <h3>Challenges Faced</h3>
-
-    <p>
-        <strong>Cross-Origin Communication:</strong> The extension's content script and the iframe run in different
-        contexts with different origins. Coordinating user identity and profile updates required careful use of
-        postMessage and Chrome's runtime messaging API.
-    </p>
-
-    <p>
-        <strong>URL-Based Room Partitioning:</strong> Messages needed to be isolated per URL while maintaining
-        performance. Using murmurhash to generate room identifiers from URLs allowed efficient database queries and
-        quick client-side routing.
-    </p>
-
-    <p>
-        <strong>Real-Time Synchronization:</strong> Managing WebSocket connections, handling disconnections gracefully,
-        and ensuring message delivery order required a robust client manager that tracked online users per room.
-    </p>
-
-    <h3>What I Learned</h3>
-
-    <p>
-        This was my first deep dive into browser extension development, and it taught me the intricacies of Chrome's
-        extension APIs, content security policies, and the security considerations of injecting code into arbitrary
-        web pages.
-    </p>
-
-    <p>
-        The project also reinforced lessons about real-time systems – managing WebSocket state, handling edge cases in
-        connection drops, and designing for the asynchronous nature of distributed chat systems.
-    </p>
+        
+        <div class="entry-tags">
+            <span class="tag">Chrome Extension</span><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">WebSocket</span><span class="tag">MongoDB</span>
+        </div>
+        
+    </header>
 
     <hr />
 
-    <p>
-        A team project developed with classmates for the CS308 Software Engineering course at Sabanci University.
-    </p>
-</article>
+    <div class="side-media side-right">
+    <img src="/static/media/kimiko-demo.png" class="side-media-img" />
+
+    <div class="text">
+        <p>
+            Kimiko was a course project for CS308 at Sabanci University – a Chrome extension that brings real-time
+            chat to any website. The idea was simple: people visiting the same URL could communicate with each other
+            through a sidebar overlay, creating impromptu communities around shared web content.
+            <br />
+        </p>
+    </div>
 </div>
+
+<h3>The Concept</h3>
+
+<p>
+    The extension injects an iframe sidebar into any page the user visits. Each URL becomes a chat room, identified
+    by a hashed version of the address. Users can toggle the sidebar with a double-Shift hotkey, resize it to their
+    preference, and start chatting with others on the same page.
+</p>
+
+<p>
+    User profiles persist across sessions, storing avatars, usernames, bios, and social links. Clicking on a user
+    in the chat reveals their profile, enabling a basic social layer on top of the anonymous chat experience.
+</p>
+
+<h3>The Architecture</h3>
+
+<p>
+    <strong>Chrome Extension:</strong> A content script injects the sidebar iframe and handles cross-origin
+    communication between the page and the embedded React app. Chrome storage persists user identity and
+    preferences locally.
+</p>
+
+<p>
+    <strong>React Frontend:</strong> The sidebar UI was built with React and TypeScript, handling message display,
+    user input, profile management, and real-time updates. CSS transitions provided smooth animations for settings
+    and profile panels.
+</p>
+
+<p>
+    <strong>Node.js Backend:</strong> An Express server with WebSocket support managed real-time message routing.
+    MongoDB stored user profiles and message history per URL hash, enabling conversation persistence.
+</p>
+
+<h3>Challenges Faced</h3>
+
+<p>
+    <strong>Cross-Origin Communication:</strong> The extension's content script and the iframe run in different
+    contexts with different origins. Coordinating user identity and profile updates required careful use of
+    postMessage and Chrome's runtime messaging API.
+</p>
+
+<p>
+    <strong>URL-Based Room Partitioning:</strong> Messages needed to be isolated per URL while maintaining
+    performance. Using murmurhash to generate room identifiers from URLs allowed efficient database queries and
+    quick client-side routing.
+</p>
+
+<p>
+    <strong>Real-Time Synchronization:</strong> Managing WebSocket connections, handling disconnections gracefully,
+    and ensuring message delivery order required a robust client manager that tracked online users per room.
+</p>
+
+<h3>What I Learned</h3>
+
+<p>
+    This was my first deep dive into browser extension development, and it taught me the intricacies of Chrome's
+    extension APIs, content security policies, and the security considerations of injecting code into arbitrary
+    web pages.
+</p>
+
+<p>
+    The project also reinforced lessons about real-time systems – managing WebSocket state, handling edge cases in
+    connection drops, and designing for the asynchronous nature of distributed chat systems.
+</p>
+
+<hr />
+
+<p>
+    A team project developed with classmates for the CS308 Software Engineering course at Sabanci University.
+</p>
+</article></div>
         </div>
 
         <!-- Image Lightbox -->
@@ -143,6 +162,8 @@
         <script>
             // Image lightbox functionality
             document.addEventListener('DOMContentLoaded', function() {
+                hljs.highlightAll();
+
                 const lightbox = document.getElementById('lightbox');
                 const lightboxImg = lightbox.querySelector('img');
                 

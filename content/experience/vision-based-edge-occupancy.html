@@ -1,95 +1,86 @@
-<article>
-    <h1>Vision-Based Edge Occupancy Detection</h1>
-    <h4>04/01/2026</h4>
+<p>
+    This graduation project focused on replacing expensive laser scanners in automated parking systems with a
+    computer vision–based solution. The goal was to detect whether a vehicle extends beyond pallet edges—an error
+    that can cause serious collisions during automated transport—using low-cost cameras and edge AI hardware.
+</p>
 
-    <p>
-        This graduation project focused on replacing expensive laser scanners in automated parking systems with a
-        computer vision–based solution. The goal was to detect whether a vehicle extends beyond pallet edges—an error
-        that can cause serious collisions during automated transport—using low-cost cameras and edge AI hardware.
-    </p>
+{{ image_pair('/static/media/edge-occ-empty.png', '/static/media/edge-occ-full.png',
+              'Empty pallet', 'Occupied pallet') }}
 
-    <div class="image-pair">
-        <img src="/static/media/edge-occ-empty.png" class="paired-img" />
-        <img src="/static/media/edge-occ-full.png" class="paired-img" />
-    </div>
+<p>
+    Existing industrial systems rely on laser sensors costing thousands of euros per unit and suffer from
+    reliability issues with dark vehicle surfaces. My objective was to demonstrate that a carefully engineered deep
+    learning system could match their accuracy at a fraction of the cost.
+</p>
 
-    <p>
-        Existing industrial systems rely on laser sensors costing thousands of euros per unit and suffer from
-        reliability issues with dark vehicle surfaces. My objective was to demonstrate that a carefully engineered deep
-        learning system could match their accuracy at a fraction of the cost.
-    </p>
+<h3>The Challenge</h3>
 
-    <h3>The Challenge</h3>
+<p>
+    The main technical challenge was building a reliable safety-critical classifier from limited real-world data
+    collected in a single parking facility. While occupied pallets naturally vary with different vehicles, empty
+    pallets are visually uniform, creating strong risks of overfitting and poor generalization.
+</p>
 
-    <p>
-        The main technical challenge was building a reliable safety-critical classifier from limited real-world data
-        collected in a single parking facility. While occupied pallets naturally vary with different vehicles, empty
-        pallets are visually uniform, creating strong risks of overfitting and poor generalization.
-    </p>
+<p>
+    Additional constraints included real-time inference requirements, low hardware budgets, and strict limits on
+    false negatives, where missed detections could lead to physical damage.
+</p>
 
-    <p>
-        Additional constraints included real-time inference requirements, low hardware budgets, and strict limits on
-        false negatives, where missed detections could lead to physical damage.
-    </p>
+<h3>The Solution</h3>
 
-    <h3>The Solution</h3>
+<p>
+    <strong>Data Pipeline:</strong> I designed a semi-automated labeling system that reduced manual annotation
+    effort from over 200 hours to roughly 2 hours, enabling efficient creation of a high-quality dataset.
+</p>
 
-    <p>
-        <strong>Data Pipeline:</strong> I designed a semi-automated labeling system that reduced manual annotation
-        effort from over 200 hours to roughly 2 hours, enabling efficient creation of a high-quality dataset.
-    </p>
+<p>
+    <strong>Model Architecture:</strong> A MobileNetV3-based convolutional neural network was implemented using
+    transfer learning, optimized for deployment on embedded devices such as Raspberry Pi and Jetson platforms.
+</p>
 
-    <p>
-        <strong>Model Architecture:</strong> A MobileNetV3-based convolutional neural network was implemented using
-        transfer learning, optimized for deployment on embedded devices such as Raspberry Pi and Jetson platforms.
-    </p>
+<p>
+    <strong>Validation Methodology:</strong> Through systematic error analysis, I refined the augmentation and
+    testing pipeline after discovering that common occlusion techniques introduced misleading artifacts. This led to
+    a more realistic and robust evaluation framework.
+</p>
 
-    <p>
-        <strong>Validation Methodology:</strong> Through systematic error analysis, I refined the augmentation and
-        testing pipeline after discovering that common occlusion techniques introduced misleading artifacts. This led to
-        a more realistic and robust evaluation framework.
-    </p>
+<p>
+    <strong>Synthetic Data Generation:</strong> To address limited environmental diversity, I developed a
+    Blender-based rendering pipeline that generated thousands of labeled synthetic images. Pre-training on this
+    dataset significantly improved generalization to unseen conditions.
+</p>
 
-    <p>
-        <strong>Synthetic Data Generation:</strong> To address limited environmental diversity, I developed a
-        Blender-based rendering pipeline that generated thousands of labeled synthetic images. Pre-training on this
-        dataset significantly improved generalization to unseen conditions.
-    </p>
+{{ image_pair('/static/media/edge-occ-empty-syn.png', '/static/media/edge-occ-full-syn.png',
+              'Synthetic empty pallet', 'Synthetic occupied pallet') }}
 
-    <div class="image-pair">
-        <img src="/static/media/edge-occ-empty-syn.png" class="paired-img" />
-        <img src="/static/media/edge-occ-full-syn.png" class="paired-img" />
-    </div>
+<p>
+    <strong>Deployment Architecture:</strong> A modular real-time processing pipeline was designed for multi-camera
+    monitoring, enabling low-latency inference and redundancy-based safety guarantees.
+</p>
 
-    <p>
-        <strong>Deployment Architecture:</strong> A modular real-time processing pipeline was designed for multi-camera
-        monitoring, enabling low-latency inference and redundancy-based safety guarantees.
-    </p>
+<h3>Results</h3>
 
-    <h3>Results</h3>
+<p>
+    The final system achieved up to 98.94% validation accuracy on real operational data and maintained strong
+    performance under simulated environmental variations. Synthetic pre-training further improved robustness while
+    reducing false positives by over 70%.
+</p>
 
-    <p>
-        The final system achieved up to 98.94% validation accuracy on real operational data and maintained strong
-        performance under simulated environmental variations. Synthetic pre-training further improved robustness while
-        reducing false positives by over 70%.
-    </p>
+<p>
+    Compared to traditional laser-based systems, the solution offers approximately 96% cost reduction while
+    eliminating color-dependent failure modes.
+</p>
 
-    <p>
-        Compared to traditional laser-based systems, the solution offers approximately 96% cost reduction while
-        eliminating color-dependent failure modes.
-    </p>
+<hr />
 
-    <hr />
+<p>
+    Beyond technical performance, this project provided hands-on experience in building industrial-grade machine
+    learning systems under real operational constraints—from data acquisition and validation design to deployment
+    planning and ethical considerations.
+</p>
 
-    <p>
-        Beyond technical performance, this project provided hands-on experience in building industrial-grade machine
-        learning systems under real operational constraints—from data acquisition and validation design to deployment
-        planning and ethical considerations.
-    </p>
-
-    <p>
-        The complete technical documentation is available in the
-        <a href="/static/media/edge-occ-report.pdf">final report</a>, detailing the methodology, experiments, and
-        system architecture.
-    </p>
-</article>
+<p>
+    The complete technical documentation is available in the
+    <a href="/static/media/edge-occ-report.pdf">final report</a>, detailing the methodology, experiments, and
+    system architecture.
+</p>

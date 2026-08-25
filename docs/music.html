@@ -3,15 +3,27 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tugrul's Website</title>
+        <title>Music — Tuğrul Ağrikli</title>
+        <meta name="description" content="Artists I keep coming back to." />
+        <meta name="author" content="Tuğrul Ağrikli" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Music — Tuğrul Ağrikli" />
+        <meta property="og:description" content="Artists I keep coming back to." />
+        <meta name="twitter:card" content="summary" />
+
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23191724'/><text y='23' x='6' font-family='monospace' font-size='20' fill='%23c4a7e7'>t</text></svg>"
+        />
         <link rel="stylesheet" href="/static/css/base.css" />
 
-        <!-- KaTeX for LaTeX math rendering -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+        <!-- KaTeX for LaTeX math rendering (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/katex/katex.min.css" />
+        <script defer src="/static/vendor/katex/katex.min.js"></script>
         <script
             defer
-            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+            src="/static/vendor/katex/auto-render.min.js"
             onload="
                 renderMathInElement(document.body, {
                     delimiters: [
@@ -22,16 +34,9 @@
             "
         ></script>
 
-        <!-- Highlight.js for code syntax highlighting -->
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/rose-pine.min.css"
-        />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-
-        <script>
-            hljs.highlightAll();
-        </script>
+        <!-- Highlight.js for code syntax highlighting (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/highlight/rose-pine.min.css" />
+        <script defer src="/static/vendor/highlight/highlight.min.js"></script>
 
         <!-- Starry background effect 
         <script type="module" src="/static/js/stars.js"></script>
@@ -40,8 +45,9 @@
     <body>
         <nav class="main-nav">
             <h3><a href="/">Home</a></h3>
+            <h3><a href="/experience.html">Work</a></h3>
             <h3><a href="/thought.html">Thoughts</a></h3>
-            <h3><a href="/experience.html">Work Experience</a></h3>
+            <h3><a href="/cv.html">CV</a></h3>
             <h3><a href="/music.html">Music</a></h3>
         </nav>
         <div class="page">
@@ -176,6 +182,8 @@
         <script>
             // Image lightbox functionality
             document.addEventListener('DOMContentLoaded', function() {
+                hljs.highlightAll();
+
                 const lightbox = document.getElementById('lightbox');
                 const lightboxImg = lightbox.querySelector('img');
                 

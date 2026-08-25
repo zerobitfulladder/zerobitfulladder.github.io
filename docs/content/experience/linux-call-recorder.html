@@ -3,15 +3,27 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tugrul's Website</title>
+        <title>Linux Phone Call Recorder — Tuğrul Ağrikli</title>
+        <meta name="description" content="An automatic call recording daemon for Linux phones using ModemManager and PulseAudio." />
+        <meta name="author" content="Tuğrul Ağrikli" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Linux Phone Call Recorder — Tuğrul Ağrikli" />
+        <meta property="og:description" content="An automatic call recording daemon for Linux phones using ModemManager and PulseAudio." />
+        <meta name="twitter:card" content="summary" />
+
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23191724'/><text y='23' x='6' font-family='monospace' font-size='20' fill='%23c4a7e7'>t</text></svg>"
+        />
         <link rel="stylesheet" href="/static/css/base.css" />
 
-        <!-- KaTeX for LaTeX math rendering -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+        <!-- KaTeX for LaTeX math rendering (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/katex/katex.min.css" />
+        <script defer src="/static/vendor/katex/katex.min.js"></script>
         <script
             defer
-            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+            src="/static/vendor/katex/auto-render.min.js"
             onload="
                 renderMathInElement(document.body, {
                     delimiters: [
@@ -22,16 +34,9 @@
             "
         ></script>
 
-        <!-- Highlight.js for code syntax highlighting -->
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/rose-pine.min.css"
-        />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-
-        <script>
-            hljs.highlightAll();
-        </script>
+        <!-- Highlight.js for code syntax highlighting (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/highlight/rose-pine.min.css" />
+        <script defer src="/static/vendor/highlight/highlight.min.js"></script>
 
         <!-- Starry background effect 
         <script type="module" src="/static/js/stars.js"></script>
@@ -40,88 +45,102 @@
     <body>
         <nav class="main-nav">
             <h3><a href="/">Home</a></h3>
+            <h3><a href="/experience.html">Work</a></h3>
             <h3><a href="/thought.html">Thoughts</a></h3>
-            <h3><a href="/experience.html">Work Experience</a></h3>
+            <h3><a href="/cv.html">CV</a></h3>
             <h3><a href="/music.html">Music</a></h3>
         </nav>
         <div class="page">
             <div class="content"><article>
-    <h1>Linux Phone Call Recorder</h1>
-    <h4>06/10/2023</h4>
-
-    <p>
-        PCMin was a project to build an automatic call recording system for Linux phones. Running as a background
-        daemon, it monitors cellular calls through ModemManager and captures both audio channels – the microphone and
-        the speaker output – saving each side of the conversation as separate WAV files.
-    </p>
-
-    <h3>The Problem</h3>
-
-    <p>
-        Linux phones like the Librem 5 or PinePhone lack the polished ecosystem of their Android and iOS counterparts.
-        Call recording, a feature many take for granted, simply didn't exist in a usable form. The goal was to fill
-        that gap with a lightweight, set-and-forget solution.
-    </p>
-
-    <h3>The Solution</h3>
-
-    <p>
-        <strong>D-Bus Integration:</strong> The system hooks into ModemManager via D-Bus, listening for call state
-        changes. When a call transitions to active, recording begins automatically. When it terminates, files are
-        saved with timestamps, direction (incoming/outgoing), and the caller's number.
-    </p>
-
-    <p>
-        <strong>Dual Audio Capture:</strong> Using PulseAudio, the application captures from two sources simultaneously
-        – the microphone input and the speaker monitor. This separation preserves audio quality and allows for
-        post-processing if needed.
-    </p>
-
-    <p>
-        <strong>GStreamer Pipeline:</strong> Audio encoding is handled through GStreamer, with raw PulseAudio sources
-        piped through caps filters and WAV encoders. The pipeline runs independently for each audio channel, writing
-        to temporary files before moving them to permanent storage.
-    </p>
-
-    <h3>Challenges Faced</h3>
-
-    <p>
-        <strong>Audio Source Detection:</strong> PulseAudio sources can change between calls, especially when
-        switching between earpiece and speakerphone. The system repopulates source names before each recording to
-        ensure the correct devices are captured.
-    </p>
-
-    <p>
-        <strong>Event-Driven Architecture:</strong> The application needed to run continuously without polling,
-        responding instantly to call events. GLib's main loop combined with D-Bus signal handlers provided the
-        necessary event-driven foundation.
-    </p>
-
-    <p>
-        <strong>Resource Constraints:</strong> Linux phones have limited resources. The design avoids unnecessary
-        processing, using temporary files during recording and only performing file operations when the call ends.
-    </p>
-
-    <h3>What I Learned</h3>
-
-    <p>
-        This project deepened my understanding of the Linux audio stack – PulseAudio's source/sink model, monitor
-        devices, and the intricacies of capturing system audio. Working with D-Bus and ModemManager also provided
-        insight into how cellular functionality is exposed to userspace on Linux.
-    </p>
-
-    <p>
-        The experience highlighted the challenges of developing for niche platforms, where documentation is sparse and
-        solutions often require piecing together information from multiple sources.
-    </p>
+    <header class="article-header">
+        <h1>Linux Phone Call Recorder</h1>
+        <p class="article-summary">An automatic call recording daemon for Linux phones using ModemManager and PulseAudio.</p>
+        <div class="article-meta">
+            <span class="entry-date">06/10/2023</span>
+            <span class="entry-reading-time">(~2 min read)</span>
+            
+        </div>
+        
+        <div class="entry-tags">
+            <span class="tag">Linux</span><span class="tag">Python</span><span class="tag">D-Bus</span><span class="tag">PulseAudio</span><span class="tag">GStreamer</span><span class="tag">ModemManager</span>
+        </div>
+        
+    </header>
 
     <hr />
 
     <p>
-        Built for the Librem 5, but applicable to any Linux phone running ModemManager and PulseAudio.
-    </p>
-</article>
-</div>
+    PCMin was a project to build an automatic call recording system for Linux phones. Running as a background
+    daemon, it monitors cellular calls through ModemManager and captures both audio channels – the microphone and
+    the speaker output – saving each side of the conversation as separate WAV files.
+</p>
+
+<h3>The Problem</h3>
+
+<p>
+    Linux phones like the Librem 5 or PinePhone lack the polished ecosystem of their Android and iOS counterparts.
+    Call recording, a feature many take for granted, simply didn't exist in a usable form. The goal was to fill
+    that gap with a lightweight, set-and-forget solution.
+</p>
+
+<h3>The Solution</h3>
+
+<p>
+    <strong>D-Bus Integration:</strong> The system hooks into ModemManager via D-Bus, listening for call state
+    changes. When a call transitions to active, recording begins automatically. When it terminates, files are
+    saved with timestamps, direction (incoming/outgoing), and the caller's number.
+</p>
+
+<p>
+    <strong>Dual Audio Capture:</strong> Using PulseAudio, the application captures from two sources simultaneously
+    – the microphone input and the speaker monitor. This separation preserves audio quality and allows for
+    post-processing if needed.
+</p>
+
+<p>
+    <strong>GStreamer Pipeline:</strong> Audio encoding is handled through GStreamer, with raw PulseAudio sources
+    piped through caps filters and WAV encoders. The pipeline runs independently for each audio channel, writing
+    to temporary files before moving them to permanent storage.
+</p>
+
+<h3>Challenges Faced</h3>
+
+<p>
+    <strong>Audio Source Detection:</strong> PulseAudio sources can change between calls, especially when
+    switching between earpiece and speakerphone. The system repopulates source names before each recording to
+    ensure the correct devices are captured.
+</p>
+
+<p>
+    <strong>Event-Driven Architecture:</strong> The application needed to run continuously without polling,
+    responding instantly to call events. GLib's main loop combined with D-Bus signal handlers provided the
+    necessary event-driven foundation.
+</p>
+
+<p>
+    <strong>Resource Constraints:</strong> Linux phones have limited resources. The design avoids unnecessary
+    processing, using temporary files during recording and only performing file operations when the call ends.
+</p>
+
+<h3>What I Learned</h3>
+
+<p>
+    This project deepened my understanding of the Linux audio stack – PulseAudio's source/sink model, monitor
+    devices, and the intricacies of capturing system audio. Working with D-Bus and ModemManager also provided
+    insight into how cellular functionality is exposed to userspace on Linux.
+</p>
+
+<p>
+    The experience highlighted the challenges of developing for niche platforms, where documentation is sparse and
+    solutions often require piecing together information from multiple sources.
+</p>
+
+<hr />
+
+<p>
+    Built for the Librem 5, but applicable to any Linux phone running ModemManager and PulseAudio.
+</p>
+</article></div>
         </div>
 
         <!-- Image Lightbox -->
@@ -132,6 +151,8 @@
         <script>
             // Image lightbox functionality
             document.addEventListener('DOMContentLoaded', function() {
+                hljs.highlightAll();
+
                 const lightbox = document.getElementById('lightbox');
                 const lightboxImg = lightbox.querySelector('img');
                 

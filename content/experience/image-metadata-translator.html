@@ -1,46 +1,42 @@
-<article>
-    <h1>Image Metadata Translator</h1>
-    <h4>05/05/2021</h4>
-    <div class="text">
-        <p>
-            A client needed a script that could process a folder of images, read their metadata (title, description,
-            keywords), translate the metadata using the DeepL API, and write the translated data back to the images.
-            <br />
-        </p>
-    </div>
-
-    <h3>Requirements</h3>
-
-    <p>The project had specific requirements:</p>
-
-    <ul>
-        <li>Allow the user to specify a folder of images, source language, and target language</li>
-        <li>Translate EXIF/IPTC metadata fields: Headline, Description, Keywords</li>
-        <li>Write the new metadata back to the files without modifying filenames</li>
-        <li>Integrate with the DeepL API for translation</li>
-    </ul>
-
-    <h3>Solution</h3>
-
+<div class="text">
     <p>
-        I wrote a Python script that integrated with the DeepL API to automate this manual process. The code was
-        designed to be straightforward and well-documented, making it easy for the client to run on their Mac via
-        Terminal.
+        A client needed a script that could process a folder of images, read their metadata (title, description,
+        keywords), translate the metadata using the DeepL API, and write the translated data back to the images.
+        <br />
     </p>
+</div>
 
+<h3>Requirements</h3>
+
+<p>The project had specific requirements:</p>
+
+<ul>
+    <li>Allow the user to specify a folder of images, source language, and target language</li>
+    <li>Translate EXIF/IPTC metadata fields: Headline, Description, Keywords</li>
+    <li>Write the new metadata back to the files without modifying filenames</li>
+    <li>Integrate with the DeepL API for translation</li>
+</ul>
+
+<h3>Solution</h3>
+
+<p>
+    I wrote a Python script that integrated with the DeepL API to automate this manual process. The code was
+    designed to be straightforward and well-documented, making it easy for the client to run on their Mac via
+    Terminal.
+</p>
+
+<p>
+    The script handled all the specified metadata fields and included proper error handling for edge cases that
+    emerged during development.
+</p>
+
+<hr />
+
+<blockquote class="testimonial">
     <p>
-        The script handled all the specified metadata fields and included proper error handling for edge cases that
-        emerged during development.
+        Tuğrul wrote a script in Python that integrated with a third party API to automate a manual process. His
+        code was straightforward and well-documented. He went out of his way to resolve some unexpected issues and
+        always delivered on time. I would be happy to work with Tuğrul again.
     </p>
-
-    <hr />
-
-    <blockquote class="testimonial">
-        <p>
-            Tuğrul wrote a script in Python that integrated with a third party API to automate a manual process. His
-            code was straightforward and well-documented. He went out of his way to resolve some unexpected issues and
-            always delivered on time. I would be happy to work with Tuğrul again.
-        </p>
-        <footer>— Upwork Client <span class="rating">★★★★★</span></footer>
-    </blockquote>
-</article>
+    <footer>— Upwork Client <span class="rating">★★★★★</span></footer>
+</blockquote>

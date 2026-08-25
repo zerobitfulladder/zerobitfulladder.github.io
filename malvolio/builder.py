@@ -8,8 +8,9 @@ from pathlib import Path
 
 import jinja2
 import yaml
+from jinja2.runtime import Macro
 
-from .config import Config, PageConfig
+from .config import Config, PageConfig, SITE_DESCRIPTION, SITE_TITLE, StaticPage
 
 
 class SiteBuilder:
@@ -25,6 +26,19 @@ class SiteBuilder:
         self.env = jinja2.Environment(
             loader=jinja2.FileSystemLoader(self.config.templates_dir)
         )
+        self._register_macros()
+
+    def _register_macros(self) -> None:
+        """Expose macros.html macros as globals, so content files call them directly."""
+        try:
+            module = self.env.get_template("macros.html").module
+        except jinja2.TemplateNotFound:
+            return
+        self.env.globals.update({
+            name: value
+            for name in dir(module)
+            if isinstance(value := getattr(module, name), Macro)
+        })
 
     def clean(self) -> None:
         """Remove all generated output files and directories."""
@@ -41,8 +55,8 @@ class SiteBuilder:
 
     def build(self) -> None:
         """Build the complete site."""
-        self._render_index()
-        self._render_music()
+        for static_page in self.config.static_pages:
+            self._render_static(static_page)
         for page in self.config.pages:
             self._render_page(page)
         print("Build complete.")
@@ -52,26 +66,18 @@ class SiteBuilder:
         self.clean()
         self.build()
 
-    def _render_index(self) -> None:
-        """Render the index page."""
-        base_template = self.env.get_template("base.html")
-        index_content_template = self.env.get_template("index.html")
-        index_content = index_content_template.render()
-        rendered_html = base_template.render(content=index_content)
-        
-        self._write_output(self.config.index_output, rendered_html)
-        print(f"Rendered: {self.config.index_output}")
+    def _render_static(self, page: StaticPage) -> None:
+        """Render a page that has no meta.yaml behind it.
 
-    def _render_music(self) -> None:
-        """Render the music page."""
-        base_template = self.env.get_template("base.html")
-        music_content_template = self.env.get_template("music.html")
-        music_content = music_content_template.render()
-        rendered_html = base_template.render(content=music_content)
-        
-        music_output = self.config.public_dir / "music.html"
-        self._write_output(music_output, rendered_html)
-        print(f"Rendered: {music_output}")
+        Args:
+            page: Static page configuration.
+        """
+        content = self.env.get_template(page.template).render()
+        rendered_html = self._wrap(content, page.title, page.description)
+
+        output_file = self.config.public_dir / page.output
+        self._write_output(output_file, rendered_html)
+        print(f"Rendered: {output_file}")
 
     def _render_page(self, page: PageConfig) -> None:
         """Render a single page from its configuration.
@@ -112,7 +118,7 @@ class SiteBuilder:
         # Collect all unique tags
         all_tags = set()
         for item in items:
-            if "tags" in item:
+            if "tags" in item and not item.get("draft"):
                 all_tags.update(item["tags"])
         all_tags = sorted(list(all_tags))
 
@@ -131,13 +137,13 @@ class SiteBuilder:
             else:
                 item["reading_time"] = 1
 
-        # Render the page content
-        page_template = self.env.get_template(page.template)
-        content_html = page_template.render(items=items, all_tags=all_tags)
+        # Drafts still build their own page, but stay off the index.
+        listed = [item for item in items if not item.get("draft")]
 
-        # Render the base template
-        base_template = self.env.get_template("base.html")
-        rendered_html = base_template.render(content=content_html)
+        page_template = self.env.get_template(page.template)
+        content_html = page_template.render(items=listed, all_tags=all_tags)
+
+        rendered_html = self._wrap(content_html, page.title)
 
         self._write_output(page.output_file, rendered_html)
         print(f"Rendered: {page.output_file}")
@@ -153,8 +159,6 @@ class SiteBuilder:
             keys: List of content keys (slugs).
             items: List of content items with metadata.
         """
-        base_template = self.env.get_template("base.html")
-        
         for key, item in zip(keys, items):
             source_file = page.source_dir / f"{key}.html"
             output_file = self.config.public_dir / page.content_dir / f"{key}.html"
@@ -167,12 +171,27 @@ class SiteBuilder:
             with open(source_file, "r", encoding="utf-8") as f:
                 raw_content = f.read()
             
-            # Wrap in base template
-            rendered_html = base_template.render(content=raw_content)
+            body = self.env.from_string(raw_content).render(**item)
+            article = self.env.get_template("article.html").render(body=body, **item)
+
+            heading = item.get("heading", SITE_TITLE)
+            summary = item.get("summary", SITE_DESCRIPTION)
+            rendered_html = self._wrap(article, f"{heading} — {SITE_TITLE}", summary)
             
             # Write to output directory
             self._write_output(output_file, rendered_html)
             print(f"Rendered: {output_file}")
+
+    def _wrap(self, content: str, title: str, description: str = SITE_DESCRIPTION) -> str:
+        """Wrap rendered content in the base template.
+
+        Args:
+            content: Inner HTML.
+            title: Value for the <title> tag.
+            description: Value for the meta/OG description.
+        """
+        base_template = self.env.get_template("base.html")
+        return base_template.render(content=content, title=title, description=description)
 
     def _write_output(self, path: Path, content: str) -> None:
         """Write content to an output file.

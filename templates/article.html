@@ -1,0 +1,20 @@
+<article>
+    <header class="article-header">
+        <h1>{{ heading }}</h1>
+        {% if summary %}<p class="article-summary">{{ summary }}</p>{% endif %}
+        <div class="article-meta">
+            {% if date %}<span class="entry-date">{{ date }}</span>{% endif %}
+            {% if reading_time %}<span class="entry-reading-time">(~{{ reading_time }} min read)</span>{% endif %}
+            {% if draft %}<span class="draft-badge">draft</span>{% endif %}
+        </div>
+        {% if tags %}
+        <div class="entry-tags">
+            {% for tag in tags %}<span class="tag">{{ tag }}</span>{% endfor %}
+        </div>
+        {% endif %}
+    </header>
+
+    <hr />
+
+    {{ body }}
+</article>

@@ -3,15 +3,27 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tugrul's Website</title>
+        <title>Raspberry Pi Information Display — Tuğrul Ağrikli</title>
+        <meta name="description" content="A responsive information display system with RTSP streaming and multi-source data integration." />
+        <meta name="author" content="Tuğrul Ağrikli" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Raspberry Pi Information Display — Tuğrul Ağrikli" />
+        <meta property="og:description" content="A responsive information display system with RTSP streaming and multi-source data integration." />
+        <meta name="twitter:card" content="summary" />
+
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23191724'/><text y='23' x='6' font-family='monospace' font-size='20' fill='%23c4a7e7'>t</text></svg>"
+        />
         <link rel="stylesheet" href="/static/css/base.css" />
 
-        <!-- KaTeX for LaTeX math rendering -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+        <!-- KaTeX for LaTeX math rendering (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/katex/katex.min.css" />
+        <script defer src="/static/vendor/katex/katex.min.js"></script>
         <script
             defer
-            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+            src="/static/vendor/katex/auto-render.min.js"
             onload="
                 renderMathInElement(document.body, {
                     delimiters: [
@@ -22,16 +34,9 @@
             "
         ></script>
 
-        <!-- Highlight.js for code syntax highlighting -->
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/rose-pine.min.css"
-        />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-
-        <script>
-            hljs.highlightAll();
-        </script>
+        <!-- Highlight.js for code syntax highlighting (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/highlight/rose-pine.min.css" />
+        <script defer src="/static/vendor/highlight/highlight.min.js"></script>
 
         <!-- Starry background effect 
         <script type="module" src="/static/js/stars.js"></script>
@@ -40,129 +45,144 @@
     <body>
         <nav class="main-nav">
             <h3><a href="/">Home</a></h3>
+            <h3><a href="/experience.html">Work</a></h3>
             <h3><a href="/thought.html">Thoughts</a></h3>
-            <h3><a href="/experience.html">Work Experience</a></h3>
+            <h3><a href="/cv.html">CV</a></h3>
             <h3><a href="/music.html">Music</a></h3>
         </nav>
         <div class="page">
             <div class="content"><article>
-    <h1>Raspberry Pi Information Display</h1>
-    <h4>05/09/2023</h4>
-    <div class="side-media side-left">
-        <img src="/static/media/info-screen-light.png" class="side-media-img" />
-
-        <div class="text">
-            <p>
-                The main goal of this project was to develop a responsive information display system for a Raspberry Pi,
-                which would be connected to a vertical TV. The client's requirements included the integration of various
-                data inputs onto a single page, necessitating the creation of a backend to fetch data from different
-                services via APIs. <br />
-            </p>
+    <header class="article-header">
+        <h1>Raspberry Pi Information Display</h1>
+        <p class="article-summary">A responsive information display system with RTSP streaming and multi-source data integration.</p>
+        <div class="article-meta">
+            <span class="entry-date">05/09/2023</span>
+            <span class="entry-reading-time">(~3 min read)</span>
+            
         </div>
-    </div>
-
-    <p>
-        Additionally, the project involved the challenge of displaying an RTSP stream on the screen, which required
-        innovative solutions. <br />
-    </p>
-
-    <h3>Challenges Faced</h3>
-
-    <p>
-        <strong>Data Integration:</strong> Integrating data from multiple sources into a single page presented a
-        significant challenge. Each data source had its own API structure and requirements, requiring meticulous backend
-        development.
-    </p>
-
-    <p>
-        <strong>RTSP Stream:</strong> One of the client's key requirements was displaying an RTSP stream on the
-        Raspberry Pi. However, web browsers do not natively support RTSP, prompting the need for a creative solution.
-    </p>
-
-    <h3>Solutions Implemented</h3>
-
-    <p>
-        <strong>Technology Stack:</strong> Initially, the project was developed using Svelte, but after careful
-        consideration, it was transitioned to jQuery to simplify and optimize the solution.
-    </p>
-
-    <p>
-        <strong>Backend Development:</strong> Python, along with Flask, was employed to create a robust backend. Custom
-        modules were developed to retrieve data from various APIs, including services like Ecowitt and Bluriiot,
-        ensuring seamless data integration.
-    </p>
-
-    <p>
-        <strong>RTSP Streaming:</strong> To overcome the browser limitations regarding RTSP streams, ffmpeg was
-        leveraged to convert the stream into a JPEG sequence. This inventive approach enabled the smooth display of the
-        RTSP stream on the vertical TV.
-    </p>
-
-    <p>
-        <strong>Configurability:</strong> A highly configurable system was designed, allowing for easy adjustments
-        through a configuration file. This file accommodated data types, units, RTSP URL, and credentials for user
-        customization.
-    </p>
-
-    <p>
-        <strong>User-Friendly Scripts:</strong> To simplify installation and uninstallation processes, bash scripts were
-        created. These scripts also added menu entries for user convenience, making it effortless to run and configure
-        the system.
-    </p>
-
-    <div class="side-media side-right">
-        <img src="/static/media/info-screen-dark.png" class="side-media-img" />
-
-        <div class="text">
-            <p>
-                The project resulted in the successful creation of a responsive information display system that met the
-                client's expectations. It effectively integrated data from diverse sources and overcame the challenges
-                associated with RTSP streaming. <br />
-            </p>
+        
+        <div class="entry-tags">
+            <span class="tag">Raspberry Pi</span><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">jQuery</span><span class="tag">RTSP</span><span class="tag">ffmpeg</span>
         </div>
-    </div>
-
-    <p>
-        The addition of a dark mode option enhanced user experience, and the system's configurability ensures
-        flexibility for future adaptations.
-    </p>
+        
+    </header>
 
     <hr />
 
-    <p>
-        Working on this project enhanced my skills in backend development, data integration, and creative
-        problem-solving. It underscored the importance of adaptability and the ability to choose the right technologies
-        for the task at hand.
-    </p>
+    <div class="side-media side-left">
+    <img src="/static/media/info-screen-light.png" class="side-media-img" />
 
-    <h3>Client Feedback</h3>
-
-    <blockquote class="testimonial">
+    <div class="text">
         <p>
-            From the onset, Tuğrul demonstrated a high level of proficiency and commitment to the project. He was
-            responsible for developing and implementing software to display information on a physical screen using a
-            Raspberry Pi computer. His tasks included working with webcams and APIs to gather and display real-time data
-            on a Samsung iFrame set up in a vertical layout.
+            The main goal of this project was to develop a responsive information display system for a Raspberry Pi,
+            which would be connected to a vertical TV. The client's requirements included the integration of various
+            data inputs onto a single page, necessitating the creation of a backend to fetch data from different
+            services via APIs. <br />
         </p>
-        <p>
-            Throughout the project, Tuğrul showcased not only strong technical skills but also excellent collaboration
-            and communication abilities. He was consistently proactive in troubleshooting issues and took the time to
-            collaborate with stakeholders to ensure the project requirements were met effectively and efficiently.
-        </p>
-        <p>
-            What impressed me the most was Tuğrul's ability to deliver quality work within the stipulated timeframe. His
-            skill in API integration and real-time data display was evident as the project came together smoothly and met
-            all the predetermined requirements.
-        </p>
-        <p>
-            I am extremely satisfied with the work Tuğrul has done and can vouch for his technical skills, work ethic,
-            and professional attitude. I would not hesitate to engage him in future projects and highly recommend him
-            for any endeavors he chooses to pursue.
-        </p>
-        <footer>— Upwork Client <span class="rating">★★★★★</span></footer>
-    </blockquote>
-</article>
+    </div>
 </div>
+
+<p>
+    Additionally, the project involved the challenge of displaying an RTSP stream on the screen, which required
+    innovative solutions. <br />
+</p>
+
+<h3>Challenges Faced</h3>
+
+<p>
+    <strong>Data Integration:</strong> Integrating data from multiple sources into a single page presented a
+    significant challenge. Each data source had its own API structure and requirements, requiring meticulous backend
+    development.
+</p>
+
+<p>
+    <strong>RTSP Stream:</strong> One of the client's key requirements was displaying an RTSP stream on the
+    Raspberry Pi. However, web browsers do not natively support RTSP, prompting the need for a creative solution.
+</p>
+
+<h3>Solutions Implemented</h3>
+
+<p>
+    <strong>Technology Stack:</strong> Initially, the project was developed using Svelte, but after careful
+    consideration, it was transitioned to jQuery to simplify and optimize the solution.
+</p>
+
+<p>
+    <strong>Backend Development:</strong> Python, along with Flask, was employed to create a robust backend. Custom
+    modules were developed to retrieve data from various APIs, including services like Ecowitt and Bluriiot,
+    ensuring seamless data integration.
+</p>
+
+<p>
+    <strong>RTSP Streaming:</strong> To overcome the browser limitations regarding RTSP streams, ffmpeg was
+    leveraged to convert the stream into a JPEG sequence. This inventive approach enabled the smooth display of the
+    RTSP stream on the vertical TV.
+</p>
+
+<p>
+    <strong>Configurability:</strong> A highly configurable system was designed, allowing for easy adjustments
+    through a configuration file. This file accommodated data types, units, RTSP URL, and credentials for user
+    customization.
+</p>
+
+<p>
+    <strong>User-Friendly Scripts:</strong> To simplify installation and uninstallation processes, bash scripts were
+    created. These scripts also added menu entries for user convenience, making it effortless to run and configure
+    the system.
+</p>
+
+<div class="side-media side-right">
+    <img src="/static/media/info-screen-dark.png" class="side-media-img" />
+
+    <div class="text">
+        <p>
+            The project resulted in the successful creation of a responsive information display system that met the
+            client's expectations. It effectively integrated data from diverse sources and overcame the challenges
+            associated with RTSP streaming. <br />
+        </p>
+    </div>
+</div>
+
+<p>
+    The addition of a dark mode option enhanced user experience, and the system's configurability ensures
+    flexibility for future adaptations.
+</p>
+
+<hr />
+
+<p>
+    Working on this project enhanced my skills in backend development, data integration, and creative
+    problem-solving. It underscored the importance of adaptability and the ability to choose the right technologies
+    for the task at hand.
+</p>
+
+<h3>Client Feedback</h3>
+
+<blockquote class="testimonial">
+    <p>
+        From the onset, Tuğrul demonstrated a high level of proficiency and commitment to the project. He was
+        responsible for developing and implementing software to display information on a physical screen using a
+        Raspberry Pi computer. His tasks included working with webcams and APIs to gather and display real-time data
+        on a Samsung iFrame set up in a vertical layout.
+    </p>
+    <p>
+        Throughout the project, Tuğrul showcased not only strong technical skills but also excellent collaboration
+        and communication abilities. He was consistently proactive in troubleshooting issues and took the time to
+        collaborate with stakeholders to ensure the project requirements were met effectively and efficiently.
+    </p>
+    <p>
+        What impressed me the most was Tuğrul's ability to deliver quality work within the stipulated timeframe. His
+        skill in API integration and real-time data display was evident as the project came together smoothly and met
+        all the predetermined requirements.
+    </p>
+    <p>
+        I am extremely satisfied with the work Tuğrul has done and can vouch for his technical skills, work ethic,
+        and professional attitude. I would not hesitate to engage him in future projects and highly recommend him
+        for any endeavors he chooses to pursue.
+    </p>
+    <footer>— Upwork Client <span class="rating">★★★★★</span></footer>
+</blockquote>
+</article></div>
         </div>
 
         <!-- Image Lightbox -->
@@ -173,6 +193,8 @@
         <script>
             // Image lightbox functionality
             document.addEventListener('DOMContentLoaded', function() {
+                hljs.highlightAll();
+
                 const lightbox = document.getElementById('lightbox');
                 const lightboxImg = lightbox.querySelector('img');
                 

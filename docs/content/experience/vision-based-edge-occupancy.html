@@ -3,15 +3,27 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tugrul's Website</title>
+        <title>Vision-Based Edge Occupancy Detection — Tuğrul Ağrikli</title>
+        <meta name="description" content="A graduation project replacing laser scanners with computer vision for parking system safety." />
+        <meta name="author" content="Tuğrul Ağrikli" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Vision-Based Edge Occupancy Detection — Tuğrul Ağrikli" />
+        <meta property="og:description" content="A graduation project replacing laser scanners with computer vision for parking system safety." />
+        <meta name="twitter:card" content="summary" />
+
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23191724'/><text y='23' x='6' font-family='monospace' font-size='20' fill='%23c4a7e7'>t</text></svg>"
+        />
         <link rel="stylesheet" href="/static/css/base.css" />
 
-        <!-- KaTeX for LaTeX math rendering -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+        <!-- KaTeX for LaTeX math rendering (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/katex/katex.min.css" />
+        <script defer src="/static/vendor/katex/katex.min.js"></script>
         <script
             defer
-            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+            src="/static/vendor/katex/auto-render.min.js"
             onload="
                 renderMathInElement(document.body, {
                     delimiters: [
@@ -22,16 +34,9 @@
             "
         ></script>
 
-        <!-- Highlight.js for code syntax highlighting -->
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/rose-pine.min.css"
-        />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-
-        <script>
-            hljs.highlightAll();
-        </script>
+        <!-- Highlight.js for code syntax highlighting (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/highlight/rose-pine.min.css" />
+        <script defer src="/static/vendor/highlight/highlight.min.js"></script>
 
         <!-- Starry background effect 
         <script type="module" src="/static/js/stars.js"></script>
@@ -40,107 +45,125 @@
     <body>
         <nav class="main-nav">
             <h3><a href="/">Home</a></h3>
+            <h3><a href="/experience.html">Work</a></h3>
             <h3><a href="/thought.html">Thoughts</a></h3>
-            <h3><a href="/experience.html">Work Experience</a></h3>
+            <h3><a href="/cv.html">CV</a></h3>
             <h3><a href="/music.html">Music</a></h3>
         </nav>
         <div class="page">
             <div class="content"><article>
-    <h1>Vision-Based Edge Occupancy Detection</h1>
-    <h4>04/01/2026</h4>
-
-    <p>
-        This graduation project focused on replacing expensive laser scanners in automated parking systems with a
-        computer vision–based solution. The goal was to detect whether a vehicle extends beyond pallet edges—an error
-        that can cause serious collisions during automated transport—using low-cost cameras and edge AI hardware.
-    </p>
-
-    <div class="image-pair">
-        <img src="/static/media/edge-occ-empty.png" class="paired-img" />
-        <img src="/static/media/edge-occ-full.png" class="paired-img" />
-    </div>
-
-    <p>
-        Existing industrial systems rely on laser sensors costing thousands of euros per unit and suffer from
-        reliability issues with dark vehicle surfaces. My objective was to demonstrate that a carefully engineered deep
-        learning system could match their accuracy at a fraction of the cost.
-    </p>
-
-    <h3>The Challenge</h3>
-
-    <p>
-        The main technical challenge was building a reliable safety-critical classifier from limited real-world data
-        collected in a single parking facility. While occupied pallets naturally vary with different vehicles, empty
-        pallets are visually uniform, creating strong risks of overfitting and poor generalization.
-    </p>
-
-    <p>
-        Additional constraints included real-time inference requirements, low hardware budgets, and strict limits on
-        false negatives, where missed detections could lead to physical damage.
-    </p>
-
-    <h3>The Solution</h3>
-
-    <p>
-        <strong>Data Pipeline:</strong> I designed a semi-automated labeling system that reduced manual annotation
-        effort from over 200 hours to roughly 2 hours, enabling efficient creation of a high-quality dataset.
-    </p>
-
-    <p>
-        <strong>Model Architecture:</strong> A MobileNetV3-based convolutional neural network was implemented using
-        transfer learning, optimized for deployment on embedded devices such as Raspberry Pi and Jetson platforms.
-    </p>
-
-    <p>
-        <strong>Validation Methodology:</strong> Through systematic error analysis, I refined the augmentation and
-        testing pipeline after discovering that common occlusion techniques introduced misleading artifacts. This led to
-        a more realistic and robust evaluation framework.
-    </p>
-
-    <p>
-        <strong>Synthetic Data Generation:</strong> To address limited environmental diversity, I developed a
-        Blender-based rendering pipeline that generated thousands of labeled synthetic images. Pre-training on this
-        dataset significantly improved generalization to unseen conditions.
-    </p>
-
-    <div class="image-pair">
-        <img src="/static/media/edge-occ-empty-syn.png" class="paired-img" />
-        <img src="/static/media/edge-occ-full-syn.png" class="paired-img" />
-    </div>
-
-    <p>
-        <strong>Deployment Architecture:</strong> A modular real-time processing pipeline was designed for multi-camera
-        monitoring, enabling low-latency inference and redundancy-based safety guarantees.
-    </p>
-
-    <h3>Results</h3>
-
-    <p>
-        The final system achieved up to 98.94% validation accuracy on real operational data and maintained strong
-        performance under simulated environmental variations. Synthetic pre-training further improved robustness while
-        reducing false positives by over 70%.
-    </p>
-
-    <p>
-        Compared to traditional laser-based systems, the solution offers approximately 96% cost reduction while
-        eliminating color-dependent failure modes.
-    </p>
+    <header class="article-header">
+        <h1>Vision-Based Edge Occupancy Detection</h1>
+        <p class="article-summary">A graduation project replacing laser scanners with computer vision for parking system safety.</p>
+        <div class="article-meta">
+            <span class="entry-date">04/01/2026</span>
+            <span class="entry-reading-time">(~2 min read)</span>
+            
+        </div>
+        
+        <div class="entry-tags">
+            <span class="tag">Computer Vision</span><span class="tag">Deep Learning</span><span class="tag">MobileNetV3</span><span class="tag">Edge AI</span><span class="tag">Blender</span><span class="tag">Raspberry Pi</span>
+        </div>
+        
+    </header>
 
     <hr />
 
     <p>
-        Beyond technical performance, this project provided hands-on experience in building industrial-grade machine
-        learning systems under real operational constraints—from data acquisition and validation design to deployment
-        planning and ethical considerations.
-    </p>
+    This graduation project focused on replacing expensive laser scanners in automated parking systems with a
+    computer vision–based solution. The goal was to detect whether a vehicle extends beyond pallet edges—an error
+    that can cause serious collisions during automated transport—using low-cost cameras and edge AI hardware.
+</p>
 
-    <p>
-        The complete technical documentation is available in the
-        <a href="/static/media/edge-occ-report.pdf">final report</a>, detailing the methodology, experiments, and
-        system architecture.
-    </p>
-</article>
+
+<div class="image-pair">
+    <img src="/static/media/edge-occ-empty.png" alt="Empty pallet" class="paired-img" />
+    <img src="/static/media/edge-occ-full.png" alt="Occupied pallet" class="paired-img" />
 </div>
+
+
+<p>
+    Existing industrial systems rely on laser sensors costing thousands of euros per unit and suffer from
+    reliability issues with dark vehicle surfaces. My objective was to demonstrate that a carefully engineered deep
+    learning system could match their accuracy at a fraction of the cost.
+</p>
+
+<h3>The Challenge</h3>
+
+<p>
+    The main technical challenge was building a reliable safety-critical classifier from limited real-world data
+    collected in a single parking facility. While occupied pallets naturally vary with different vehicles, empty
+    pallets are visually uniform, creating strong risks of overfitting and poor generalization.
+</p>
+
+<p>
+    Additional constraints included real-time inference requirements, low hardware budgets, and strict limits on
+    false negatives, where missed detections could lead to physical damage.
+</p>
+
+<h3>The Solution</h3>
+
+<p>
+    <strong>Data Pipeline:</strong> I designed a semi-automated labeling system that reduced manual annotation
+    effort from over 200 hours to roughly 2 hours, enabling efficient creation of a high-quality dataset.
+</p>
+
+<p>
+    <strong>Model Architecture:</strong> A MobileNetV3-based convolutional neural network was implemented using
+    transfer learning, optimized for deployment on embedded devices such as Raspberry Pi and Jetson platforms.
+</p>
+
+<p>
+    <strong>Validation Methodology:</strong> Through systematic error analysis, I refined the augmentation and
+    testing pipeline after discovering that common occlusion techniques introduced misleading artifacts. This led to
+    a more realistic and robust evaluation framework.
+</p>
+
+<p>
+    <strong>Synthetic Data Generation:</strong> To address limited environmental diversity, I developed a
+    Blender-based rendering pipeline that generated thousands of labeled synthetic images. Pre-training on this
+    dataset significantly improved generalization to unseen conditions.
+</p>
+
+
+<div class="image-pair">
+    <img src="/static/media/edge-occ-empty-syn.png" alt="Synthetic empty pallet" class="paired-img" />
+    <img src="/static/media/edge-occ-full-syn.png" alt="Synthetic occupied pallet" class="paired-img" />
+</div>
+
+
+<p>
+    <strong>Deployment Architecture:</strong> A modular real-time processing pipeline was designed for multi-camera
+    monitoring, enabling low-latency inference and redundancy-based safety guarantees.
+</p>
+
+<h3>Results</h3>
+
+<p>
+    The final system achieved up to 98.94% validation accuracy on real operational data and maintained strong
+    performance under simulated environmental variations. Synthetic pre-training further improved robustness while
+    reducing false positives by over 70%.
+</p>
+
+<p>
+    Compared to traditional laser-based systems, the solution offers approximately 96% cost reduction while
+    eliminating color-dependent failure modes.
+</p>
+
+<hr />
+
+<p>
+    Beyond technical performance, this project provided hands-on experience in building industrial-grade machine
+    learning systems under real operational constraints—from data acquisition and validation design to deployment
+    planning and ethical considerations.
+</p>
+
+<p>
+    The complete technical documentation is available in the
+    <a href="/static/media/edge-occ-report.pdf">final report</a>, detailing the methodology, experiments, and
+    system architecture.
+</p>
+</article></div>
         </div>
 
         <!-- Image Lightbox -->
@@ -151,6 +174,8 @@
         <script>
             // Image lightbox functionality
             document.addEventListener('DOMContentLoaded', function() {
+                hljs.highlightAll();
+
                 const lightbox = document.getElementById('lightbox');
                 const lightboxImg = lightbox.querySelector('img');
                 

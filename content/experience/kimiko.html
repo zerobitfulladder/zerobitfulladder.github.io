@@ -1,87 +1,82 @@
-<article>
-    <h1>Kimiko – Browser Extension Chat Platform</h1>
-    <h4>15/12/2021</h4>
+<div class="side-media side-right">
+    <img src="/static/media/kimiko-demo.png" class="side-media-img" />
 
-    <div class="side-media side-right">
-        <img src="/static/media/kimiko-demo.png" class="side-media-img" />
-
-        <div class="text">
-            <p>
-                Kimiko was a course project for CS308 at Sabanci University – a Chrome extension that brings real-time
-                chat to any website. The idea was simple: people visiting the same URL could communicate with each other
-                through a sidebar overlay, creating impromptu communities around shared web content.
-                <br />
-            </p>
-        </div>
+    <div class="text">
+        <p>
+            Kimiko was a course project for CS308 at Sabanci University – a Chrome extension that brings real-time
+            chat to any website. The idea was simple: people visiting the same URL could communicate with each other
+            through a sidebar overlay, creating impromptu communities around shared web content.
+            <br />
+        </p>
     </div>
+</div>
 
-    <h3>The Concept</h3>
+<h3>The Concept</h3>
 
-    <p>
-        The extension injects an iframe sidebar into any page the user visits. Each URL becomes a chat room, identified
-        by a hashed version of the address. Users can toggle the sidebar with a double-Shift hotkey, resize it to their
-        preference, and start chatting with others on the same page.
-    </p>
+<p>
+    The extension injects an iframe sidebar into any page the user visits. Each URL becomes a chat room, identified
+    by a hashed version of the address. Users can toggle the sidebar with a double-Shift hotkey, resize it to their
+    preference, and start chatting with others on the same page.
+</p>
 
-    <p>
-        User profiles persist across sessions, storing avatars, usernames, bios, and social links. Clicking on a user
-        in the chat reveals their profile, enabling a basic social layer on top of the anonymous chat experience.
-    </p>
+<p>
+    User profiles persist across sessions, storing avatars, usernames, bios, and social links. Clicking on a user
+    in the chat reveals their profile, enabling a basic social layer on top of the anonymous chat experience.
+</p>
 
-    <h3>The Architecture</h3>
+<h3>The Architecture</h3>
 
-    <p>
-        <strong>Chrome Extension:</strong> A content script injects the sidebar iframe and handles cross-origin
-        communication between the page and the embedded React app. Chrome storage persists user identity and
-        preferences locally.
-    </p>
+<p>
+    <strong>Chrome Extension:</strong> A content script injects the sidebar iframe and handles cross-origin
+    communication between the page and the embedded React app. Chrome storage persists user identity and
+    preferences locally.
+</p>
 
-    <p>
-        <strong>React Frontend:</strong> The sidebar UI was built with React and TypeScript, handling message display,
-        user input, profile management, and real-time updates. CSS transitions provided smooth animations for settings
-        and profile panels.
-    </p>
+<p>
+    <strong>React Frontend:</strong> The sidebar UI was built with React and TypeScript, handling message display,
+    user input, profile management, and real-time updates. CSS transitions provided smooth animations for settings
+    and profile panels.
+</p>
 
-    <p>
-        <strong>Node.js Backend:</strong> An Express server with WebSocket support managed real-time message routing.
-        MongoDB stored user profiles and message history per URL hash, enabling conversation persistence.
-    </p>
+<p>
+    <strong>Node.js Backend:</strong> An Express server with WebSocket support managed real-time message routing.
+    MongoDB stored user profiles and message history per URL hash, enabling conversation persistence.
+</p>
 
-    <h3>Challenges Faced</h3>
+<h3>Challenges Faced</h3>
 
-    <p>
-        <strong>Cross-Origin Communication:</strong> The extension's content script and the iframe run in different
-        contexts with different origins. Coordinating user identity and profile updates required careful use of
-        postMessage and Chrome's runtime messaging API.
-    </p>
+<p>
+    <strong>Cross-Origin Communication:</strong> The extension's content script and the iframe run in different
+    contexts with different origins. Coordinating user identity and profile updates required careful use of
+    postMessage and Chrome's runtime messaging API.
+</p>
 
-    <p>
-        <strong>URL-Based Room Partitioning:</strong> Messages needed to be isolated per URL while maintaining
-        performance. Using murmurhash to generate room identifiers from URLs allowed efficient database queries and
-        quick client-side routing.
-    </p>
+<p>
+    <strong>URL-Based Room Partitioning:</strong> Messages needed to be isolated per URL while maintaining
+    performance. Using murmurhash to generate room identifiers from URLs allowed efficient database queries and
+    quick client-side routing.
+</p>
 
-    <p>
-        <strong>Real-Time Synchronization:</strong> Managing WebSocket connections, handling disconnections gracefully,
-        and ensuring message delivery order required a robust client manager that tracked online users per room.
-    </p>
+<p>
+    <strong>Real-Time Synchronization:</strong> Managing WebSocket connections, handling disconnections gracefully,
+    and ensuring message delivery order required a robust client manager that tracked online users per room.
+</p>
 
-    <h3>What I Learned</h3>
+<h3>What I Learned</h3>
 
-    <p>
-        This was my first deep dive into browser extension development, and it taught me the intricacies of Chrome's
-        extension APIs, content security policies, and the security considerations of injecting code into arbitrary
-        web pages.
-    </p>
+<p>
+    This was my first deep dive into browser extension development, and it taught me the intricacies of Chrome's
+    extension APIs, content security policies, and the security considerations of injecting code into arbitrary
+    web pages.
+</p>
 
-    <p>
-        The project also reinforced lessons about real-time systems – managing WebSocket state, handling edge cases in
-        connection drops, and designing for the asynchronous nature of distributed chat systems.
-    </p>
+<p>
+    The project also reinforced lessons about real-time systems – managing WebSocket state, handling edge cases in
+    connection drops, and designing for the asynchronous nature of distributed chat systems.
+</p>
 
-    <hr />
+<hr />
 
-    <p>
-        A team project developed with classmates for the CS308 Software Engineering course at Sabanci University.
-    </p>
-</article>
+<p>
+    A team project developed with classmates for the CS308 Software Engineering course at Sabanci University.
+</p>

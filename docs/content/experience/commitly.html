@@ -3,15 +3,27 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tugrul's Website</title>
+        <title>Commitly – Gamified Habit Tracker — Tuğrul Ağrikli</title>
+        <meta name="description" content="A cross-platform mobile app combining gamification and social accountability for habit building." />
+        <meta name="author" content="Tuğrul Ağrikli" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Commitly – Gamified Habit Tracker — Tuğrul Ağrikli" />
+        <meta property="og:description" content="A cross-platform mobile app combining gamification and social accountability for habit building." />
+        <meta name="twitter:card" content="summary" />
+
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23191724'/><text y='23' x='6' font-family='monospace' font-size='20' fill='%23c4a7e7'>t</text></svg>"
+        />
         <link rel="stylesheet" href="/static/css/base.css" />
 
-        <!-- KaTeX for LaTeX math rendering -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+        <!-- KaTeX for LaTeX math rendering (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/katex/katex.min.css" />
+        <script defer src="/static/vendor/katex/katex.min.js"></script>
         <script
             defer
-            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+            src="/static/vendor/katex/auto-render.min.js"
             onload="
                 renderMathInElement(document.body, {
                     delimiters: [
@@ -22,16 +34,9 @@
             "
         ></script>
 
-        <!-- Highlight.js for code syntax highlighting -->
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/rose-pine.min.css"
-        />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-
-        <script>
-            hljs.highlightAll();
-        </script>
+        <!-- Highlight.js for code syntax highlighting (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/highlight/rose-pine.min.css" />
+        <script defer src="/static/vendor/highlight/highlight.min.js"></script>
 
         <!-- Starry background effect 
         <script type="module" src="/static/js/stars.js"></script>
@@ -40,106 +45,120 @@
     <body>
         <nav class="main-nav">
             <h3><a href="/">Home</a></h3>
+            <h3><a href="/experience.html">Work</a></h3>
             <h3><a href="/thought.html">Thoughts</a></h3>
-            <h3><a href="/experience.html">Work Experience</a></h3>
+            <h3><a href="/cv.html">CV</a></h3>
             <h3><a href="/music.html">Music</a></h3>
         </nav>
         <div class="page">
             <div class="content"><article>
-    <h1>Commitly – Gamified Habit Tracker</h1>
-    <h4>05/01/2026</h4>
-
-    <p>
-        Commitly is a cross-platform mobile application developed as part of the CS310 Mobile Application Development
-        course. The project explores how gamification and social accountability can be combined to help users build
-        sustainable habits through shared responsibility and visible progress.
-    </p>
-
-    <div class="image-pair">
-        <img src="/static/media/commitly-home-page.jpeg" class="paired-img" />
-        <img src="/static/media/commitly-add-habit-page.jpeg" class="paired-img" />
-    </div>
-
-    <p>
-        Unlike traditional habit trackers that focus solely on individual progress, Commitly introduces team-based
-        streaks, where members share collective responsibility. This transforms habit formation into a collaborative
-        process rather than a solitary one.
-    </p>
-
-    <h3>The Challenge</h3>
-
-    <p>
-        The core challenge was designing a system that balances personal motivation with social dynamics while remaining
-        technically robust across platforms. Implementing reliable streak logic, real-time synchronization, and
-        intuitive UI flows required careful architectural decisions.
-    </p>
-
-    <p>
-        Additional complexity came from integrating offline storage with cloud-based synchronization, ensuring
-        consistency between local and remote data sources.
-    </p>
-
-    <h3>The Solution</h3>
-
-    <p>
-        <strong>Cross-Platform Architecture:</strong> The application was developed using Flutter and Dart, enabling a
-        unified codebase for Android and iOS with consistent UI behavior.
-    </p>
-
-    <p>
-        <strong>Backend Integration:</strong> Firebase Authentication and Firestore were used for real-time data
-        synchronization, user management, and team-based interactions. Local persistence was implemented using SQLite
-        for partial offline support.
-    </p>
-
-    <div class="image-pair">
-        <img src="/static/media/commitly-statistics-page.jpeg" class="paired-img" />
-        <img src="/static/media/commitly-achievements-page.jpeg" class="paired-img" />
-    </div>
-
-    <p>
-        <strong>Gamification System:</strong> An XP and streak mechanism was designed to reinforce positive behavior,
-        providing continuous feedback and long-term motivation.
-    </p>
-
-    <p>
-        <strong>Team Streaks:</strong> A shared streak model was implemented where group performance depends on all
-        members, encouraging accountability and peer support.
-    </p>
-
-    <p>
-        <strong>Quality Assurance:</strong> The project included unit and widget tests covering core business logic and
-        critical UI flows, ensuring data integrity and interaction reliability.
-    </p>
-
-    <h3>Results</h3>
-
-    <p>
-        The final application delivered a fully functional habit-tracking platform with real-time synchronization,
-        leaderboard support, detailed statistics, and theme customization. Team streaks proved effective in creating
-        sustained engagement among users.
-    </p>
-
-    <p>
-        The project demonstrated the feasibility of building scalable, socially driven productivity tools using modern
-        mobile frameworks and cloud services.
-    </p>
+    <header class="article-header">
+        <h1>Commitly – Gamified Habit Tracker</h1>
+        <p class="article-summary">A cross-platform mobile app combining gamification and social accountability for habit building.</p>
+        <div class="article-meta">
+            <span class="entry-date">05/01/2026</span>
+            <span class="entry-reading-time">(~2 min read)</span>
+            
+        </div>
+        
+        <div class="entry-tags">
+            <span class="tag">Flutter</span><span class="tag">Dart</span><span class="tag">Firebase</span><span class="tag">Mobile Development</span><span class="tag">Testing</span>
+        </div>
+        
+    </header>
 
     <hr />
 
     <p>
-        My primary responsibility in the team was leading testing and quality assurance, validating business logic, UI
-        behavior, and data consistency across different usage scenarios. This role strengthened my experience in
-        systematic validation and production-level debugging.
-    </p>
+    Commitly is a cross-platform mobile application developed as part of the CS310 Mobile Application Development
+    course. The project explores how gamification and social accountability can be combined to help users build
+    sustainable habits through shared responsibility and visible progress.
+</p>
 
-    <p>
-        Commitly reflects an end-to-end mobile development process, covering system design, cloud integration,
-        automated testing, and collaborative software engineering practices. The source code is available on
-        <a href="https://github.com/erenayar-12/CS310-Group-21">GitHub</a>.
-    </p>
-</article>
+<div class="image-pair">
+    <img src="/static/media/commitly-home-page.jpeg" class="paired-img" />
+    <img src="/static/media/commitly-add-habit-page.jpeg" class="paired-img" />
 </div>
+
+<p>
+    Unlike traditional habit trackers that focus solely on individual progress, Commitly introduces team-based
+    streaks, where members share collective responsibility. This transforms habit formation into a collaborative
+    process rather than a solitary one.
+</p>
+
+<h3>The Challenge</h3>
+
+<p>
+    The core challenge was designing a system that balances personal motivation with social dynamics while remaining
+    technically robust across platforms. Implementing reliable streak logic, real-time synchronization, and
+    intuitive UI flows required careful architectural decisions.
+</p>
+
+<p>
+    Additional complexity came from integrating offline storage with cloud-based synchronization, ensuring
+    consistency between local and remote data sources.
+</p>
+
+<h3>The Solution</h3>
+
+<p>
+    <strong>Cross-Platform Architecture:</strong> The application was developed using Flutter and Dart, enabling a
+    unified codebase for Android and iOS with consistent UI behavior.
+</p>
+
+<p>
+    <strong>Backend Integration:</strong> Firebase Authentication and Firestore were used for real-time data
+    synchronization, user management, and team-based interactions. Local persistence was implemented using SQLite
+    for partial offline support.
+</p>
+
+<div class="image-pair">
+    <img src="/static/media/commitly-statistics-page.jpeg" class="paired-img" />
+    <img src="/static/media/commitly-achievements-page.jpeg" class="paired-img" />
+</div>
+
+<p>
+    <strong>Gamification System:</strong> An XP and streak mechanism was designed to reinforce positive behavior,
+    providing continuous feedback and long-term motivation.
+</p>
+
+<p>
+    <strong>Team Streaks:</strong> A shared streak model was implemented where group performance depends on all
+    members, encouraging accountability and peer support.
+</p>
+
+<p>
+    <strong>Quality Assurance:</strong> The project included unit and widget tests covering core business logic and
+    critical UI flows, ensuring data integrity and interaction reliability.
+</p>
+
+<h3>Results</h3>
+
+<p>
+    The final application delivered a fully functional habit-tracking platform with real-time synchronization,
+    leaderboard support, detailed statistics, and theme customization. Team streaks proved effective in creating
+    sustained engagement among users.
+</p>
+
+<p>
+    The project demonstrated the feasibility of building scalable, socially driven productivity tools using modern
+    mobile frameworks and cloud services.
+</p>
+
+<hr />
+
+<p>
+    My primary responsibility in the team was leading testing and quality assurance, validating business logic, UI
+    behavior, and data consistency across different usage scenarios. This role strengthened my experience in
+    systematic validation and production-level debugging.
+</p>
+
+<p>
+    Commitly reflects an end-to-end mobile development process, covering system design, cloud integration,
+    automated testing, and collaborative software engineering practices. The source code is available on
+    <a href="https://github.com/erenayar-12/CS310-Group-21">GitHub</a>.
+</p>
+</article></div>
         </div>
 
         <!-- Image Lightbox -->
@@ -150,6 +169,8 @@
         <script>
             // Image lightbox functionality
             document.addEventListener('DOMContentLoaded', function() {
+                hljs.highlightAll();
+
                 const lightbox = document.getElementById('lightbox');
                 const lightboxImg = lightbox.querySelector('img');
                 

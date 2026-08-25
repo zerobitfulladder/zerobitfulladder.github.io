@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cyberdeck prototype — Tuğrul Ağrikli</title>
+<link rel="stylesheet" href="/static/css/rajdhani.css" />
+<style>
+:root {
+  --void:#04060a; --bg:#080b11; --panel:rgba(9,13,20,.78);
+  --red:#ff2e3f; --red-dim:#7e1622; --red-glow:rgba(255,46,63,.35);
+  --cyan:#00e5ff; --cyan-dim:#0b6d7d; --cyan-glow:rgba(0,229,255,.3);
+  --yellow:#fcee0a; --green:#3ef2a0;
+  --text:#cfe1ea; --dim:#5f7686; --faint:#2c3a46;
+  --ui:"Rajdhani","DIN Condensed","Oswald",system-ui,sans-serif;
+  --mono:"Fira Code",ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:16px}
+body{
+  font-family:var(--ui); background:var(--void); color:var(--text);
+  min-height:100vh; padding:18px; overflow-x:hidden;
+  background-image:
+    radial-gradient(120% 80% at 50% -10%, rgba(255,46,63,.16), transparent 62%),
+    radial-gradient(90% 60% at 50% 110%, rgba(0,229,255,.06), transparent 60%);
+}
+/* Scanlines + flicker, disabled for reduced-motion */
+body::after{
+  content:""; position:fixed; inset:0; z-index:9999; pointer-events:none;
+  background:repeating-linear-gradient(0deg, rgba(0,0,0,.22) 0 1px, transparent 1px 3px);
+  mix-blend-mode:multiply;
+}
+@keyframes flicker{0%,100%{opacity:.20}48%{opacity:.24}50%{opacity:.15}52%{opacity:.23}}
+body::before{
+  content:""; position:fixed; inset:0; z-index:9998; pointer-events:none;
+  background:radial-gradient(ellipse at center, transparent 42%, rgba(0,0,0,.75) 100%);
+  animation:flicker 7s infinite;
+}
+@media (prefers-reduced-motion:reduce){ body::before{animation:none} }
+
+/* ── Notched panel: the defining CP2077 shape ───────────────── */
+.notch{
+  --n:14px;
+  clip-path:polygon(var(--n) 0, 100% 0, 100% calc(100% - var(--n)), calc(100% - var(--n)) 100%, 0 100%, 0 var(--n));
+  background:var(--panel); border:1px solid var(--red-dim); position:relative;
+}
+.notch-c{ --n:10px;
+  clip-path:polygon(0 0, calc(100% - var(--n)) 0, 100% var(--n), 100% 100%, var(--n) 100%, 0 calc(100% - var(--n)));
+  border-color:var(--cyan-dim);
+}
+/* micro technical labels — the texture that sells it */
+.micro{ font-family:var(--mono); font-size:6px; letter-spacing:.14em;
+  color:var(--faint); text-transform:uppercase; white-space:nowrap; user-select:none }
+
+.deck{ max-width:1440px; margin:0 auto; display:flex; flex-direction:column; gap:12px; min-height:calc(100vh - 36px) }
+
+/* ── Top bar ────────────────────────────────────────────────── */
+.deck-top{ display:grid; grid-template-columns:180px 1fr 240px; gap:20px; align-items:center;
+  padding:10px 16px; border-top:1px solid var(--red); border-bottom:1px solid var(--red-dim);
+  background:linear-gradient(180deg, rgba(255,46,63,.10), transparent) }
+.sys{ font-size:.68rem; letter-spacing:.2em; color:var(--red); text-transform:uppercase }
+.sys b{ color:var(--text); font-weight:600 }
+.meter-wrap{ text-align:center }
+.meter-label{ font-size:.62rem; letter-spacing:.24em; color:var(--cyan); text-transform:uppercase; margin-bottom:5px }
+.meter{ display:flex; gap:2px; justify-content:center; height:16px }
+.seg{ width:7px; background:var(--cyan); opacity:.85;
+  clip-path:polygon(0 0,100% 0,100% 78%,58% 100%,0 100%) }
+.seg.off{ background:var(--faint); opacity:1 }
+.gig{ text-align:right }
+.gig-k{ font-size:.6rem; letter-spacing:.2em; color:var(--yellow); text-transform:uppercase }
+.gig-v{ font-size:.86rem; color:var(--text); text-transform:uppercase; letter-spacing:.06em }
+
+/* ── Body: list | visual | data ──────────────────────────────── */
+.deck-body{ display:grid; grid-template-columns:340px 1fr 340px; gap:14px; flex:1; min-height:0 }
+.col-h{ font-size:.64rem; letter-spacing:.26em; color:var(--red); text-transform:uppercase; margin-bottom:9px;
+  display:flex; align-items:center; gap:8px }
+.col-h::after{ content:""; flex:1; height:1px; background:linear-gradient(90deg,var(--red-dim),transparent) }
+
+/* Quickhack rows = projects */
+.hacks{ display:flex; flex-direction:column; gap:6px; overflow-y:auto; max-height:70vh; padding-right:4px }
+.hack{ --n:9px; display:grid; grid-template-columns:1fr auto auto; gap:10px; align-items:center;
+  padding:9px 11px; cursor:pointer; text-align:left; width:100%; font-family:var(--ui);
+  background:rgba(8,20,26,.72); border:1px solid var(--cyan-dim); color:var(--text);
+  clip-path:polygon(0 0, calc(100% - var(--n)) 0, 100% var(--n), 100% 100%, var(--n) 100%, 0 calc(100% - var(--n)));
+  transition:background .12s, border-color .12s, transform .12s }
+.hack:hover{ background:rgba(0,229,255,.09); transform:translateX(3px) }
+.hack.sel{ border-color:var(--cyan); background:rgba(0,229,255,.15);
+  box-shadow:inset 0 0 22px var(--cyan-glow), 0 0 12px rgba(0,229,255,.18) }
+.hack.locked{ border-color:var(--red-dim); background:rgba(30,8,11,.6) }
+.hack.locked .hack-n{ color:var(--red) }
+.hack-n{ font-size:.94rem; font-weight:600; letter-spacing:.07em; text-transform:uppercase; line-height:1.15 }
+.badges{ display:flex; gap:4px; margin-top:4px; flex-wrap:wrap }
+.badge{ font-size:.56rem; letter-spacing:.14em; text-transform:uppercase; padding:1px 5px;
+  border:1px solid var(--cyan-dim); color:var(--cyan) }
+.badge.warn{ border-color:var(--red-dim); color:var(--red) }
+.badge.ok{ border-color:#1f6b4a; color:var(--green) }
+.cost{ font-size:1.3rem; font-weight:700; color:var(--cyan); line-height:1; text-align:right }
+.cost small{ display:block; font-size:.5rem; letter-spacing:.16em; color:var(--dim) }
+.hack.locked .cost{ color:var(--red) }
+.chip{ width:30px; height:30px; border:1px solid var(--cyan-dim); display:grid; place-items:center;
+  font-size:.62rem; color:var(--cyan); background:rgba(0,229,255,.06) }
+.hack.locked .chip{ border-color:var(--red-dim); color:var(--red) }
+
+/* Visual stage */
+.stage{ position:relative; display:flex; flex-direction:column; padding:12px }
+.stage-media{ flex:1; display:grid; place-items:center; position:relative; overflow:hidden; min-height:280px }
+.stage-media img{ max-width:100%; max-height:52vh; object-fit:contain;
+  filter:saturate(.55) contrast(1.14) brightness(.94); border:1px solid var(--cyan-dim) }
+.noviz{ display:grid; place-items:center; gap:10px; text-align:center; padding:40px; width:100%;
+  border:1px dashed var(--red-dim); background:repeating-linear-gradient(45deg,transparent 0 9px,rgba(255,46,63,.045) 9px 18px) }
+.noviz b{ color:var(--red); font-size:.9rem; letter-spacing:.22em; text-transform:uppercase; font-weight:600 }
+.noviz span{ color:var(--dim); font-size:.72rem; letter-spacing:.1em }
+@keyframes scan{0%{top:-2%}100%{top:102%}}
+.scanline{ position:absolute; left:0; right:0; height:2px; pointer-events:none;
+  background:linear-gradient(90deg,transparent,var(--cyan),transparent); opacity:.5; animation:scan 4.5s linear infinite }
+@media (prefers-reduced-motion:reduce){ .scanline{display:none} }
+.stage-cap{ margin-top:10px; display:flex; justify-content:space-between; align-items:flex-end; gap:12px }
+.stage-title{ font-size:1.55rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:#fff;
+  text-shadow:0 0 16px var(--cyan-glow); line-height:1.1 }
+.stage-sub{ color:var(--dim); font-size:.8rem; letter-spacing:.08em }
+
+/* Data panel */
+.data{ padding:14px; display:flex; flex-direction:column; gap:12px; overflow-y:auto; max-height:70vh }
+.stat{ border-left:2px solid var(--cyan); padding-left:11px }
+.stat-v{ font-size:2rem; font-weight:700; color:#fff; line-height:1; text-shadow:0 0 18px var(--cyan-glow) }
+.stat-k{ font-size:.6rem; letter-spacing:.2em; color:var(--cyan); text-transform:uppercase; margin-top:3px }
+.tagline{ display:inline-block; font-size:.58rem; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--void); background:var(--cyan); padding:2px 8px; font-weight:700 }
+.data ul{ list-style:none; display:flex; flex-direction:column; gap:9px }
+.data li{ font-size:.86rem; line-height:1.45; color:var(--text); padding-left:14px; position:relative }
+.data li::before{ content:"◇"; position:absolute; left:0; color:var(--red); font-size:.6rem; top:.34em }
+.data li em{ color:var(--cyan); font-style:normal; font-weight:600 }
+.stack{ display:flex; flex-wrap:wrap; gap:4px; margin-top:2px }
+.stack span{ font-size:.6rem; letter-spacing:.1em; text-transform:uppercase; color:var(--dim);
+  border:1px solid var(--faint); padding:2px 6px }
+.open{ margin-top:auto; display:block; text-align:center; text-decoration:none; --n:9px;
+  padding:9px; background:var(--cyan); color:var(--void); font-weight:700; letter-spacing:.2em;
+  font-size:.72rem; text-transform:uppercase; font-family:var(--ui);
+  clip-path:polygon(0 0, calc(100% - var(--n)) 0, 100% var(--n), 100% 100%, var(--n) 100%, 0 calc(100% - var(--n))) }
+.open:hover{ background:#fff }
+
+/* Footer keybinds */
+.deck-foot{ display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap;
+  padding-top:9px; border-top:1px solid var(--red-dim) }
+.keys{ display:flex; gap:16px; flex-wrap:wrap }
+.key{ display:flex; align-items:center; gap:6px; font-size:.66rem; letter-spacing:.16em;
+  color:var(--dim); text-transform:uppercase }
+.key b{ display:grid; place-items:center; min-width:19px; height:19px; padding:0 4px;
+  border:1px solid var(--cyan-dim); color:var(--cyan); font-size:.6rem; font-weight:600 }
+
+@media (max-width:1080px){
+  .deck-body{ grid-template-columns:1fr }
+  .hacks{ max-height:none }
+  .data{ max-height:none }
+  .deck-top{ grid-template-columns:1fr; gap:10px; text-align:center }
+  .gig{ text-align:center }
+}
+</style>
+</head>
+<body>
+<div class="deck">
+
+  <header class="deck-top">
+    <div class="sys">◉ REC &nbsp; <b>PORTFOLIO.SYS</b><br /><span class="micro">TRN_TLCAS_B00095 // V.552.322</span></div>
+    <div class="meter-wrap">
+      <div class="meter-label">Cyberdeck &nbsp;·&nbsp; <span id="ramTxt">6/6</span> systems online</div>
+      <div class="meter" id="meter"></div>
+    </div>
+    <div class="gig">
+      <div class="gig-k">▸ Selected</div>
+      <div class="gig-v" id="gigName">—</div>
+    </div>
+  </header>
+
+  <div class="deck-body">
+    <div>
+      <div class="col-h">Available Systems</div>
+      <div class="hacks" id="list" role="listbox" tabindex="0" aria-label="Projects"></div>
+    </div>
+
+    <section class="stage notch">
+      <div class="stage-media" id="media"><div class="scanline"></div></div>
+      <div class="stage-cap">
+        <div>
+          <div class="stage-title" id="tTitle">—</div>
+          <div class="stage-sub" id="tSub">—</div>
+        </div>
+        <div class="micro">IMAGE TYPE: KERNEL, ISOLATED<br />LOAD ADDRESS: 003011444</div>
+      </div>
+    </section>
+
+    <div>
+      <div class="col-h">Data</div>
+      <div class="data notch-c" id="data"></div>
+    </div>
+  </div>
+
+  <footer class="deck-foot">
+    <div class="keys">
+      <span class="key"><b>↑</b><b>↓</b> Select</span>
+      <span class="key"><b>↵</b> Open</span>
+      <span class="key"><b>Esc</b> Back</span>
+    </div>
+    <div class="micro">MODEL LINE 1.2001A &nbsp;|&nbsp; COMBAT COLONIZATION DEFENCE PRECISION &nbsp;|&nbsp; 0.48554 0 .1 4 5 0</div>
+  </footer>
+</div>
+
+<script>
+const PROJECTS = [
+  { name:"Edge Occupancy Detection", cost:"98.9", costUnit:"% ACC", chip:"CV",
+    badges:[["Shipped","ok"],["Deep Learning",""],["Edge AI",""]],
+    img:"/static/media/edge-occ-full.png", sub:"Graduation project · 2026",
+    stat:["96%","Hardware cost reduction"], tag:"Safety-critical vision",
+    points:["Replaced <em>multi-thousand-euro laser scanners</em> with a MobileNetV3 classifier on Raspberry Pi and Jetson.",
+            "Blender synthetic-data pipeline plus a labelling tool that cut annotation from <em>~200 hours to ~2</em>.",
+            "Validated on a live parking facility; false positives down <em>over 70%</em>."],
+    stack:["PyTorch","MobileNetV3","Blender","Raspberry Pi","Jetson"], href:"/content/experience/vision-based-edge-occupancy.html" },
+
+  { name:"AxonForge", cost:"17k", costUnit:"LOC", chip:"FW", locked:true,
+    badges:[["Private","warn"],["Framework",""]],
+    img:null, sub:"Node-based computational framework",
+    stat:["17,000","Lines · unpublished"], tag:"Research substrate",
+    points:["Real-time web UI for defining computational units as <em>nodes</em>, editing properties live.",
+            "<em>Hot-reloads behaviour</em> without restarting the server.",
+            "Built after notebooks and Tk canvases both failed to give a fast enough feedback loop."],
+    stack:["Python","WebSockets","Hot reload"], href:"#" },
+
+  { name:"indigoshell", cost:"12k", costUnit:"LOC", chip:"WM", locked:true,
+    badges:[["Private","warn"],["Systems",""]],
+    img:null, sub:"Desktop shell · bar, launcher, tray",
+    stat:["12,000","Lines · in rewrite"], tag:"Bare-Xorg shell",
+    points:["A full desktop shell — bar, launcher, notifications, system tray — for <em>qtile on bare Xorg</em>.",
+            "Being rewritten onto <em>xcffib + Skia + dbus-fast</em> with direct EGL/GL rendering.",
+            "Single asyncio loop; plugins merge their panels into one settings surface."],
+    stack:["Python","Skia","xcffib","EGL/GL","dbus-fast"], href:"#" },
+
+  { name:"Unstable Scientist", cost:"1", costUnit:"RUN", chip:"AI",
+    badges:[["In progress",""],["LLM",""],["Games",""]],
+    img:null, sub:"LLM-driven narrative agent",
+    stat:["OCC","Appraisal-theory emotion model"], tag:"Deterministic spine",
+    points:["One LLM-driven character, <em>one non-replayable run</em>: a scripted spine with an improvised surface.",
+            "Model failure modes — flat affect, non-sequiturs — read as <em>characterisation</em>, not defects.",
+            "Phone-call system where agents can <em>decline, hang up, and hold competing goals</em>."],
+    stack:["Godot","LLM agents","OCC","Appraisal theory"], href:"#" },
+
+  { name:"ASRS Planner", cost:"0", costUnit:"STUCK", chip:"OR",
+    badges:[["Deployed","ok"],["Planning",""],["RL",""]],
+    img:null, sub:"Automated storage & retrieval",
+    stat:["A* vs PPO","Planner benchmark"], tag:"Deterministic control",
+    points:["Deterministic planner for an automated parking facility: block relocation, carrier routing, <em>deadlock valves</em>.",
+            "Compared <em>A* against SMDP PPO</em>, plus a learned heuristic trained on reverse-generated states.",
+            "Characterisation campaigns ran a full simulated month with <em>zero stuck carriers</em>."],
+    stack:["Python","PyTorch","PPO","A*"], href:"#" },
+
+  { name:"Kimiko", cost:"2021", costUnit:"YEAR", chip:"WEB",
+    badges:[["Archived",""],["Extension",""]],
+    img:"/static/media/kimiko-demo.png", sub:"Browser-extension chat platform",
+    stat:["URL","Rooms keyed by page"], tag:"Course project",
+    points:["Chrome extension bringing <em>real-time chat to any website</em>, keyed by URL.",
+            "Sidebar overlay creating impromptu communities around shared web content.",
+            "React + TypeScript front end over a <em>WebSocket</em> backend."],
+    stack:["React","TypeScript","Node.js","WebSocket","MongoDB"], href:"/content/experience/kimiko.html" },
+];
+
+const list=document.getElementById('list'), media=document.getElementById('media'),
+      data=document.getElementById('data'), meter=document.getElementById('meter');
+let sel=0;
+
+meter.innerHTML = Array.from({length:27},(_,i)=>
+  `<div class="seg${i>=PROJECTS.length*4 ? ' off':''}"></div>`).join('');
+
+list.innerHTML = PROJECTS.map((p,i)=>`
+  <button class="hack${p.locked?' locked':''}${i===0?' sel':''}" data-i="${i}" role="option" aria-selected="${i===0}">
+    <span>
+      <span class="hack-n">${p.name}</span>
+      <span class="badges">${p.badges.map(([t,c])=>`<span class="badge ${c}">${t}</span>`).join('')}</span>
+    </span>
+    <span class="cost">${p.cost}<small>${p.costUnit}</small></span>
+    <span class="chip">${p.chip}</span>
+  </button>`).join('');
+
+function render(i){
+  sel=i; const p=PROJECTS[i];
+  [...list.children].forEach((el,j)=>{ el.classList.toggle('sel',j===i); el.setAttribute('aria-selected',j===i) });
+  document.getElementById('gigName').textContent=p.name;
+  document.getElementById('tTitle').textContent=p.name;
+  document.getElementById('tSub').textContent=p.sub;
+  media.innerHTML = (p.img
+    ? `<img src="${p.img}" alt="${p.name}" />`
+    : `<div class="noviz"><b>No visual data</b><span>SYSTEM UNPHOTOGRAPHED — capture required</span></div>`)
+    + `<div class="scanline"></div>`;
+  data.innerHTML=`
+    <span class="tagline">${p.tag}</span>
+    <div class="stat"><div class="stat-v">${p.stat[0]}</div><div class="stat-k">${p.stat[1]}</div></div>
+    <ul>${p.points.map(t=>`<li>${t}</li>`).join('')}</ul>
+    <div class="stack">${p.stack.map(s=>`<span>${s}</span>`).join('')}</div>
+    <a class="open" href="${p.href}">${p.href==='#'?'No page yet':'Open dossier ▸'}</a>`;
+}
+list.addEventListener('click',e=>{ const b=e.target.closest('.hack'); if(b) render(+b.dataset.i) });
+list.addEventListener('keydown',e=>{
+  if(e.key==='ArrowDown'){e.preventDefault();render((sel+1)%PROJECTS.length)}
+  if(e.key==='ArrowUp'){e.preventDefault();render((sel-1+PROJECTS.length)%PROJECTS.length)}
+  if(e.key==='Enter'){const h=PROJECTS[sel].href; if(h!=='#')location.href=h}
+});
+render(0);
+</script>
+</body>
+</html>

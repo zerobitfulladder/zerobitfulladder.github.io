@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CV — Tuğrul Ağrikli</title>
+        <meta name="description" content="Curriculum vitae: education, systems, and client work." />
+        <meta name="author" content="Tuğrul Ağrikli" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="CV — Tuğrul Ağrikli" />
+        <meta property="og:description" content="Curriculum vitae: education, systems, and client work." />
+        <meta name="twitter:card" content="summary" />
+
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23191724'/><text y='23' x='6' font-family='monospace' font-size='20' fill='%23c4a7e7'>t</text></svg>"
+        />
+        <link rel="stylesheet" href="/static/css/base.css" />
+
+        <!-- KaTeX for LaTeX math rendering (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/katex/katex.min.css" />
+        <script defer src="/static/vendor/katex/katex.min.js"></script>
+        <script
+            defer
+            src="/static/vendor/katex/auto-render.min.js"
+            onload="
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        { left: '$$', right: '$$', display: true },
+                        { left: '$', right: '$', display: false },
+                    ],
+                })
+            "
+        ></script>
+
+        <!-- Highlight.js for code syntax highlighting (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/highlight/rose-pine.min.css" />
+        <script defer src="/static/vendor/highlight/highlight.min.js"></script>
+
+        <!-- Starry background effect 
+        <script type="module" src="/static/js/stars.js"></script>
+         -->
+    </head>
+    <body>
+        <nav class="main-nav">
+            <h3><a href="/">Home</a></h3>
+            <h3><a href="/experience.html">Work</a></h3>
+            <h3><a href="/thought.html">Thoughts</a></h3>
+            <h3><a href="/cv.html">CV</a></h3>
+            <h3><a href="/music.html">Music</a></h3>
+        </nav>
+        <div class="page">
+            <div class="content"><div class="cv">
+    <header class="cv-header">
+        <h1>Tuğrul Ağrikli</h1>
+        <p class="cv-tagline">Systems &amp; machine learning engineer — Istanbul, Türkiye</p>
+        <p class="cv-contact">
+            <a href="mailto:tagrikli@proton.me">tagrikli@proton.me</a>
+            <span class="sep">·</span>
+            <a href="https://github.com/zerobitfulladder">github.com/zerobitfulladder</a>
+            <span class="sep">·</span>
+            <a href="https://tagrikli.github.io/Malvolio/">tagrikli.github.io</a>
+        </p>
+        <p class="cv-summary">
+            Ten years of engineering across freelance delivery, academic research tooling, embedded Linux, and machine
+            learning. I tend to solve problems one level below where they appear: building the framework rather than
+            using one, generating the dataset rather than labelling it. Most of my work sits at the seam between
+            deterministic control and stochastic components — planners checked against learned policies, generative
+            models given bounded authority inside a scripted skeleton.
+        </p>
+    </header>
+
+    <section class="cv-section">
+        <h2>Education</h2>
+        <div class="cv-entry">
+            <div class="cv-entry-head">
+                <span class="cv-role">Sabancı University — BSc, Computer Science &amp; Engineering</span>
+                <span class="cv-date">Graduated January 2026</span>
+            </div>
+            <ul>
+                <li>Ranked <strong>first in the machine learning cohort</strong>.</li>
+                <li>
+                    Graduation project: vision-based edge occupancy detection for automated parking safety (detailed
+                    below).
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="cv-section">
+        <h2>Experience</h2>
+
+        <div class="cv-entry">
+            <div class="cv-entry-head">
+                <span class="cv-role">Independent Research &amp; Development</span>
+                <span class="cv-date">2026 — present</span>
+            </div>
+            <ul>
+                <li>
+                    Self-funded period dedicated to building systems end-to-end: a computational framework, a desktop
+                    shell, and an LLM-driven narrative agent architecture (detailed below).
+                </li>
+            </ul>
+        </div>
+
+        <div class="cv-entry">
+            <div class="cv-entry-head">
+                <span class="cv-role">Freelance Software Engineer — Upwork</span>
+                <span class="cv-date">2015 — 2023</span>
+            </div>
+            <ul>
+                <li>
+                    <strong>12 contracts delivered, 5.0 / 5.0 rating.</strong> Clients across research, industrial, and
+                    consumer software.
+                </li>
+                <li>
+                    Built an email ingestion pipeline processing <strong>20,000 messages weekly</strong> with
+                    password-protected archive extraction, at 100% reliability.
+                </li>
+                <li>
+                    Bridged Rhino/Grasshopper to MATLAB over a Flask transport layer for an architectural research
+                    group; <strong>acknowledged in the resulting publication</strong>.
+                </li>
+                <li>
+                    Delivered an astrophysics data platform (Python/PHP/SQL) with automated NASA dataset transfer, a
+                    Raspberry Pi RTSP information-display system, a Linux-phone call-recording daemon over D-Bus and
+                    PulseAudio, and a Chrome extension chat platform on React/TypeScript/WebSocket.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="cv-section">
+        <h2>Selected Systems</h2>
+
+        <div class="cv-entry">
+            <div class="cv-entry-head">
+                <span class="cv-role">Vision-Based Edge Occupancy Detection</span>
+                <span class="cv-date">Graduation project, 2026</span>
+            </div>
+            <ul>
+                <li>
+                    Replaced multi-thousand-euro laser scanners in an automated parking system with a MobileNetV3
+                    classifier running on Raspberry Pi and Jetson.
+                </li>
+                <li>
+                    Built a <strong>Blender synthetic-data pipeline</strong> and a semi-automated labelling tool that
+                    cut annotation from <strong>~200 hours to ~2</strong>.
+                </li>
+                <li>
+                    <strong>98.94% validation accuracy</strong>, false positives down over 70% via synthetic
+                    pre-training, <strong>~96% hardware cost reduction</strong>. Validated on a live parking facility.
+                </li>
+            </ul>
+        </div>
+
+        <div class="cv-entry">
+            <div class="cv-entry-head">
+                <span class="cv-role">AxonForge — node-based computational framework</span>
+                <span class="cv-date">~17,000 LOC · unpublished</span>
+            </div>
+            <ul>
+                <li>
+                    Real-time web UI for defining computational units as nodes, editing their properties live, and
+                    hot-reloading behaviour without restarting the server.
+                </li>
+                <li>
+                    Built as research substrate for dynamic systems, after notebooks and Tk canvases both failed to give
+                    the necessary visual feedback loop.
+                </li>
+            </ul>
+        </div>
+
+        <div class="cv-entry">
+            <div class="cv-entry-head">
+                <span class="cv-role">indigoshell — desktop shell</span>
+                <span class="cv-date">~12,000 LOC · unpublished</span>
+            </div>
+            <ul>
+                <li>
+                    A full GTK3 desktop shell — bar, launcher, notifications, system tray — for a bare-Xorg qtile
+                    setup.
+                </li>
+                <li>
+                    Being rewritten onto <strong>xcffib + Skia + dbus-fast</strong> with direct EGL/GL rendering, a
+                    single asyncio loop, and a plugin system merging third-party panels into one settings surface.
+                </li>
+            </ul>
+        </div>
+
+        <div class="cv-entry">
+            <div class="cv-entry-head">
+                <span class="cv-role">LLM-driven NPC &amp; emotion architecture</span>
+                <span class="cv-date">2026 — present</span>
+            </div>
+            <ul>
+                <li>
+                    Narrative game built around a single LLM-driven character: a deterministic control skeleton with
+                    stochastic rendering slots, so that model failure modes read as characterisation rather than as
+                    defects.
+                </li>
+                <li>
+                    Emotion model grounded in <strong>appraisal theory and the OCC framework</strong>, separating felt
+                    from expressed affect.
+                </li>
+                <li>
+                    Concurrent-task phone-call system in which agents can decline, hang up, and hold competing
+                    objectives.
+                </li>
+            </ul>
+        </div>
+
+        <div class="cv-entry">
+            <div class="cv-entry-head">
+                <span class="cv-role">Warehouse &amp; ASRS automation</span>
+                <span class="cv-date">Ongoing</span>
+            </div>
+            <ul>
+                <li>
+                    Deterministic planner for an automated storage-and-retrieval parking facility: block relocation,
+                    carrier routing, deadlock valves, and liveness guarantees.
+                </li>
+                <li>
+                    Comparative study of <strong>A* against SMDP PPO</strong> for carrier planning, plus a learned
+                    heuristic (PyTorch MLP) trained on reverse-generated states.
+                </li>
+            </ul>
+        </div>
+
+        <div class="cv-entry">
+            <div class="cv-entry-head">
+                <span class="cv-role">Other ongoing work</span>
+            </div>
+            <ul>
+                <li>
+                    <strong>Zenith</strong> — from-scratch learning-architecture research: local receptive fields,
+                    normalised-correlation units, skeleton learning.
+                </li>
+                <li>
+                    <strong>AR spatial computing</strong> — real-time monocular-depth 2D→3D conversion via mesh-warp
+                    DIBR on AR glasses, monitor-as-fiducial world anchoring with SPAAM calibration.
+                </li>
+                <li>
+                    <strong>Haptic guidance glove</strong> for blind users — vision-to-touch navigation cues.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="cv-section">
+        <h2>Technical</h2>
+        <dl class="cv-skills">
+            <dt>Languages</dt>
+            <dd>Python, C, C++, JavaScript/TypeScript, Dart, Java, GDScript, Bash, SQL</dd>
+
+            <dt>Machine learning</dt>
+            <dd>
+                PyTorch, transfer learning, model compression for edge inference, reinforcement learning (PPO, SMDP),
+                synthetic data generation, NLP &amp; classification
+            </dd>
+
+            <dt>Systems</dt>
+            <dd>
+                Embedded Linux (Raspberry Pi, Jetson), X11/xcffib, D-Bus, PulseAudio/GStreamer, EGL/OpenGL, Skia,
+                asyncio, systemd
+            </dd>
+
+            <dt>Vision &amp; graphics</dt>
+            <dd>OpenCV, monocular depth estimation, camera calibration, Blender pipelines, DIBR / stereo rendering</dd>
+
+            <dt>Application</dt>
+            <dd>Flask, React, Node.js, Flutter, Firebase, Godot, MongoDB, WebSocket</dd>
+
+            <dt>Environment</dt>
+            <dd>Arch Linux, qtile on bare Xorg, neovim, git, uv</dd>
+        </dl>
+    </section>
+
+    <p class="cv-print-hint">
+        <button onclick="window.print()">Print / save as PDF</button>
+    </p>
+</div>
+
+<style>
+    .cv-header h1 {
+        margin-bottom: 6px;
+    }
+
+    .cv-tagline {
+        color: var(--subtle);
+        margin-bottom: 4px;
+    }
+
+    .cv-contact {
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin-bottom: 14px;
+    }
+
+    .cv-contact .sep {
+        margin: 0 6px;
+        color: var(--muted);
+    }
+
+    .cv-summary {
+        font-size: 0.9rem;
+        color: var(--subtle);
+        border-left: 3px solid var(--pine);
+        padding-left: 15px;
+    }
+
+    .cv-section {
+        margin-top: 26px;
+    }
+
+    .cv-section h2 {
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        border-bottom: 1px solid var(--overlay);
+        padding-bottom: 6px;
+        margin-bottom: 14px;
+    }
+
+    .cv-entry {
+        margin-bottom: 16px;
+        page-break-inside: avoid;
+    }
+
+    .cv-entry:last-child {
+        margin-bottom: 0;
+    }
+
+    .cv-entry-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .cv-role {
+        color: var(--rose);
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+
+    .cv-date {
+        color: var(--muted);
+        font-size: 0.78rem;
+        white-space: nowrap;
+    }
+
+    .cv-entry ul {
+        margin: 6px 0 0;
+        padding-left: 20px;
+    }
+
+    .cv-entry li {
+        font-size: 0.87rem;
+        margin-bottom: 4px;
+    }
+
+    .cv-skills {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 6px 16px;
+        font-size: 0.87rem;
+    }
+
+    .cv-skills dt {
+        color: var(--foam);
+    }
+
+    .cv-skills dd {
+        color: var(--subtle);
+        margin: 0;
+    }
+
+    .cv-print-hint {
+        margin-top: 28px;
+        text-align: right;
+    }
+
+    .cv-print-hint button {
+        background: var(--highlight-low);
+        color: var(--iris);
+        border: 1px solid var(--overlay);
+        border-radius: 3px;
+        padding: 6px 14px;
+        font-family: "Fira Code", monospace;
+        font-size: 0.8rem;
+        cursor: pointer;
+    }
+
+    .cv-print-hint button:hover {
+        border-color: var(--iris);
+        color: var(--foam);
+    }
+
+    @media screen and (max-width: 600px) {
+        .cv-skills {
+            grid-template-columns: 1fr;
+            gap: 2px 0;
+        }
+
+        .cv-skills dd {
+            margin-bottom: 8px;
+        }
+    }
+
+    /* Print: a real document, not a screenshot of a website. */
+    @media print {
+        @page {
+            margin: 14mm 15mm;
+        }
+
+        .cv-summary {
+            border-left: 2px solid #666;
+            color: #222;
+        }
+
+        .cv-tagline,
+        .cv-contact,
+        .cv-contact .sep,
+        .cv-date,
+        .cv-skills dd,
+        .cv-entry li {
+            color: #222;
+        }
+
+        .cv-role,
+        .cv-skills dt {
+            color: #000;
+        }
+
+        .cv-section h2 {
+            color: #000;
+            border-bottom: 1px solid #000;
+        }
+
+        .cv-section {
+            margin-top: 16px;
+            page-break-inside: avoid;
+        }
+
+        .cv-entry strong {
+            color: #000;
+        }
+
+        .cv-print-hint {
+            display: none;
+        }
+    }
+</style></div>
+        </div>
+
+        <!-- Image Lightbox -->
+        <div class="image-lightbox" id="lightbox">
+            <img src="" alt="Enlarged image" />
+        </div>
+
+        <script>
+            // Image lightbox functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                hljs.highlightAll();
+
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = lightbox.querySelector('img');
+                
+                // Get all images in articles
+                const images = document.querySelectorAll('article img, .side-media-img, .paired-img');
+                
+                images.forEach(img => {
+                    img.addEventListener('click', function() {
+                        lightboxImg.src = this.src;
+                        lightbox.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    });
+                });
+                
+                // Close lightbox on click
+                lightbox.addEventListener('click', function() {
+                    this.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+                
+                // Close on Escape key
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                        lightbox.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            });
+        </script>
+    </body>
+</html>

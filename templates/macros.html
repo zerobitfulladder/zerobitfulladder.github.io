@@ -1,0 +1,47 @@
+{# Reusable content blocks. Available as globals in every content file — no import needed. #}
+
+{% macro image_pair(left, right, alt_left="", alt_right="") %}
+<div class="image-pair">
+    <img src="{{ left }}" alt="{{ alt_left }}" class="paired-img" />
+    <img src="{{ right }}" alt="{{ alt_right }}" class="paired-img" />
+</div>
+{% endmacro %}
+
+{% macro figure(src, caption="", alt="") %}
+<figure class="content-figure">
+    <img src="{{ src }}" alt="{{ alt or caption }}" />
+    {% if caption %}<figcaption>{{ caption }}</figcaption>{% endif %}
+</figure>
+{% endmacro %}
+
+{# Image beside prose. Use with {% call %}:
+   {% call side_media('/static/media/x.png', 'right') %}<p>…</p>{% endcall %} #}
+{% macro side_media(src, side="left", alt="") %}
+<div class="side-media side-{{ side }}">
+    <img src="{{ src }}" alt="{{ alt }}" class="side-media-img" />
+    <div class="text">{{ caller() }}</div>
+</div>
+{% endmacro %}
+
+{% macro testimonial(author="", rating=None, source="") %}
+<blockquote class="testimonial">
+    {{ caller() }}
+    <footer>
+        {% if rating %}<span class="rating">{{ "★" * rating }}{{ "☆" * (5 - rating) }}</span><br />{% endif %}
+        {% if author %}— {{ author }}{% endif %}{% if source %} <span class="muted">({{ source }})</span>{% endif %}
+    </footer>
+</blockquote>
+{% endmacro %}
+
+{% macro video(embed_url, title="Video") %}
+<div class="video-container">
+    <iframe
+        src="{{ embed_url }}"
+        title="{{ title }}"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+    ></iframe>
+</div>
+{% endmacro %}

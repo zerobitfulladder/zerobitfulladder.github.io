@@ -3,15 +3,27 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tugrul's Website</title>
+        <title>Rhino-MATLAB Bridge — Tuğrul Ağrikli</title>
+        <meta name="description" content="Bridging Rhino with Grasshopper and MATLAB for academic research using Python." />
+        <meta name="author" content="Tuğrul Ağrikli" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Rhino-MATLAB Bridge — Tuğrul Ağrikli" />
+        <meta property="og:description" content="Bridging Rhino with Grasshopper and MATLAB for academic research using Python." />
+        <meta name="twitter:card" content="summary" />
+
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23191724'/><text y='23' x='6' font-family='monospace' font-size='20' fill='%23c4a7e7'>t</text></svg>"
+        />
         <link rel="stylesheet" href="/static/css/base.css" />
 
-        <!-- KaTeX for LaTeX math rendering -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+        <!-- KaTeX for LaTeX math rendering (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/katex/katex.min.css" />
+        <script defer src="/static/vendor/katex/katex.min.js"></script>
         <script
             defer
-            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+            src="/static/vendor/katex/auto-render.min.js"
             onload="
                 renderMathInElement(document.body, {
                     delimiters: [
@@ -22,16 +34,9 @@
             "
         ></script>
 
-        <!-- Highlight.js for code syntax highlighting -->
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/rose-pine.min.css"
-        />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-
-        <script>
-            hljs.highlightAll();
-        </script>
+        <!-- Highlight.js for code syntax highlighting (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/highlight/rose-pine.min.css" />
+        <script defer src="/static/vendor/highlight/highlight.min.js"></script>
 
         <!-- Starry background effect 
         <script type="module" src="/static/js/stars.js"></script>
@@ -40,75 +45,90 @@
     <body>
         <nav class="main-nav">
             <h3><a href="/">Home</a></h3>
+            <h3><a href="/experience.html">Work</a></h3>
             <h3><a href="/thought.html">Thoughts</a></h3>
-            <h3><a href="/experience.html">Work Experience</a></h3>
+            <h3><a href="/cv.html">CV</a></h3>
             <h3><a href="/music.html">Music</a></h3>
         </nav>
         <div class="page">
             <div class="content"><article>
-    <h1>Rhino-MATLAB Bridge</h1>
-    <h4>22/02/2022</h4>
-    <div class="side-media side-left">
-        <img src="/static/media/rhino.png" class="side-media-img" />
-
-        <div class="text">
-            <p>
-                The project presented a significant challenge as it required bridging the gap between disparate software
-                systems—specifically, Rhino with Grasshopper and MATLAB—for an academic research initiative led by an
-                esteemed architecture professor at Istanbul Technical University. <br />
-            </p>
+    <header class="article-header">
+        <h1>Rhino-MATLAB Bridge</h1>
+        <p class="article-summary">Bridging Rhino with Grasshopper and MATLAB for academic research using Python.</p>
+        <div class="article-meta">
+            <span class="entry-date">22/02/2022</span>
+            <span class="entry-reading-time">(~1 min read)</span>
+            
         </div>
-    </div>
-
-    <p>
-        The main challenge was to seamlessly integrate these distinct platforms to facilitate the research process. <br />
-    </p>
-
-    <h3>The Challenge</h3>
-
-    <p>
-        To address this challenge effectively, I embarked on a comprehensive research journey to familiarize myself with
-        Rhino, Grasshopper, and MATLAB, even though I had no prior experience with these tools. After gaining a
-        foundational understanding of these technologies, I devised an innovative solution using Python as the central
-        bridge.
-    </p>
-
-    <h3>The Solution</h3>
-
-    <p>
-        <strong>Flask Application:</strong> I developed a Flask application to serve as the intermediary between Rhino
-        with Grasshopper and MATLAB. This application was configured to communicate with a specific Grasshopper
-        component designed for network data exchange.
-    </p>
-
-    <p>
-        <strong>Python Integration:</strong> Leveraging Python's versatility, I utilized a Python module to interact
-        programmatically with MATLAB. This allowed for the seamless transmission of input data to MATLAB and the
-        retrieval of relevant results.
-    </p>
-
-    <p>
-        <strong>Networking:</strong> I established a robust networking framework to enable the smooth transfer of data
-        between the different software environments. This network connectivity formed the backbone of the entire
-        solution, ensuring data exchange and synchronization between Rhino with Grasshopper and MATLAB.
-    </p>
+        
+        <div class="entry-tags">
+            <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">MATLAB</span><span class="tag">Rhino</span><span class="tag">Grasshopper</span><span class="tag">Networking</span>
+        </div>
+        
+    </header>
 
     <hr />
 
-    <p>
-        By meticulously implementing this comprehensive solution, I successfully bridged the gap between Rhino with
-        Grasshopper and MATLAB, facilitating the academic research project's objectives. This innovative approach
-        streamlined the research process, enabling efficient data exchange and computation between the two distinct
-        platforms.
-    </p>
+    <div class="side-media side-left">
+    <img src="/static/media/rhino.png" class="side-media-img" />
 
-    <p>
-        The professor mentioned that I would be thanked in the acknowledgements section of the resulting article—and
-        they followed through. I'm literally in the acknowledgements part of
-        <a href="https://www.tandfonline.com/doi/full/10.1080/00038628.2023.2269549#:~:text=Tu%C4%9Frul%20Agrikli">the published paper</a>.
-    </p>
-</article>
+    <div class="text">
+        <p>
+            The project presented a significant challenge as it required bridging the gap between disparate software
+            systems—specifically, Rhino with Grasshopper and MATLAB—for an academic research initiative led by an
+            esteemed architecture professor at Istanbul Technical University. <br />
+        </p>
+    </div>
 </div>
+
+<p>
+    The main challenge was to seamlessly integrate these distinct platforms to facilitate the research process. <br />
+</p>
+
+<h3>The Challenge</h3>
+
+<p>
+    To address this challenge effectively, I embarked on a comprehensive research journey to familiarize myself with
+    Rhino, Grasshopper, and MATLAB, even though I had no prior experience with these tools. After gaining a
+    foundational understanding of these technologies, I devised an innovative solution using Python as the central
+    bridge.
+</p>
+
+<h3>The Solution</h3>
+
+<p>
+    <strong>Flask Application:</strong> I developed a Flask application to serve as the intermediary between Rhino
+    with Grasshopper and MATLAB. This application was configured to communicate with a specific Grasshopper
+    component designed for network data exchange.
+</p>
+
+<p>
+    <strong>Python Integration:</strong> Leveraging Python's versatility, I utilized a Python module to interact
+    programmatically with MATLAB. This allowed for the seamless transmission of input data to MATLAB and the
+    retrieval of relevant results.
+</p>
+
+<p>
+    <strong>Networking:</strong> I established a robust networking framework to enable the smooth transfer of data
+    between the different software environments. This network connectivity formed the backbone of the entire
+    solution, ensuring data exchange and synchronization between Rhino with Grasshopper and MATLAB.
+</p>
+
+<hr />
+
+<p>
+    By meticulously implementing this comprehensive solution, I successfully bridged the gap between Rhino with
+    Grasshopper and MATLAB, facilitating the academic research project's objectives. This innovative approach
+    streamlined the research process, enabling efficient data exchange and computation between the two distinct
+    platforms.
+</p>
+
+<p>
+    The professor mentioned that I would be thanked in the acknowledgements section of the resulting article—and
+    they followed through. I'm literally in the acknowledgements part of
+    <a href="https://www.tandfonline.com/doi/full/10.1080/00038628.2023.2269549#:~:text=Tu%C4%9Frul%20Agrikli">the published paper</a>.
+</p>
+</article></div>
         </div>
 
         <!-- Image Lightbox -->
@@ -119,6 +139,8 @@
         <script>
             // Image lightbox functionality
             document.addEventListener('DOMContentLoaded', function() {
+                hljs.highlightAll();
+
                 const lightbox = document.getElementById('lightbox');
                 const lightboxImg = lightbox.querySelector('img');
                 

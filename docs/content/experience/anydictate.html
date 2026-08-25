@@ -3,15 +3,27 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tugrul's Website</title>
+        <title>AnyDictate — Tuğrul Ağrikli</title>
+        <meta name="description" content="A real-time speech-to-text web application using Web Speech API and Python." />
+        <meta name="author" content="Tuğrul Ağrikli" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="AnyDictate — Tuğrul Ağrikli" />
+        <meta property="og:description" content="A real-time speech-to-text web application using Web Speech API and Python." />
+        <meta name="twitter:card" content="summary" />
+
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23191724'/><text y='23' x='6' font-family='monospace' font-size='20' fill='%23c4a7e7'>t</text></svg>"
+        />
         <link rel="stylesheet" href="/static/css/base.css" />
 
-        <!-- KaTeX for LaTeX math rendering -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+        <!-- KaTeX for LaTeX math rendering (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/katex/katex.min.css" />
+        <script defer src="/static/vendor/katex/katex.min.js"></script>
         <script
             defer
-            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+            src="/static/vendor/katex/auto-render.min.js"
             onload="
                 renderMathInElement(document.body, {
                     delimiters: [
@@ -22,16 +34,9 @@
             "
         ></script>
 
-        <!-- Highlight.js for code syntax highlighting -->
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/rose-pine.min.css"
-        />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-
-        <script>
-            hljs.highlightAll();
-        </script>
+        <!-- Highlight.js for code syntax highlighting (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/highlight/rose-pine.min.css" />
+        <script defer src="/static/vendor/highlight/highlight.min.js"></script>
 
         <!-- Starry background effect 
         <script type="module" src="/static/js/stars.js"></script>
@@ -40,52 +45,67 @@
     <body>
         <nav class="main-nav">
             <h3><a href="/">Home</a></h3>
+            <h3><a href="/experience.html">Work</a></h3>
             <h3><a href="/thought.html">Thoughts</a></h3>
-            <h3><a href="/experience.html">Work Experience</a></h3>
+            <h3><a href="/cv.html">CV</a></h3>
             <h3><a href="/music.html">Music</a></h3>
         </nav>
         <div class="page">
             <div class="content"><article>
-    <h1>AnyDictate</h1>
-    <h4>11/11/2022</h4>
-    <div class="side-media side-left">
-        <img src="/static/media/anydictate.png" class="side-media-img" />
-
-        <div class="text">
-            <p>
-                I have developed a dynamic web application that harnesses the power of Python and the Web Speech API to
-                provide real-time speech-to-text conversion. With this innovative tool, users can effortlessly convert
-                their spoken words into written text. <br />
-            </p>
+    <header class="article-header">
+        <h1>AnyDictate</h1>
+        <p class="article-summary">A real-time speech-to-text web application using Web Speech API and Python.</p>
+        <div class="article-meta">
+            <span class="entry-date">11/11/2022</span>
+            <span class="entry-reading-time">(~1 min read)</span>
+            
         </div>
-    </div>
-
-    <p>
-        The application seamlessly integrates with various platforms, allowing users to input text wherever a cursor can
-        be placed. <br />
-    </p>
-
-    <h3>How It Works</h3>
-
-    <p>
-        Using the Web Speech API, the application records speech input and swiftly converts it into textual format. This
-        text is then sent to the backend, powered by Python, which emulates key presses to effectively simulate typing.
-    </p>
-
-    <p>
-        This unique functionality enables users to effortlessly type anywhere, saving time and streamlining their
-        workflow. By combining the strengths of web technologies and Python, this project offers a versatile solution
-        for those who prefer speech input over traditional typing.
-    </p>
+        
+        <div class="entry-tags">
+            <span class="tag">Python</span><span class="tag">Web Speech API</span><span class="tag">JavaScript</span><span class="tag">Accessibility</span><span class="tag">Automation</span>
+        </div>
+        
+    </header>
 
     <hr />
 
-    <p>
-        The seamless integration and real-time transcription capabilities make it a valuable tool for a wide range of
-        applications, from drafting emails and documents to interacting with text-based interfaces.
-    </p>
-</article>
+    <div class="side-media side-left">
+    <img src="/static/media/anydictate.png" class="side-media-img" />
+
+    <div class="text">
+        <p>
+            I have developed a dynamic web application that harnesses the power of Python and the Web Speech API to
+            provide real-time speech-to-text conversion. With this innovative tool, users can effortlessly convert
+            their spoken words into written text. <br />
+        </p>
+    </div>
 </div>
+
+<p>
+    The application seamlessly integrates with various platforms, allowing users to input text wherever a cursor can
+    be placed. <br />
+</p>
+
+<h3>How It Works</h3>
+
+<p>
+    Using the Web Speech API, the application records speech input and swiftly converts it into textual format. This
+    text is then sent to the backend, powered by Python, which emulates key presses to effectively simulate typing.
+</p>
+
+<p>
+    This unique functionality enables users to effortlessly type anywhere, saving time and streamlining their
+    workflow. By combining the strengths of web technologies and Python, this project offers a versatile solution
+    for those who prefer speech input over traditional typing.
+</p>
+
+<hr />
+
+<p>
+    The seamless integration and real-time transcription capabilities make it a valuable tool for a wide range of
+    applications, from drafting emails and documents to interacting with text-based interfaces.
+</p>
+</article></div>
         </div>
 
         <!-- Image Lightbox -->
@@ -96,6 +116,8 @@
         <script>
             // Image lightbox functionality
             document.addEventListener('DOMContentLoaded', function() {
+                hljs.highlightAll();
+
                 const lightbox = document.getElementById('lightbox');
                 const lightboxImg = lightbox.querySelector('img');
                 

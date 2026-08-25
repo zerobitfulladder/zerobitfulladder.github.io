@@ -3,15 +3,27 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tugrul's Website</title>
+        <title>Astrophysics Data Platform — Tuğrul Ağrikli</title>
+        <meta name="description" content="Enhanced an academic website for astrophysicists with automated data transfer and modern UI." />
+        <meta name="author" content="Tuğrul Ağrikli" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Astrophysics Data Platform — Tuğrul Ağrikli" />
+        <meta property="og:description" content="Enhanced an academic website for astrophysicists with automated data transfer and modern UI." />
+        <meta name="twitter:card" content="summary" />
+
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23191724'/><text y='23' x='6' font-family='monospace' font-size='20' fill='%23c4a7e7'>t</text></svg>"
+        />
         <link rel="stylesheet" href="/static/css/base.css" />
 
-        <!-- KaTeX for LaTeX math rendering -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+        <!-- KaTeX for LaTeX math rendering (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/katex/katex.min.css" />
+        <script defer src="/static/vendor/katex/katex.min.js"></script>
         <script
             defer
-            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+            src="/static/vendor/katex/auto-render.min.js"
             onload="
                 renderMathInElement(document.body, {
                     delimiters: [
@@ -22,16 +34,9 @@
             "
         ></script>
 
-        <!-- Highlight.js for code syntax highlighting -->
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/rose-pine.min.css"
-        />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-
-        <script>
-            hljs.highlightAll();
-        </script>
+        <!-- Highlight.js for code syntax highlighting (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/highlight/rose-pine.min.css" />
+        <script defer src="/static/vendor/highlight/highlight.min.js"></script>
 
         <!-- Starry background effect 
         <script type="module" src="/static/js/stars.js"></script>
@@ -40,75 +45,90 @@
     <body>
         <nav class="main-nav">
             <h3><a href="/">Home</a></h3>
+            <h3><a href="/experience.html">Work</a></h3>
             <h3><a href="/thought.html">Thoughts</a></h3>
-            <h3><a href="/experience.html">Work Experience</a></h3>
+            <h3><a href="/cv.html">CV</a></h3>
             <h3><a href="/music.html">Music</a></h3>
         </nav>
         <div class="page">
             <div class="content"><article>
-    <h1>Astrophysics Data Platform</h1>
-    <h4>07/10/2022</h4>
-    <div class="side-media side-left">
-        <img src="/static/media/astro-data-display.png" class="side-media-img" />
-
-        <div class="text">
-            <p>
-                The goal of this project was to enhance an existing academic website developed for astrophysicist
-                teachers at my university. The website consisted of two servers, with one server responsible for
-                gathering measurements from NASA and performing calculations to detect cosmic events, while the other
-                server displayed the results and facilitated data queries. <br />
-            </p>
+    <header class="article-header">
+        <h1>Astrophysics Data Platform</h1>
+        <p class="article-summary">Enhanced an academic website for astrophysicists with automated data transfer and modern UI.</p>
+        <div class="article-meta">
+            <span class="entry-date">07/10/2022</span>
+            <span class="entry-reading-time">(~1 min read)</span>
+            
         </div>
-    </div>
-
-    <p>
-        However, there were several challenges that needed to be addressed to improve the efficiency and usability of
-        the system. <br />
-    </p>
-
-    <h3>The Challenges</h3>
-
-    <p>
-        The existing system required manual data transfers between servers, which was time-consuming and prone to human
-        error. The user interface was outdated, making it difficult for professors to efficiently search and analyze
-        data. Additionally, there was no proper database integration for managing the calculated results.
-    </p>
-
-    <h3>The Solution</h3>
-
-    <p>
-        <strong>Automated Data Transfer:</strong> I developed a solution that automated the data transfer process using
-        Python and FTP. This eliminated the need for manual transfers between servers, saving time and reducing the
-        risk of human error.
-    </p>
-
-    <div class="side-media side-right">
-        <img src="/static/media/astro-search.png" class="side-media-img" />
-
-        <div class="text">
-            <p>
-                <strong>Modern UI:</strong> I revamped the website's user interface by replacing the outdated UI with a
-                modern Material UI framework. This upgrade enhanced the overall user experience and enabled the
-                implementation of advanced search and display functionalities. <br />
-            </p>
+        
+        <div class="entry-tags">
+            <span class="tag">Python</span><span class="tag">PHP</span><span class="tag">SQL</span><span class="tag">Bash</span><span class="tag">Material UI</span><span class="tag">NASA</span>
         </div>
-    </div>
-
-    <p>
-        <strong>Database Integration:</strong> To facilitate data management, I integrated a database into the website.
-        This allowed for seamless storage, retrieval, and presentation of the calculated data, improving the overall
-        efficiency and accessibility of the system.
-    </p>
+        
+    </header>
 
     <hr />
 
-    <p>
-        Throughout the project, I utilized various technologies, including Bash, Python, SQL, and PHP, to develop and
-        implement the solutions. These tools were instrumental in achieving the project's goals and delivering a more
-        efficient and user-friendly website for astrophysicist teachers.
-    </p>
-</article>
+    <div class="side-media side-left">
+    <img src="/static/media/astro-data-display.png" class="side-media-img" />
+
+    <div class="text">
+        <p>
+            The goal of this project was to enhance an existing academic website developed for astrophysicist
+            teachers at my university. The website consisted of two servers, with one server responsible for
+            gathering measurements from NASA and performing calculations to detect cosmic events, while the other
+            server displayed the results and facilitated data queries. <br />
+        </p>
+    </div>
 </div>
+
+<p>
+    However, there were several challenges that needed to be addressed to improve the efficiency and usability of
+    the system. <br />
+</p>
+
+<h3>The Challenges</h3>
+
+<p>
+    The existing system required manual data transfers between servers, which was time-consuming and prone to human
+    error. The user interface was outdated, making it difficult for professors to efficiently search and analyze
+    data. Additionally, there was no proper database integration for managing the calculated results.
+</p>
+
+<h3>The Solution</h3>
+
+<p>
+    <strong>Automated Data Transfer:</strong> I developed a solution that automated the data transfer process using
+    Python and FTP. This eliminated the need for manual transfers between servers, saving time and reducing the
+    risk of human error.
+</p>
+
+<div class="side-media side-right">
+    <img src="/static/media/astro-search.png" class="side-media-img" />
+
+    <div class="text">
+        <p>
+            <strong>Modern UI:</strong> I revamped the website's user interface by replacing the outdated UI with a
+            modern Material UI framework. This upgrade enhanced the overall user experience and enabled the
+            implementation of advanced search and display functionalities. <br />
+        </p>
+    </div>
+</div>
+
+<p>
+    <strong>Database Integration:</strong> To facilitate data management, I integrated a database into the website.
+    This allowed for seamless storage, retrieval, and presentation of the calculated data, improving the overall
+    efficiency and accessibility of the system.
+</p>
+
+<hr />
+
+<p>
+    Throughout the project, I utilized various technologies, including Bash, Python, SQL, and PHP, to develop and
+    implement the solutions. These tools were instrumental in achieving the project's goals and delivering a more
+    efficient and user-friendly website for astrophysicist teachers.
+</p>
+</article></div>
         </div>
 
         <!-- Image Lightbox -->
@@ -119,6 +139,8 @@
         <script>
             // Image lightbox functionality
             document.addEventListener('DOMContentLoaded', function() {
+                hljs.highlightAll();
+
                 const lightbox = document.getElementById('lightbox');
                 const lightboxImg = lightbox.querySelector('img');
                 

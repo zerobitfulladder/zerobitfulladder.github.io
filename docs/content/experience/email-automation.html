@@ -3,15 +3,27 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Tugrul's Website</title>
+        <title>Email PDF Extraction Automation — Tuğrul Ağrikli</title>
+        <meta name="description" content="Automated processing of 20,000 weekly emails with password-protected ZIP extraction." />
+        <meta name="author" content="Tuğrul Ağrikli" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Email PDF Extraction Automation — Tuğrul Ağrikli" />
+        <meta property="og:description" content="Automated processing of 20,000 weekly emails with password-protected ZIP extraction." />
+        <meta name="twitter:card" content="summary" />
+
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23191724'/><text y='23' x='6' font-family='monospace' font-size='20' fill='%23c4a7e7'>t</text></svg>"
+        />
         <link rel="stylesheet" href="/static/css/base.css" />
 
-        <!-- KaTeX for LaTeX math rendering -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" />
-        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+        <!-- KaTeX for LaTeX math rendering (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/katex/katex.min.css" />
+        <script defer src="/static/vendor/katex/katex.min.js"></script>
         <script
             defer
-            src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"
+            src="/static/vendor/katex/auto-render.min.js"
             onload="
                 renderMathInElement(document.body, {
                     delimiters: [
@@ -22,16 +34,9 @@
             "
         ></script>
 
-        <!-- Highlight.js for code syntax highlighting -->
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/rose-pine.min.css"
-        />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
-
-        <script>
-            hljs.highlightAll();
-        </script>
+        <!-- Highlight.js for code syntax highlighting (vendored) -->
+        <link rel="stylesheet" href="/static/vendor/highlight/rose-pine.min.css" />
+        <script defer src="/static/vendor/highlight/highlight.min.js"></script>
 
         <!-- Starry background effect 
         <script type="module" src="/static/js/stars.js"></script>
@@ -40,53 +45,68 @@
     <body>
         <nav class="main-nav">
             <h3><a href="/">Home</a></h3>
+            <h3><a href="/experience.html">Work</a></h3>
             <h3><a href="/thought.html">Thoughts</a></h3>
-            <h3><a href="/experience.html">Work Experience</a></h3>
+            <h3><a href="/cv.html">CV</a></h3>
             <h3><a href="/music.html">Music</a></h3>
         </nav>
         <div class="page">
             <div class="content"><article>
-    <h1>Email PDF Extraction Automation</h1>
-    <h4>09/05/2020</h4>
+    <header class="article-header">
+        <h1>Email PDF Extraction Automation</h1>
+        <p class="article-summary">Automated processing of 20,000 weekly emails with password-protected ZIP extraction.</p>
+        <div class="article-meta">
+            <span class="entry-date">09/05/2020</span>
+            <span class="entry-reading-time">(~1 min read)</span>
+            
+        </div>
+        
+        <div class="entry-tags">
+            <span class="tag">Python</span><span class="tag">Email Automation</span><span class="tag">Gmail API</span><span class="tag">Scalability</span><span class="tag">Data Processing</span>
+        </div>
+        
+    </header>
+
+    <hr />
+
     <div class="text">
-        <p>
-            A client was receiving 20,000 emails per week, each with a password-protected ZIP file containing a PDF.
-            The password for each ZIP file arrived in a separate email. They needed a robust automation solution to
-            extract all PDFs without missing any. <br />
-        </p>
-    </div>
-
-    <h3>The Challenge</h3>
-
     <p>
-        This was the first project where I needed to seriously consider data volume and scalability. Processing 20,000
-        emails weekly required careful attention to performance, error handling, and ensuring no PDFs were missed.
+        A client was receiving 20,000 emails per week, each with a password-protected ZIP file containing a PDF.
+        The password for each ZIP file arrived in a separate email. They needed a robust automation solution to
+        extract all PDFs without missing any. <br />
     </p>
-
-    <h3>Requirements</h3>
-
-    <ul>
-        <li>Process ~20,000 emails per week automatically</li>
-        <li>Match password emails with their corresponding ZIP file emails</li>
-        <li>Extract PDFs from password-protected ZIP attachments</li>
-        <li>Organize extracted files locally on a Remote Desktop</li>
-        <li>Ensure 100% extraction rate—no PDFs could be missed</li>
-    </ul>
-
-    <h3>Solution</h3>
-
-    <p>
-        I built a Python automation system that parsed Gmail content, matched password emails with their corresponding
-        ZIP files, extracted the protected attachments, and organized the data locally. The solution emphasized
-        robustness and secure automation workflows to handle the high volume reliably.
-    </p>
-
-    <p>
-        This project taught me valuable lessons about building scalable systems and the importance of comprehensive
-        error handling when dealing with large-scale data processing.
-    </p>
-</article>
 </div>
+
+<h3>The Challenge</h3>
+
+<p>
+    This was the first project where I needed to seriously consider data volume and scalability. Processing 20,000
+    emails weekly required careful attention to performance, error handling, and ensuring no PDFs were missed.
+</p>
+
+<h3>Requirements</h3>
+
+<ul>
+    <li>Process ~20,000 emails per week automatically</li>
+    <li>Match password emails with their corresponding ZIP file emails</li>
+    <li>Extract PDFs from password-protected ZIP attachments</li>
+    <li>Organize extracted files locally on a Remote Desktop</li>
+    <li>Ensure 100% extraction rate—no PDFs could be missed</li>
+</ul>
+
+<h3>Solution</h3>
+
+<p>
+    I built a Python automation system that parsed Gmail content, matched password emails with their corresponding
+    ZIP files, extracted the protected attachments, and organized the data locally. The solution emphasized
+    robustness and secure automation workflows to handle the high volume reliably.
+</p>
+
+<p>
+    This project taught me valuable lessons about building scalable systems and the importance of comprehensive
+    error handling when dealing with large-scale data processing.
+</p>
+</article></div>
         </div>
 
         <!-- Image Lightbox -->
@@ -97,6 +117,8 @@
         <script>
             // Image lightbox functionality
             document.addEventListener('DOMContentLoaded', function() {
+                hljs.highlightAll();
+
                 const lightbox = document.getElementById('lightbox');
                 const lightboxImg = lightbox.querySelector('img');
                 
