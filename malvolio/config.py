@@ -8,7 +8,7 @@ SITE_DESCRIPTION = (
     "Systems and machine learning engineer in Istanbul. "
     "Computer vision on the edge, desktop shells, LLM-driven agents."
 )
-SITE_URL = "https://tagrikli.github.io/Malvolio"
+SITE_URL = "https://zerobitfulladder.github.io"
 
 
 @dataclass
