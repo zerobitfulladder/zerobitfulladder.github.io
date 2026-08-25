@@ -1,245 +1,132 @@
-<h1>Work Experience</h1>
-<p class="ai-disclosure"><sub>Some sections were organized with the help of AI to improve clarity and structure. The experiences and facts described are entirely my own.</sub></p>
+<div class="deck-head">
+    <h1>Work</h1>
+    <p class="deck-intro">
+        Ten years of it — freelance contracts, research tooling, embedded systems, machine learning.
+        Select a system to read its dossier.
+    </p>
+</div>
 
-<div class="filter-controls">
-    <div class="filter-group">
-        <label>Sort by:</label>
-        <select id="sort-select" onchange="filterAndSort()">
-            <option value="complexity-desc">Complexity (High to Low)</option>
-            <option value="complexity-asc">Complexity (Low to High)</option>
-            <option value="date-desc">Date (Newest)</option>
-            <option value="date-asc">Date (Oldest)</option>
-            <option value="duration-desc">Duration (Long to Short)</option>
-            <option value="duration-asc">Duration (Short to Long)</option>
-        </select>
-    </div>
-    <div class="filter-group">
-        <div class="tag-filter-header collapsed" onclick="toggleTagFilters()">
-            <label>Filter by tag:</label>
-            <span class="tag-filter-toggle-icon">▼</span>
-        </div>
-        <div class="tag-filters collapsed" id="tag-filters">
-            <button class="tag-filter active" data-tag="all" onclick="setTagFilter('all')">All</button>
-            {% for tag in all_tags %}
-            <button class="tag-filter" data-tag="{{tag}}" onclick="setTagFilter('{{tag}}')">{{tag}}</button>
+<div class="deck-body">
+    <div class="deck-col">
+        <div class="col-h">Available systems <span class="col-count">{{ items|length }}</span></div>
+        <div class="hacks" id="hackList" role="listbox" tabindex="0" aria-label="Projects">
+            {% for item in items %}
+            <button
+                class="hack{% if item.status == 'private' %} locked{% endif %}{% if loop.first %} sel{% endif %}"
+                data-i="{{ loop.index0 }}"
+                data-href="{{ item.href }}"
+                role="option"
+                aria-selected="{{ 'true' if loop.first else 'false' }}"
+            >
+                <span class="hack-body">
+                    <span class="hack-main">
+                        <span class="hack-n">{{ item.heading }}</span>
+                        <span class="badges">
+                            {% if item.status %}
+                            <span class="badge {{ 'warn' if item.status == 'private' else 'ok' if item.status == 'shipped' else 'idle' }}">{{ item.status }}</span>
+                            {% endif %}
+                            {% for tag in (item.tags or [])[:2] %}<span class="badge">{{ tag }}</span>{% endfor %}
+                        </span>
+                    </span>
+                    <span class="hack-cost">
+                        {{ item.metric if item.metric else item.date[-4:] }}<i class="ram"></i>
+                        <span class="unit">{{ item.metric_unit if item.metric_unit else 'yr' }}</span>
+                    </span>
+                </span>
+                <span class="hack-chip">{{ item.chip if item.chip else '//' }}</span>
+            </button>
             {% endfor %}
         </div>
     </div>
-</div>
 
-<div id="entries-container">
-{% for item in items %}
-<div class="entry-block" data-complexity="{{item.complexity}}" data-duration="{{item.duration}}" data-tags="{{item.tags|join(',')}}" data-date="{{item.date}}">
-    <span class="entry-heading"><a href="{{item.href}}">{{item.heading}}</a></span>
-    <span class="entry-summary">{{item.summary}}</span>
-    <div class="entry-meta">
-        <span class="entry-date">{{item.date}}</span>
-        {% if item.complexity %}
-        <div class="complexity-bar" title="Complexity: {{item.complexity}}/10">
-            <div class="complexity-fill" style="width: {{item.complexity * 10}}%"></div>
+    <div class="deck-col">
+        <div class="col-h">Data</div>
+    <section class="stage framed">
+        <div class="stage-media" id="stageMedia"></div>
+        <div class="stage-cap">
+            <div>
+                <div class="stage-title" id="stageTitle">—</div>
+                <div class="stage-sub" id="stageSub">—</div>
+            </div>
+            <div class="micro">IMAGE TYPE: KERNEL, ISOLATED<br />LOAD ADDRESS: 003011444</div>
         </div>
-        {% endif %}
-        {% if item.duration %}
-        <span class="duration-badge duration-{{item.duration}}">{{item.duration}}</span>
-        {% endif %}
+    </section>
+        <div class="data framed cy">
+            <div class="data-tabs">
+                <span class="data-tab on">Data</span>
+                <span class="data-tab">Specs</span>
+            </div>
+            <div class="data-inner" id="stageData"></div>
+        </div>
     </div>
-    {% if item.tags %}
-    <div class="entry-tags">
-        {% for tag in item.tags %}
-        <span class="tag">{{tag}}</span>
-        {% endfor %}
-    </div>
-    {% endif %}
-</div>
-{% endfor %}
 </div>
 
-<script>
-let currentTagFilter = 'all';
+<footer class="deck-foot">
+    <div class="keys">
+        <span class="key"><b>↑</b><b>↓</b> Select</span>
+        <span class="key"><b>↵</b> Open dossier</span>
+    </div>
+    <div class="micro">MODEL LINE 1.2001A · COMBAT COLONIZATION DEFENCE PRECISION</div>
+</footer>
 
-function setTagFilter(tag) {
-    currentTagFilter = tag;
-    document.querySelectorAll('.tag-filter').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.tag === tag);
-    });
-    filterAndSort();
-}
-
-function getDurationValue(duration) {
-    const values = { 'short': 1, 'medium': 2, 'long': 3 };
-    return values[duration] || 0;
-}
-
-function parseDate(dateStr) {
-    const parts = dateStr.split('/');
-    return new Date(parts[2], parts[1] - 1, parts[0]);
-}
-
-function filterAndSort() {
-    const container = document.getElementById('entries-container');
-    const entries = Array.from(container.querySelectorAll('.entry-block'));
-    const sortValue = document.getElementById('sort-select').value;
-    
-    // Filter
-    entries.forEach(entry => {
-        const tags = entry.dataset.tags.split(',');
-        const visible = currentTagFilter === 'all' || tags.includes(currentTagFilter);
-        entry.style.display = visible ? '' : 'none';
-    });
-    
-    // Sort
-    const visibleEntries = entries.filter(e => e.style.display !== 'none');
-    
-    visibleEntries.sort((a, b) => {
-        switch (sortValue) {
-            case 'date-desc':
-                return parseDate(b.dataset.date) - parseDate(a.dataset.date);
-            case 'date-asc':
-                return parseDate(a.dataset.date) - parseDate(b.dataset.date);
-            case 'complexity-desc':
-                return parseInt(b.dataset.complexity) - parseInt(a.dataset.complexity);
-            case 'complexity-asc':
-                return parseInt(a.dataset.complexity) - parseInt(b.dataset.complexity);
-            case 'duration-desc':
-                return getDurationValue(b.dataset.duration) - getDurationValue(a.dataset.duration);
-            case 'duration-asc':
-                return getDurationValue(a.dataset.duration) - getDurationValue(b.dataset.duration);
-            default:
-                return 0;
-        }
-    });
-    
-    // Re-append in sorted order
-    visibleEntries.forEach(entry => container.appendChild(entry));
-}
-
-// Apply default sort on page load
-document.addEventListener('DOMContentLoaded', filterAndSort);
-
-// Tag filter collapse functionality
-function toggleTagFilters() {
-    const tagFilters = document.getElementById('tag-filters');
-    const header = document.querySelector('.tag-filter-header');
-    tagFilters.classList.toggle('collapsed');
-    header.classList.toggle('collapsed');
-}
+<script id="deckData" type="application/json">
+{{ items | tojson }}
 </script>
 
-<button class="ai-summary-toggle" onclick="toggleAISummary()">AI Summary</button>
-<button class="human-summary-toggle" onclick="toggleHumanSummary()">Human Summary</button>
-
-<div class="ai-summary" id="ai-summary">
-    <button class="ai-summary-close" onclick="toggleAISummary()">×</button>
-    <h3>AI Summary</h3>
-    <div class="ai-summary-content" id="ai-summary-content"></div>
-</div>
-
-<div class="ai-summary" id="human-summary">
-    <button class="ai-summary-close" onclick="toggleHumanSummary()">×</button>
-    <h3>Human Summary</h3>
-    <div class="ai-summary-content" id="human-summary-content"></div>
-</div>
-
 <script>
-const aiSummaryText = `<p>
-    This developer demonstrates remarkable versatility across the full spectrum of software development, from low-level systems programming with D-Bus and PulseAudio on Linux phones to high-level web and mobile applications using modern frameworks like Flutter, React, and Node.js. Their work spans diverse domains including computer vision, machine learning, automation, and cross-platform development, with notable achievements such as <strong class="highlight">ranking first in a course-wide machine learning competition</strong> and <strong class="highlight">being acknowledged in a published academic paper</strong>. Client testimonials consistently praise their problem-solving abilities, communication skills, and commitment to delivering quality work on time.
-</p>
-<p>
-    Key strengths include <strong class="highlight">rapid adaptation to new technologies</strong> (evidenced by successfully bridging unfamiliar tools like Rhino, Grasshopper, and MATLAB), <strong class="highlight">building scalable systems under real constraints</strong> (processing 20,000 emails weekly with 100% reliability), and <strong class="highlight">creating practical solutions that bridge the gap between research and production</strong>. Their progression from a high school yearbook website to sophisticated deep learning systems for industrial safety applications shows a consistent trajectory of growth, technical depth, and the ability to <strong class="highlight">deliver impactful results</strong> across both freelance and academic contexts.
-</p>`;
+(function () {
+    const PROJECTS = JSON.parse(document.getElementById('deckData').textContent);
+    const list  = document.getElementById('hackList');
+    const media = document.getElementById('stageMedia');
+    const data  = document.getElementById('stageData');
+    let sel = 0;
 
-const humanSummaryText = `<p><img src="/static/media/aintmuch.png" alt="It's not much, but it's an honest work" style="max-width: 100%; border: none;" /></p>`;
+    function render(i) {
+        sel = i;
+        const p = PROJECTS[i];
 
-let typewriterTimeout = null;
+        [...list.children].forEach((el, j) => {
+            el.classList.toggle('sel', j === i);
+            el.setAttribute('aria-selected', j === i);
+        });
 
-function typeWriter(element, html, speed = 5) {
-    // Parse HTML and extract text with tags
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = html;
-    
-    // Get all nodes (text and elements)
-    const nodes = [];
-    function extractNodes(node) {
-        if (node.nodeType === Node.TEXT_NODE) {
-            const chars = node.textContent.split('');
-            chars.forEach(char => nodes.push({ type: 'text', char }));
-        } else if (node.nodeType === Node.ELEMENT_NODE) {
-            nodes.push({ type: 'openTag', tag: node.tagName.toLowerCase(), className: node.className });
-            node.childNodes.forEach(extractNodes);
-            nodes.push({ type: 'closeTag', tag: node.tagName.toLowerCase() });
-        }
+        document.getElementById('stageTitle').textContent = p.heading;
+        document.getElementById('stageSub').textContent = p.date;
+
+        media.innerHTML =
+            (p.image
+                ? `<img src="${p.image}" alt="${p.heading}" />`
+                : `<div class="noviz">
+                       <b>No visual data</b>
+                       <span>System unphotographed — capture required</span>
+                   </div>`) +
+            '<div class="scanline"></div>';
+
+        const tags = (p.tags || []).map(t => `<span>${t}</span>`).join('');
+        data.innerHTML = `
+            ${p.metric ? `<div class="stat">
+                <div class="stat-v">${p.metric}</div>
+                <div class="stat-k">${p.metric_label || p.metric_unit || ''}</div>
+            </div>` : ''}
+            <p class="data-summary">${p.summary}</p>
+            ${tags ? `<div class="stack">${tags}</div>` : ''}
+            <a class="open" href="${p.href}">Open dossier ▸</a>`;
     }
-    tempDiv.childNodes.forEach(extractNodes);
-    
-    let i = 0;
-    let currentHtml = '';
-    let openTags = [];
-    
-    function type() {
-        if (i < nodes.length) {
-            const node = nodes[i];
-            
-            if (node.type === 'text') {
-                currentHtml += node.char;
-            } else if (node.type === 'openTag') {
-                const classAttr = node.className ? ` class="${node.className}"` : '';
-                currentHtml += `<${node.tag}${classAttr}>`;
-                openTags.push(node.tag);
-            } else if (node.type === 'closeTag') {
-                currentHtml += `</${node.tag}>`;
-                openTags.pop();
-            }
-            
-            element.innerHTML = currentHtml;
-            i++;
-            typewriterTimeout = setTimeout(type, speed);
-        }
-    }
-    
-    type();
-}
 
-function toggleAISummary() {
-    const summary = document.getElementById('ai-summary');
-    const toggle = document.querySelector('.ai-summary-toggle');
-    const content = document.getElementById('ai-summary-content');
-    
-    if (summary.classList.contains('open')) {
-        // Close
-        if (typewriterTimeout) {
-            clearTimeout(typewriterTimeout);
-            typewriterTimeout = null;
-        }
-        summary.classList.remove('open');
-        toggle.classList.remove('hidden');
-        content.innerHTML = '';
-    } else {
-        // Open
-        summary.classList.add('open');
-        toggle.classList.add('hidden');
-        typeWriter(content, aiSummaryText, 0.5);
-    }
-}
+    list.addEventListener('click', e => {
+        const b = e.target.closest('.hack');
+        if (b) render(+b.dataset.i);
+    });
+    list.addEventListener('dblclick', e => {
+        const b = e.target.closest('.hack');
+        if (b) location.href = b.dataset.href;
+    });
+    list.addEventListener('keydown', e => {
+        if (e.key === 'ArrowDown') { e.preventDefault(); render((sel + 1) % PROJECTS.length); }
+        if (e.key === 'ArrowUp')   { e.preventDefault(); render((sel - 1 + PROJECTS.length) % PROJECTS.length); }
+        if (e.key === 'Enter')     { location.href = PROJECTS[sel].href; }
+    });
 
-function toggleHumanSummary() {
-    const summary = document.getElementById('human-summary');
-    const toggle = document.querySelector('.human-summary-toggle');
-    const content = document.getElementById('human-summary-content');
-    
-    if (summary.classList.contains('open')) {
-        // Close
-        if (typewriterTimeout) {
-            clearTimeout(typewriterTimeout);
-            typewriterTimeout = null;
-        }
-        summary.classList.remove('open');
-        toggle.classList.remove('hidden');
-        content.innerHTML = '';
-    } else {
-        // Open - show image directly without typewriter
-        summary.classList.add('open');
-        toggle.classList.add('hidden');
-        content.innerHTML = humanSummaryText;
-    }
-}
+    render(0);
+})();
 </script>

@@ -73,7 +73,7 @@ class SiteBuilder:
             page: Static page configuration.
         """
         content = self.env.get_template(page.template).render()
-        rendered_html = self._wrap(content, page.title, page.description)
+        rendered_html = self._wrap(content, page.title, page.description, nav=page.name)
 
         output_file = self.config.public_dir / page.output
         self._write_output(output_file, rendered_html)
@@ -143,7 +143,7 @@ class SiteBuilder:
         page_template = self.env.get_template(page.template)
         content_html = page_template.render(items=listed, all_tags=all_tags)
 
-        rendered_html = self._wrap(content_html, page.title)
+        rendered_html = self._wrap(content_html, page.title, nav=page.name)
 
         self._write_output(page.output_file, rendered_html)
         print(f"Rendered: {page.output_file}")
@@ -160,6 +160,9 @@ class SiteBuilder:
             items: List of content items with metadata.
         """
         for key, item in zip(keys, items):
+            if item.get("draft"):
+                print(f"Draft, not published: {page.content_dir}/{key}.html")
+                continue
             source_file = page.source_dir / f"{key}.html"
             output_file = self.config.public_dir / page.content_dir / f"{key}.html"
             
@@ -176,13 +179,16 @@ class SiteBuilder:
 
             heading = item.get("heading", SITE_TITLE)
             summary = item.get("summary", SITE_DESCRIPTION)
-            rendered_html = self._wrap(article, f"{heading} — {SITE_TITLE}", summary)
+            rendered_html = self._wrap(
+                article, f"{heading} — {SITE_TITLE}", summary, nav=page.name
+            )
             
             # Write to output directory
             self._write_output(output_file, rendered_html)
             print(f"Rendered: {output_file}")
 
-    def _wrap(self, content: str, title: str, description: str = SITE_DESCRIPTION) -> str:
+    def _wrap(self, content: str, title: str, description: str = SITE_DESCRIPTION,
+              nav: str = "") -> str:
         """Wrap rendered content in the base template.
 
         Args:
@@ -191,7 +197,9 @@ class SiteBuilder:
             description: Value for the meta/OG description.
         """
         base_template = self.env.get_template("base.html")
-        return base_template.render(content=content, title=title, description=description)
+        return base_template.render(
+            content=content, title=title, description=description, nav=nav
+        )
 
     def _write_output(self, path: Path, content: str) -> None:
         """Write content to an output file.

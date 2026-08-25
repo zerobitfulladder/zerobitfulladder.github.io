@@ -4,12 +4,12 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Rhino-MATLAB Bridge — Tuğrul Ağrikli</title>
-        <meta name="description" content="Bridging Rhino with Grasshopper and MATLAB for academic research using Python." />
+        <meta name="description" content="Bridging Rhino and Grasshopper to MATLAB over a Flask transport layer for an architectural research group. Acknowledged in the resulting publication." />
         <meta name="author" content="Tuğrul Ağrikli" />
 
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Rhino-MATLAB Bridge — Tuğrul Ağrikli" />
-        <meta property="og:description" content="Bridging Rhino with Grasshopper and MATLAB for academic research using Python." />
+        <meta property="og:description" content="Bridging Rhino and Grasshopper to MATLAB over a Flask transport layer for an architectural research group. Acknowledged in the resulting publication." />
         <meta name="twitter:card" content="summary" />
 
         <link
@@ -35,7 +35,6 @@
         ></script>
 
         <!-- Highlight.js for code syntax highlighting (vendored) -->
-        <link rel="stylesheet" href="/static/vendor/highlight/rose-pine.min.css" />
         <script defer src="/static/vendor/highlight/highlight.min.js"></script>
 
         <!-- Starry background effect 
@@ -43,18 +42,42 @@
          -->
     </head>
     <body>
-        <nav class="main-nav">
-            <h3><a href="/">Home</a></h3>
-            <h3><a href="/experience.html">Work</a></h3>
-            <h3><a href="/thought.html">Thoughts</a></h3>
-            <h3><a href="/cv.html">CV</a></h3>
-            <h3><a href="/music.html">Music</a></h3>
+        
+        <nav class="hud">
+            <div class="hud-inner">
+                <div class="hud-left">
+                    <div class="hud-stat">
+                        <div class="hud-stat-top"><b id="hudAge">28</b><span>Age</span></div>
+                        <div class="hud-bar"><i style="--f:56%"></i></div>
+                    </div>
+                    <div class="hud-stat cred">
+                        <div class="hud-stat-top"><b>549</b><span>XP</span></div>
+                        <div class="hud-bar"><i style="--f:74%"></i></div>
+                    </div>
+                </div>
+
+                <div class="hud-nav">
+                    <a href="/" class=""><i class="ico"></i>Home</a>
+                    <a href="/experience.html" class="on"><i class="ico"></i>Work</a>
+                    <a href="/thought.html" class=""><i class="ico"></i>Thoughts</a>
+                    <a href="/cv.html" class=""><i class="ico"></i>CV</a>
+                    <a href="/music.html" class=""><i class="ico"></i>Music</a>
+                </div>
+
+                <div class="hud-right">
+                    <span class="hud-meta"><i class="tri"></i>Istanbul</span>
+                    <span class="hud-meta open">◆ Available</span>
+                </div>
+            </div>
+            <div class="hud-rule"></div>
+            <div class="hud-sub">15 systems on file</div>
         </nav>
+
         <div class="page">
             <div class="content"><article>
     <header class="article-header">
         <h1>Rhino-MATLAB Bridge</h1>
-        <p class="article-summary">Bridging Rhino with Grasshopper and MATLAB for academic research using Python.</p>
+        <p class="article-summary">Bridging Rhino and Grasshopper to MATLAB over a Flask transport layer for an architectural research group. Acknowledged in the resulting publication.</p>
         <div class="article-meta">
             <span class="entry-date">22/02/2022</span>
             <span class="entry-reading-time">(~1 min read)</span>
@@ -169,6 +192,18 @@
                     }
                 });
             });
+        </script>
+        <script>
+            // Pre-rendered at build time; corrected here so a stale build
+            // never shows the wrong age.
+            (function () {
+                var el = document.getElementById('hudAge');
+                if (!el) return;
+                var b = new Date(1998, 6, 1), n = new Date();
+                var a = n.getFullYear() - b.getFullYear();
+                if (n.getMonth() < 6 || (n.getMonth() === 6 && n.getDate() < 1)) a--;
+                el.textContent = a;
+            })();
         </script>
     </body>
 </html>

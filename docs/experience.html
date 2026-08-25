@@ -35,7 +35,6 @@
         ></script>
 
         <!-- Highlight.js for code syntax highlighting (vendored) -->
-        <link rel="stylesheet" href="/static/vendor/highlight/rose-pine.min.css" />
         <script defer src="/static/vendor/highlight/highlight.min.js"></script>
 
         <!-- Starry background effect 
@@ -43,834 +42,519 @@
          -->
     </head>
     <body>
-        <nav class="main-nav">
-            <h3><a href="/">Home</a></h3>
-            <h3><a href="/experience.html">Work</a></h3>
-            <h3><a href="/thought.html">Thoughts</a></h3>
-            <h3><a href="/cv.html">CV</a></h3>
-            <h3><a href="/music.html">Music</a></h3>
+        
+        <nav class="hud">
+            <div class="hud-inner">
+                <div class="hud-left">
+                    <div class="hud-stat">
+                        <div class="hud-stat-top"><b id="hudAge">28</b><span>Age</span></div>
+                        <div class="hud-bar"><i style="--f:56%"></i></div>
+                    </div>
+                    <div class="hud-stat cred">
+                        <div class="hud-stat-top"><b>549</b><span>XP</span></div>
+                        <div class="hud-bar"><i style="--f:74%"></i></div>
+                    </div>
+                </div>
+
+                <div class="hud-nav">
+                    <a href="/" class=""><i class="ico"></i>Home</a>
+                    <a href="/experience.html" class="on"><i class="ico"></i>Work</a>
+                    <a href="/thought.html" class=""><i class="ico"></i>Thoughts</a>
+                    <a href="/cv.html" class=""><i class="ico"></i>CV</a>
+                    <a href="/music.html" class=""><i class="ico"></i>Music</a>
+                </div>
+
+                <div class="hud-right">
+                    <span class="hud-meta"><i class="tri"></i>Istanbul</span>
+                    <span class="hud-meta open">◆ Available</span>
+                </div>
+            </div>
+            <div class="hud-rule"></div>
+            <div class="hud-sub">15 systems on file</div>
         </nav>
+
         <div class="page">
-            <div class="content"><h1>Work Experience</h1>
-<p class="ai-disclosure"><sub>Some sections were organized with the help of AI to improve clarity and structure. The experiences and facts described are entirely my own.</sub></p>
+            <div class="content"><div class="deck-head">
+    <h1>Work</h1>
+    <p class="deck-intro">
+        Ten years of it — freelance contracts, research tooling, embedded systems, machine learning.
+        Select a system to read its dossier.
+    </p>
+</div>
 
-<div class="filter-controls">
-    <div class="filter-group">
-        <label>Sort by:</label>
-        <select id="sort-select" onchange="filterAndSort()">
-            <option value="complexity-desc">Complexity (High to Low)</option>
-            <option value="complexity-asc">Complexity (Low to High)</option>
-            <option value="date-desc">Date (Newest)</option>
-            <option value="date-asc">Date (Oldest)</option>
-            <option value="duration-desc">Duration (Long to Short)</option>
-            <option value="duration-asc">Duration (Short to Long)</option>
-        </select>
-    </div>
-    <div class="filter-group">
-        <div class="tag-filter-header collapsed" onclick="toggleTagFilters()">
-            <label>Filter by tag:</label>
-            <span class="tag-filter-toggle-icon">▼</span>
+<div class="deck-body">
+    <div class="deck-col">
+        <div class="col-h">Available systems <span class="col-count">15</span></div>
+        <div class="hacks" id="hackList" role="listbox" tabindex="0" aria-label="Projects">
+            
+            <button
+                class="hack sel"
+                data-i="0"
+                data-href="content/experience/vision-based-edge-occupancy.html"
+                role="option"
+                aria-selected="true"
+            >
+                <span class="hack-body">
+                    <span class="hack-main">
+                        <span class="hack-n">Vision-Based Edge Occupancy Detection</span>
+                        <span class="badges">
+                            
+                            <span class="badge ok">shipped</span>
+                            
+                            <span class="badge">Computer Vision</span><span class="badge">Deep Learning</span>
+                        </span>
+                    </span>
+                    <span class="hack-cost">
+                        98.9<i class="ram"></i>
+                        <span class="unit">% acc</span>
+                    </span>
+                </span>
+                <span class="hack-chip">CV</span>
+            </button>
+            
+            <button
+                class="hack"
+                data-i="1"
+                data-href="content/experience/info-screen.html"
+                role="option"
+                aria-selected="false"
+            >
+                <span class="hack-body">
+                    <span class="hack-main">
+                        <span class="hack-n">Raspberry Pi Information Display</span>
+                        <span class="badges">
+                            
+                            <span class="badge ok">shipped</span>
+                            
+                            <span class="badge">Raspberry Pi</span><span class="badge">Python</span>
+                        </span>
+                    </span>
+                    <span class="hack-cost">
+                        2023<i class="ram"></i>
+                        <span class="unit">yr</span>
+                    </span>
+                </span>
+                <span class="hack-chip">PI</span>
+            </button>
+            
+            <button
+                class="hack"
+                data-i="2"
+                data-href="content/experience/rhino-matlab-bridge.html"
+                role="option"
+                aria-selected="false"
+            >
+                <span class="hack-body">
+                    <span class="hack-main">
+                        <span class="hack-n">Rhino-MATLAB Bridge</span>
+                        <span class="badges">
+                            
+                            <span class="badge ok">shipped</span>
+                            
+                            <span class="badge">Python</span><span class="badge">Flask</span>
+                        </span>
+                    </span>
+                    <span class="hack-cost">
+                        ACK<i class="ram"></i>
+                        <span class="unit">in paper</span>
+                    </span>
+                </span>
+                <span class="hack-chip">BR</span>
+            </button>
+            
+            <button
+                class="hack"
+                data-i="3"
+                data-href="content/experience/astrophysics-website.html"
+                role="option"
+                aria-selected="false"
+            >
+                <span class="hack-body">
+                    <span class="hack-main">
+                        <span class="hack-n">Astrophysics Data Platform</span>
+                        <span class="badges">
+                            
+                            <span class="badge ok">shipped</span>
+                            
+                            <span class="badge">Python</span><span class="badge">PHP</span>
+                        </span>
+                    </span>
+                    <span class="hack-cost">
+                        2022<i class="ram"></i>
+                        <span class="unit">yr</span>
+                    </span>
+                </span>
+                <span class="hack-chip">AS</span>
+            </button>
+            
+            <button
+                class="hack"
+                data-i="4"
+                data-href="content/experience/linux-call-recorder.html"
+                role="option"
+                aria-selected="false"
+            >
+                <span class="hack-body">
+                    <span class="hack-main">
+                        <span class="hack-n">Linux Phone Call Recorder</span>
+                        <span class="badges">
+                            
+                            <span class="badge idle">archived</span>
+                            
+                            <span class="badge">Linux</span><span class="badge">Python</span>
+                        </span>
+                    </span>
+                    <span class="hack-cost">
+                        2023<i class="ram"></i>
+                        <span class="unit">yr</span>
+                    </span>
+                </span>
+                <span class="hack-chip">DB</span>
+            </button>
+            
+            <button
+                class="hack"
+                data-i="5"
+                data-href="content/experience/cs412-project.html"
+                role="option"
+                aria-selected="false"
+            >
+                <span class="hack-body">
+                    <span class="hack-main">
+                        <span class="hack-n">Instagram Analytics with Machine Learning</span>
+                        <span class="badges">
+                            
+                            <span class="badge idle">archived</span>
+                            
+                            <span class="badge">Machine Learning</span><span class="badge">NLP</span>
+                        </span>
+                    </span>
+                    <span class="hack-cost">
+                        1st<i class="ram"></i>
+                        <span class="unit">in cohort</span>
+                    </span>
+                </span>
+                <span class="hack-chip">ML</span>
+            </button>
+            
+            <button
+                class="hack"
+                data-i="6"
+                data-href="content/experience/email-automation.html"
+                role="option"
+                aria-selected="false"
+            >
+                <span class="hack-body">
+                    <span class="hack-main">
+                        <span class="hack-n">Email PDF Extraction Automation</span>
+                        <span class="badges">
+                            
+                            <span class="badge ok">shipped</span>
+                            
+                            <span class="badge">Python</span><span class="badge">Email Automation</span>
+                        </span>
+                    </span>
+                    <span class="hack-cost">
+                        20k<i class="ram"></i>
+                        <span class="unit">mail/wk</span>
+                    </span>
+                </span>
+                <span class="hack-chip">MX</span>
+            </button>
+            
+            <button
+                class="hack"
+                data-i="7"
+                data-href="content/experience/kimiko.html"
+                role="option"
+                aria-selected="false"
+            >
+                <span class="hack-body">
+                    <span class="hack-main">
+                        <span class="hack-n">Kimiko – Browser Extension Chat Platform</span>
+                        <span class="badges">
+                            
+                            <span class="badge idle">archived</span>
+                            
+                            <span class="badge">Chrome Extension</span><span class="badge">React</span>
+                        </span>
+                    </span>
+                    <span class="hack-cost">
+                        2021<i class="ram"></i>
+                        <span class="unit">yr</span>
+                    </span>
+                </span>
+                <span class="hack-chip">WS</span>
+            </button>
+            
+            <button
+                class="hack"
+                data-i="8"
+                data-href="content/experience/commitly.html"
+                role="option"
+                aria-selected="false"
+            >
+                <span class="hack-body">
+                    <span class="hack-main">
+                        <span class="hack-n">Commitly – Gamified Habit Tracker</span>
+                        <span class="badges">
+                            
+                            <span class="badge idle">archived</span>
+                            
+                            <span class="badge">Flutter</span><span class="badge">Dart</span>
+                        </span>
+                    </span>
+                    <span class="hack-cost">
+                        2026<i class="ram"></i>
+                        <span class="unit">yr</span>
+                    </span>
+                </span>
+                <span class="hack-chip">MB</span>
+            </button>
+            
+            <button
+                class="hack"
+                data-i="9"
+                data-href="content/experience/color-recommendation-app.html"
+                role="option"
+                aria-selected="false"
+            >
+                <span class="hack-body">
+                    <span class="hack-main">
+                        <span class="hack-n">Color-Based Product Recommendation App</span>
+                        <span class="badges">
+                            
+                            <span class="badge idle">archived</span>
+                            
+                            <span class="badge">Android</span><span class="badge">Java</span>
+                        </span>
+                    </span>
+                    <span class="hack-cost">
+                        2018<i class="ram"></i>
+                        <span class="unit">yr</span>
+                    </span>
+                </span>
+                <span class="hack-chip">CL</span>
+            </button>
+            
+            <button
+                class="hack"
+                data-i="10"
+                data-href="content/experience/anydictate.html"
+                role="option"
+                aria-selected="false"
+            >
+                <span class="hack-body">
+                    <span class="hack-main">
+                        <span class="hack-n">AnyDictate</span>
+                        <span class="badges">
+                            
+                            <span class="badge idle">archived</span>
+                            
+                            <span class="badge">Python</span><span class="badge">Web Speech API</span>
+                        </span>
+                    </span>
+                    <span class="hack-cost">
+                        2022<i class="ram"></i>
+                        <span class="unit">yr</span>
+                    </span>
+                </span>
+                <span class="hack-chip">ST</span>
+            </button>
+            
+            <button
+                class="hack"
+                data-i="11"
+                data-href="content/experience/mtg-arena-monitor.html"
+                role="option"
+                aria-selected="false"
+            >
+                <span class="hack-body">
+                    <span class="hack-main">
+                        <span class="hack-n">MTG Arena Log Monitor</span>
+                        <span class="badges">
+                            
+                            <span class="badge idle">archived</span>
+                            
+                            <span class="badge">Python</span><span class="badge">Tkinter</span>
+                        </span>
+                    </span>
+                    <span class="hack-cost">
+                        2021<i class="ram"></i>
+                        <span class="unit">yr</span>
+                    </span>
+                </span>
+                <span class="hack-chip">LG</span>
+            </button>
+            
+            <button
+                class="hack"
+                data-i="12"
+                data-href="content/experience/image-metadata-translator.html"
+                role="option"
+                aria-selected="false"
+            >
+                <span class="hack-body">
+                    <span class="hack-main">
+                        <span class="hack-n">Image Metadata Translator</span>
+                        <span class="badges">
+                            
+                            <span class="badge idle">archived</span>
+                            
+                            <span class="badge">Python</span><span class="badge">DeepL API</span>
+                        </span>
+                    </span>
+                    <span class="hack-cost">
+                        2021<i class="ram"></i>
+                        <span class="unit">yr</span>
+                    </span>
+                </span>
+                <span class="hack-chip">EX</span>
+            </button>
+            
+            <button
+                class="hack"
+                data-i="13"
+                data-href="content/experience/premiere-csv-markers.html"
+                role="option"
+                aria-selected="false"
+            >
+                <span class="hack-body">
+                    <span class="hack-main">
+                        <span class="hack-n">Premiere CSV Marker Importer</span>
+                        <span class="badges">
+                            
+                            <span class="badge idle">archived</span>
+                            
+                            <span class="badge">Adobe Premiere Pro</span><span class="badge">ExtendScript</span>
+                        </span>
+                    </span>
+                    <span class="hack-cost">
+                        2021<i class="ram"></i>
+                        <span class="unit">yr</span>
+                    </span>
+                </span>
+                <span class="hack-chip">PP</span>
+            </button>
+            
+            <button
+                class="hack"
+                data-i="14"
+                data-href="content/experience/yearbook-website.html"
+                role="option"
+                aria-selected="false"
+            >
+                <span class="hack-body">
+                    <span class="hack-main">
+                        <span class="hack-n">Yearbook Website</span>
+                        <span class="badges">
+                            
+                            <span class="badge idle">archived</span>
+                            
+                            <span class="badge">PHP</span><span class="badge">Apache</span>
+                        </span>
+                    </span>
+                    <span class="hack-cost">
+                        2015<i class="ram"></i>
+                        <span class="unit">origin</span>
+                    </span>
+                </span>
+                <span class="hack-chip">01</span>
+            </button>
+            
         </div>
-        <div class="tag-filters collapsed" id="tag-filters">
-            <button class="tag-filter active" data-tag="all" onclick="setTagFilter('all')">All</button>
-            
-            <button class="tag-filter" data-tag="Accessibility" onclick="setTagFilter('Accessibility')">Accessibility</button>
-            
-            <button class="tag-filter" data-tag="Adobe Premiere Pro" onclick="setTagFilter('Adobe Premiere Pro')">Adobe Premiere Pro</button>
-            
-            <button class="tag-filter" data-tag="Android" onclick="setTagFilter('Android')">Android</button>
-            
-            <button class="tag-filter" data-tag="Apache" onclick="setTagFilter('Apache')">Apache</button>
-            
-            <button class="tag-filter" data-tag="Automation" onclick="setTagFilter('Automation')">Automation</button>
-            
-            <button class="tag-filter" data-tag="Bash" onclick="setTagFilter('Bash')">Bash</button>
-            
-            <button class="tag-filter" data-tag="Blender" onclick="setTagFilter('Blender')">Blender</button>
-            
-            <button class="tag-filter" data-tag="CSV" onclick="setTagFilter('CSV')">CSV</button>
-            
-            <button class="tag-filter" data-tag="Chrome Extension" onclick="setTagFilter('Chrome Extension')">Chrome Extension</button>
-            
-            <button class="tag-filter" data-tag="Classification" onclick="setTagFilter('Classification')">Classification</button>
-            
-            <button class="tag-filter" data-tag="Color Theory" onclick="setTagFilter('Color Theory')">Color Theory</button>
-            
-            <button class="tag-filter" data-tag="Computer Vision" onclick="setTagFilter('Computer Vision')">Computer Vision</button>
-            
-            <button class="tag-filter" data-tag="D-Bus" onclick="setTagFilter('D-Bus')">D-Bus</button>
-            
-            <button class="tag-filter" data-tag="Dart" onclick="setTagFilter('Dart')">Dart</button>
-            
-            <button class="tag-filter" data-tag="Data Processing" onclick="setTagFilter('Data Processing')">Data Processing</button>
-            
-            <button class="tag-filter" data-tag="Data Science" onclick="setTagFilter('Data Science')">Data Science</button>
-            
-            <button class="tag-filter" data-tag="Deep Learning" onclick="setTagFilter('Deep Learning')">Deep Learning</button>
-            
-            <button class="tag-filter" data-tag="DeepL API" onclick="setTagFilter('DeepL API')">DeepL API</button>
-            
-            <button class="tag-filter" data-tag="Desktop App" onclick="setTagFilter('Desktop App')">Desktop App</button>
-            
-            <button class="tag-filter" data-tag="EXIF" onclick="setTagFilter('EXIF')">EXIF</button>
-            
-            <button class="tag-filter" data-tag="Edge AI" onclick="setTagFilter('Edge AI')">Edge AI</button>
-            
-            <button class="tag-filter" data-tag="Email Automation" onclick="setTagFilter('Email Automation')">Email Automation</button>
-            
-            <button class="tag-filter" data-tag="ExtendScript" onclick="setTagFilter('ExtendScript')">ExtendScript</button>
-            
-            <button class="tag-filter" data-tag="Firebase" onclick="setTagFilter('Firebase')">Firebase</button>
-            
-            <button class="tag-filter" data-tag="Flask" onclick="setTagFilter('Flask')">Flask</button>
-            
-            <button class="tag-filter" data-tag="Flutter" onclick="setTagFilter('Flutter')">Flutter</button>
-            
-            <button class="tag-filter" data-tag="GStreamer" onclick="setTagFilter('GStreamer')">GStreamer</button>
-            
-            <button class="tag-filter" data-tag="Gaming" onclick="setTagFilter('Gaming')">Gaming</button>
-            
-            <button class="tag-filter" data-tag="Gmail API" onclick="setTagFilter('Gmail API')">Gmail API</button>
-            
-            <button class="tag-filter" data-tag="Grasshopper" onclick="setTagFilter('Grasshopper')">Grasshopper</button>
-            
-            <button class="tag-filter" data-tag="IPTC" onclick="setTagFilter('IPTC')">IPTC</button>
-            
-            <button class="tag-filter" data-tag="Java" onclick="setTagFilter('Java')">Java</button>
-            
-            <button class="tag-filter" data-tag="JavaScript" onclick="setTagFilter('JavaScript')">JavaScript</button>
-            
-            <button class="tag-filter" data-tag="Linux" onclick="setTagFilter('Linux')">Linux</button>
-            
-            <button class="tag-filter" data-tag="Log Parsing" onclick="setTagFilter('Log Parsing')">Log Parsing</button>
-            
-            <button class="tag-filter" data-tag="MATLAB" onclick="setTagFilter('MATLAB')">MATLAB</button>
-            
-            <button class="tag-filter" data-tag="Machine Learning" onclick="setTagFilter('Machine Learning')">Machine Learning</button>
-            
-            <button class="tag-filter" data-tag="Material UI" onclick="setTagFilter('Material UI')">Material UI</button>
-            
-            <button class="tag-filter" data-tag="Mobile Development" onclick="setTagFilter('Mobile Development')">Mobile Development</button>
-            
-            <button class="tag-filter" data-tag="MobileNetV3" onclick="setTagFilter('MobileNetV3')">MobileNetV3</button>
-            
-            <button class="tag-filter" data-tag="ModemManager" onclick="setTagFilter('ModemManager')">ModemManager</button>
-            
-            <button class="tag-filter" data-tag="MongoDB" onclick="setTagFilter('MongoDB')">MongoDB</button>
-            
-            <button class="tag-filter" data-tag="NASA" onclick="setTagFilter('NASA')">NASA</button>
-            
-            <button class="tag-filter" data-tag="NLP" onclick="setTagFilter('NLP')">NLP</button>
-            
-            <button class="tag-filter" data-tag="Networking" onclick="setTagFilter('Networking')">Networking</button>
-            
-            <button class="tag-filter" data-tag="Node.js" onclick="setTagFilter('Node.js')">Node.js</button>
-            
-            <button class="tag-filter" data-tag="PHP" onclick="setTagFilter('PHP')">PHP</button>
-            
-            <button class="tag-filter" data-tag="PulseAudio" onclick="setTagFilter('PulseAudio')">PulseAudio</button>
-            
-            <button class="tag-filter" data-tag="Python" onclick="setTagFilter('Python')">Python</button>
-            
-            <button class="tag-filter" data-tag="RTSP" onclick="setTagFilter('RTSP')">RTSP</button>
-            
-            <button class="tag-filter" data-tag="Raspberry Pi" onclick="setTagFilter('Raspberry Pi')">Raspberry Pi</button>
-            
-            <button class="tag-filter" data-tag="React" onclick="setTagFilter('React')">React</button>
-            
-            <button class="tag-filter" data-tag="Rhino" onclick="setTagFilter('Rhino')">Rhino</button>
-            
-            <button class="tag-filter" data-tag="SQL" onclick="setTagFilter('SQL')">SQL</button>
-            
-            <button class="tag-filter" data-tag="Scalability" onclick="setTagFilter('Scalability')">Scalability</button>
-            
-            <button class="tag-filter" data-tag="Testing" onclick="setTagFilter('Testing')">Testing</button>
-            
-            <button class="tag-filter" data-tag="Tkinter" onclick="setTagFilter('Tkinter')">Tkinter</button>
-            
-            <button class="tag-filter" data-tag="TypeScript" onclick="setTagFilter('TypeScript')">TypeScript</button>
-            
-            <button class="tag-filter" data-tag="Video Editing" onclick="setTagFilter('Video Editing')">Video Editing</button>
-            
-            <button class="tag-filter" data-tag="Web Development" onclick="setTagFilter('Web Development')">Web Development</button>
-            
-            <button class="tag-filter" data-tag="Web Speech API" onclick="setTagFilter('Web Speech API')">Web Speech API</button>
-            
-            <button class="tag-filter" data-tag="WebSocket" onclick="setTagFilter('WebSocket')">WebSocket</button>
-            
-            <button class="tag-filter" data-tag="ffmpeg" onclick="setTagFilter('ffmpeg')">ffmpeg</button>
-            
-            <button class="tag-filter" data-tag="jQuery" onclick="setTagFilter('jQuery')">jQuery</button>
-            
+    </div>
+
+    <div class="deck-col">
+        <div class="col-h">Data</div>
+    <section class="stage framed">
+        <div class="stage-media" id="stageMedia"></div>
+        <div class="stage-cap">
+            <div>
+                <div class="stage-title" id="stageTitle">—</div>
+                <div class="stage-sub" id="stageSub">—</div>
+            </div>
+            <div class="micro">IMAGE TYPE: KERNEL, ISOLATED<br />LOAD ADDRESS: 003011444</div>
+        </div>
+    </section>
+        <div class="data framed cy">
+            <div class="data-tabs">
+                <span class="data-tab on">Data</span>
+                <span class="data-tab">Specs</span>
+            </div>
+            <div class="data-inner" id="stageData"></div>
         </div>
     </div>
 </div>
 
-<div id="entries-container">
+<footer class="deck-foot">
+    <div class="keys">
+        <span class="key"><b>↑</b><b>↓</b> Select</span>
+        <span class="key"><b>↵</b> Open dossier</span>
+    </div>
+    <div class="micro">MODEL LINE 1.2001A · COMBAT COLONIZATION DEFENCE PRECISION</div>
+</footer>
 
-<div class="entry-block" data-complexity="9" data-duration="long" data-tags="Computer Vision,Deep Learning,MobileNetV3,Edge AI,Blender,Raspberry Pi" data-date="04/01/2026">
-    <span class="entry-heading"><a href="content/experience/vision-based-edge-occupancy.html">Vision-Based Edge Occupancy Detection</a></span>
-    <span class="entry-summary">A graduation project replacing laser scanners with computer vision for parking system safety.</span>
-    <div class="entry-meta">
-        <span class="entry-date">04/01/2026</span>
-        
-        <div class="complexity-bar" title="Complexity: 9/10">
-            <div class="complexity-fill" style="width: 90%"></div>
-        </div>
-        
-        
-        <span class="duration-badge duration-long">long</span>
-        
-    </div>
-    
-    <div class="entry-tags">
-        
-        <span class="tag">Computer Vision</span>
-        
-        <span class="tag">Deep Learning</span>
-        
-        <span class="tag">MobileNetV3</span>
-        
-        <span class="tag">Edge AI</span>
-        
-        <span class="tag">Blender</span>
-        
-        <span class="tag">Raspberry Pi</span>
-        
-    </div>
-    
-</div>
-
-<div class="entry-block" data-complexity="6" data-duration="medium" data-tags="Flutter,Dart,Firebase,Mobile Development,Testing" data-date="05/01/2026">
-    <span class="entry-heading"><a href="content/experience/commitly.html">Commitly – Gamified Habit Tracker</a></span>
-    <span class="entry-summary">A cross-platform mobile app combining gamification and social accountability for habit building.</span>
-    <div class="entry-meta">
-        <span class="entry-date">05/01/2026</span>
-        
-        <div class="complexity-bar" title="Complexity: 6/10">
-            <div class="complexity-fill" style="width: 60%"></div>
-        </div>
-        
-        
-        <span class="duration-badge duration-medium">medium</span>
-        
-    </div>
-    
-    <div class="entry-tags">
-        
-        <span class="tag">Flutter</span>
-        
-        <span class="tag">Dart</span>
-        
-        <span class="tag">Firebase</span>
-        
-        <span class="tag">Mobile Development</span>
-        
-        <span class="tag">Testing</span>
-        
-    </div>
-    
-</div>
-
-<div class="entry-block" data-complexity="7" data-duration="medium" data-tags="Machine Learning,NLP,Classification,Python,Data Science" data-date="14/01/2025">
-    <span class="entry-heading"><a href="content/experience/cs412-project.html">Instagram Analytics with Machine Learning</a></span>
-    <span class="entry-summary">A machine learning project for Instagram account classification and engagement prediction.</span>
-    <div class="entry-meta">
-        <span class="entry-date">14/01/2025</span>
-        
-        <div class="complexity-bar" title="Complexity: 7/10">
-            <div class="complexity-fill" style="width: 70%"></div>
-        </div>
-        
-        
-        <span class="duration-badge duration-medium">medium</span>
-        
-    </div>
-    
-    <div class="entry-tags">
-        
-        <span class="tag">Machine Learning</span>
-        
-        <span class="tag">NLP</span>
-        
-        <span class="tag">Classification</span>
-        
-        <span class="tag">Python</span>
-        
-        <span class="tag">Data Science</span>
-        
-    </div>
-    
-</div>
-
-<div class="entry-block" data-complexity="7" data-duration="long" data-tags="Chrome Extension,React,TypeScript,Node.js,WebSocket,MongoDB" data-date="15/12/2021">
-    <span class="entry-heading"><a href="content/experience/kimiko.html">Kimiko – Browser Extension Chat Platform</a></span>
-    <span class="entry-summary">A Chrome extension enabling real-time chat on any website through URL-based chat rooms.</span>
-    <div class="entry-meta">
-        <span class="entry-date">15/12/2021</span>
-        
-        <div class="complexity-bar" title="Complexity: 7/10">
-            <div class="complexity-fill" style="width: 70%"></div>
-        </div>
-        
-        
-        <span class="duration-badge duration-long">long</span>
-        
-    </div>
-    
-    <div class="entry-tags">
-        
-        <span class="tag">Chrome Extension</span>
-        
-        <span class="tag">React</span>
-        
-        <span class="tag">TypeScript</span>
-        
-        <span class="tag">Node.js</span>
-        
-        <span class="tag">WebSocket</span>
-        
-        <span class="tag">MongoDB</span>
-        
-    </div>
-    
-</div>
-
-<div class="entry-block" data-complexity="7" data-duration="medium" data-tags="Python,Email Automation,Gmail API,Scalability,Data Processing" data-date="09/05/2020">
-    <span class="entry-heading"><a href="content/experience/email-automation.html">Email PDF Extraction Automation</a></span>
-    <span class="entry-summary">Automated processing of 20,000 weekly emails with password-protected ZIP extraction.</span>
-    <div class="entry-meta">
-        <span class="entry-date">09/05/2020</span>
-        
-        <div class="complexity-bar" title="Complexity: 7/10">
-            <div class="complexity-fill" style="width: 70%"></div>
-        </div>
-        
-        
-        <span class="duration-badge duration-medium">medium</span>
-        
-    </div>
-    
-    <div class="entry-tags">
-        
-        <span class="tag">Python</span>
-        
-        <span class="tag">Email Automation</span>
-        
-        <span class="tag">Gmail API</span>
-        
-        <span class="tag">Scalability</span>
-        
-        <span class="tag">Data Processing</span>
-        
-    </div>
-    
-</div>
-
-<div class="entry-block" data-complexity="6" data-duration="medium" data-tags="Android,Java,Computer Vision,Color Theory,Mobile Development" data-date="13/09/2018">
-    <span class="entry-heading"><a href="content/experience/color-recommendation-app.html">Color-Based Product Recommendation App</a></span>
-    <span class="entry-summary">An Android app that extracts colors from images and recommends matching nail products.</span>
-    <div class="entry-meta">
-        <span class="entry-date">13/09/2018</span>
-        
-        <div class="complexity-bar" title="Complexity: 6/10">
-            <div class="complexity-fill" style="width: 60%"></div>
-        </div>
-        
-        
-        <span class="duration-badge duration-medium">medium</span>
-        
-    </div>
-    
-    <div class="entry-tags">
-        
-        <span class="tag">Android</span>
-        
-        <span class="tag">Java</span>
-        
-        <span class="tag">Computer Vision</span>
-        
-        <span class="tag">Color Theory</span>
-        
-        <span class="tag">Mobile Development</span>
-        
-    </div>
-    
-</div>
-
-<div class="entry-block" data-complexity="5" data-duration="short" data-tags="Python,Tkinter,Log Parsing,Desktop App,Gaming" data-date="01/03/2021">
-    <span class="entry-heading"><a href="content/experience/mtg-arena-monitor.html">MTG Arena Log Monitor</a></span>
-    <span class="entry-summary">A desktop app to monitor and parse Magic: The Gathering Arena log files in real time.</span>
-    <div class="entry-meta">
-        <span class="entry-date">01/03/2021</span>
-        
-        <div class="complexity-bar" title="Complexity: 5/10">
-            <div class="complexity-fill" style="width: 50%"></div>
-        </div>
-        
-        
-        <span class="duration-badge duration-short">short</span>
-        
-    </div>
-    
-    <div class="entry-tags">
-        
-        <span class="tag">Python</span>
-        
-        <span class="tag">Tkinter</span>
-        
-        <span class="tag">Log Parsing</span>
-        
-        <span class="tag">Desktop App</span>
-        
-        <span class="tag">Gaming</span>
-        
-    </div>
-    
-</div>
-
-<div class="entry-block" data-complexity="4" data-duration="short" data-tags="Adobe Premiere Pro,ExtendScript,CSV,Video Editing,Automation" data-date="10/05/2021">
-    <span class="entry-heading"><a href="content/experience/premiere-csv-markers.html">Premiere CSV Marker Importer</a></span>
-    <span class="entry-summary">A tool to import CSV files as markers into Adobe Premiere Pro with customizable colors.</span>
-    <div class="entry-meta">
-        <span class="entry-date">10/05/2021</span>
-        
-        <div class="complexity-bar" title="Complexity: 4/10">
-            <div class="complexity-fill" style="width: 40%"></div>
-        </div>
-        
-        
-        <span class="duration-badge duration-short">short</span>
-        
-    </div>
-    
-    <div class="entry-tags">
-        
-        <span class="tag">Adobe Premiere Pro</span>
-        
-        <span class="tag">ExtendScript</span>
-        
-        <span class="tag">CSV</span>
-        
-        <span class="tag">Video Editing</span>
-        
-        <span class="tag">Automation</span>
-        
-    </div>
-    
-</div>
-
-<div class="entry-block" data-complexity="4" data-duration="short" data-tags="Python,DeepL API,EXIF,IPTC,Automation" data-date="05/05/2021">
-    <span class="entry-heading"><a href="content/experience/image-metadata-translator.html">Image Metadata Translator</a></span>
-    <span class="entry-summary">A Python script to translate image EXIF/IPTC metadata using DeepL API.</span>
-    <div class="entry-meta">
-        <span class="entry-date">05/05/2021</span>
-        
-        <div class="complexity-bar" title="Complexity: 4/10">
-            <div class="complexity-fill" style="width: 40%"></div>
-        </div>
-        
-        
-        <span class="duration-badge duration-short">short</span>
-        
-    </div>
-    
-    <div class="entry-tags">
-        
-        <span class="tag">Python</span>
-        
-        <span class="tag">DeepL API</span>
-        
-        <span class="tag">EXIF</span>
-        
-        <span class="tag">IPTC</span>
-        
-        <span class="tag">Automation</span>
-        
-    </div>
-    
-</div>
-
-<div class="entry-block" data-complexity="5" data-duration="short" data-tags="Python,Web Speech API,JavaScript,Accessibility,Automation" data-date="11/11/2022">
-    <span class="entry-heading"><a href="content/experience/anydictate.html">AnyDictate</a></span>
-    <span class="entry-summary">A real-time speech-to-text web application using Web Speech API and Python.</span>
-    <div class="entry-meta">
-        <span class="entry-date">11/11/2022</span>
-        
-        <div class="complexity-bar" title="Complexity: 5/10">
-            <div class="complexity-fill" style="width: 50%"></div>
-        </div>
-        
-        
-        <span class="duration-badge duration-short">short</span>
-        
-    </div>
-    
-    <div class="entry-tags">
-        
-        <span class="tag">Python</span>
-        
-        <span class="tag">Web Speech API</span>
-        
-        <span class="tag">JavaScript</span>
-        
-        <span class="tag">Accessibility</span>
-        
-        <span class="tag">Automation</span>
-        
-    </div>
-    
-</div>
-
-<div class="entry-block" data-complexity="6" data-duration="long" data-tags="Python,PHP,SQL,Bash,Material UI,NASA" data-date="07/10/2022">
-    <span class="entry-heading"><a href="content/experience/astrophysics-website.html">Astrophysics Data Platform</a></span>
-    <span class="entry-summary">Enhanced an academic website for astrophysicists with automated data transfer and modern UI.</span>
-    <div class="entry-meta">
-        <span class="entry-date">07/10/2022</span>
-        
-        <div class="complexity-bar" title="Complexity: 6/10">
-            <div class="complexity-fill" style="width: 60%"></div>
-        </div>
-        
-        
-        <span class="duration-badge duration-long">long</span>
-        
-    </div>
-    
-    <div class="entry-tags">
-        
-        <span class="tag">Python</span>
-        
-        <span class="tag">PHP</span>
-        
-        <span class="tag">SQL</span>
-        
-        <span class="tag">Bash</span>
-        
-        <span class="tag">Material UI</span>
-        
-        <span class="tag">NASA</span>
-        
-    </div>
-    
-</div>
-
-<div class="entry-block" data-complexity="8" data-duration="long" data-tags="Python,Flask,MATLAB,Rhino,Grasshopper,Networking" data-date="22/02/2022">
-    <span class="entry-heading"><a href="content/experience/rhino-matlab-bridge.html">Rhino-MATLAB Bridge</a></span>
-    <span class="entry-summary">Bridging Rhino with Grasshopper and MATLAB for academic research using Python.</span>
-    <div class="entry-meta">
-        <span class="entry-date">22/02/2022</span>
-        
-        <div class="complexity-bar" title="Complexity: 8/10">
-            <div class="complexity-fill" style="width: 80%"></div>
-        </div>
-        
-        
-        <span class="duration-badge duration-long">long</span>
-        
-    </div>
-    
-    <div class="entry-tags">
-        
-        <span class="tag">Python</span>
-        
-        <span class="tag">Flask</span>
-        
-        <span class="tag">MATLAB</span>
-        
-        <span class="tag">Rhino</span>
-        
-        <span class="tag">Grasshopper</span>
-        
-        <span class="tag">Networking</span>
-        
-    </div>
-    
-</div>
-
-<div class="entry-block" data-complexity="7" data-duration="long" data-tags="Raspberry Pi,Python,Flask,jQuery,RTSP,ffmpeg" data-date="05/09/2023">
-    <span class="entry-heading"><a href="content/experience/info-screen.html">Raspberry Pi Information Display</a></span>
-    <span class="entry-summary">A responsive information display system with RTSP streaming and multi-source data integration.</span>
-    <div class="entry-meta">
-        <span class="entry-date">05/09/2023</span>
-        
-        <div class="complexity-bar" title="Complexity: 7/10">
-            <div class="complexity-fill" style="width: 70%"></div>
-        </div>
-        
-        
-        <span class="duration-badge duration-long">long</span>
-        
-    </div>
-    
-    <div class="entry-tags">
-        
-        <span class="tag">Raspberry Pi</span>
-        
-        <span class="tag">Python</span>
-        
-        <span class="tag">Flask</span>
-        
-        <span class="tag">jQuery</span>
-        
-        <span class="tag">RTSP</span>
-        
-        <span class="tag">ffmpeg</span>
-        
-    </div>
-    
-</div>
-
-<div class="entry-block" data-complexity="6" data-duration="medium" data-tags="Linux,Python,D-Bus,PulseAudio,GStreamer,ModemManager" data-date="06/10/2023">
-    <span class="entry-heading"><a href="content/experience/linux-call-recorder.html">Linux Phone Call Recorder</a></span>
-    <span class="entry-summary">An automatic call recording daemon for Linux phones using ModemManager and PulseAudio.</span>
-    <div class="entry-meta">
-        <span class="entry-date">06/10/2023</span>
-        
-        <div class="complexity-bar" title="Complexity: 6/10">
-            <div class="complexity-fill" style="width: 60%"></div>
-        </div>
-        
-        
-        <span class="duration-badge duration-medium">medium</span>
-        
-    </div>
-    
-    <div class="entry-tags">
-        
-        <span class="tag">Linux</span>
-        
-        <span class="tag">Python</span>
-        
-        <span class="tag">D-Bus</span>
-        
-        <span class="tag">PulseAudio</span>
-        
-        <span class="tag">GStreamer</span>
-        
-        <span class="tag">ModemManager</span>
-        
-    </div>
-    
-</div>
-
-<div class="entry-block" data-complexity="3" data-duration="medium" data-tags="PHP,Apache,Web Development" data-date="01/12/2015">
-    <span class="entry-heading"><a href="content/experience/yearbook-website.html">Yearbook Website</a></span>
-    <span class="entry-summary">My first ever fully function website that had a real world impact.</span>
-    <div class="entry-meta">
-        <span class="entry-date">01/12/2015</span>
-        
-        <div class="complexity-bar" title="Complexity: 3/10">
-            <div class="complexity-fill" style="width: 30%"></div>
-        </div>
-        
-        
-        <span class="duration-badge duration-medium">medium</span>
-        
-    </div>
-    
-    <div class="entry-tags">
-        
-        <span class="tag">PHP</span>
-        
-        <span class="tag">Apache</span>
-        
-        <span class="tag">Web Development</span>
-        
-    </div>
-    
-</div>
-
-</div>
-
-<script>
-let currentTagFilter = 'all';
-
-function setTagFilter(tag) {
-    currentTagFilter = tag;
-    document.querySelectorAll('.tag-filter').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.tag === tag);
-    });
-    filterAndSort();
-}
-
-function getDurationValue(duration) {
-    const values = { 'short': 1, 'medium': 2, 'long': 3 };
-    return values[duration] || 0;
-}
-
-function parseDate(dateStr) {
-    const parts = dateStr.split('/');
-    return new Date(parts[2], parts[1] - 1, parts[0]);
-}
-
-function filterAndSort() {
-    const container = document.getElementById('entries-container');
-    const entries = Array.from(container.querySelectorAll('.entry-block'));
-    const sortValue = document.getElementById('sort-select').value;
-    
-    // Filter
-    entries.forEach(entry => {
-        const tags = entry.dataset.tags.split(',');
-        const visible = currentTagFilter === 'all' || tags.includes(currentTagFilter);
-        entry.style.display = visible ? '' : 'none';
-    });
-    
-    // Sort
-    const visibleEntries = entries.filter(e => e.style.display !== 'none');
-    
-    visibleEntries.sort((a, b) => {
-        switch (sortValue) {
-            case 'date-desc':
-                return parseDate(b.dataset.date) - parseDate(a.dataset.date);
-            case 'date-asc':
-                return parseDate(a.dataset.date) - parseDate(b.dataset.date);
-            case 'complexity-desc':
-                return parseInt(b.dataset.complexity) - parseInt(a.dataset.complexity);
-            case 'complexity-asc':
-                return parseInt(a.dataset.complexity) - parseInt(b.dataset.complexity);
-            case 'duration-desc':
-                return getDurationValue(b.dataset.duration) - getDurationValue(a.dataset.duration);
-            case 'duration-asc':
-                return getDurationValue(a.dataset.duration) - getDurationValue(b.dataset.duration);
-            default:
-                return 0;
-        }
-    });
-    
-    // Re-append in sorted order
-    visibleEntries.forEach(entry => container.appendChild(entry));
-}
-
-// Apply default sort on page load
-document.addEventListener('DOMContentLoaded', filterAndSort);
-
-// Tag filter collapse functionality
-function toggleTagFilters() {
-    const tagFilters = document.getElementById('tag-filters');
-    const header = document.querySelector('.tag-filter-header');
-    tagFilters.classList.toggle('collapsed');
-    header.classList.toggle('collapsed');
-}
+<script id="deckData" type="application/json">
+[{"chip": "CV", "date": "04/01/2026", "duration": "long", "heading": "Vision-Based Edge Occupancy Detection", "href": "content/experience/vision-based-edge-occupancy.html", "image": "/static/media/edge-occ-full.png", "metric": "98.9", "metric_label": "Validation accuracy, live facility", "metric_unit": "% acc", "reading_time": 2, "status": "shipped", "summary": "Replacing multi-thousand-euro laser scanners in an automated parking system with a MobileNetV3 classifier on Raspberry Pi and Jetson. Blender synthetic-data pipeline and a labelling tool that cut annotation from ~200 hours to ~2.", "tags": ["Computer Vision", "Deep Learning", "MobileNetV3", "Edge AI", "Blender", "Raspberry Pi"]}, {"chip": "PI", "date": "05/09/2023", "duration": "long", "heading": "Raspberry Pi Information Display", "href": "content/experience/info-screen.html", "image": "/static/media/info-screen-dark.png", "reading_time": 3, "status": "shipped", "summary": "A responsive information display system with RTSP streaming and multi-source data integration, running unattended on embedded hardware.", "tags": ["Raspberry Pi", "Python", "Flask", "jQuery", "RTSP", "ffmpeg"]}, {"chip": "BR", "date": "22/02/2022", "duration": "long", "heading": "Rhino-MATLAB Bridge", "href": "content/experience/rhino-matlab-bridge.html", "image": "/static/media/rhino.png", "metric": "ACK", "metric_label": "Acknowledged in publication", "metric_unit": "in paper", "reading_time": 1, "status": "shipped", "summary": "Bridging Rhino and Grasshopper to MATLAB over a Flask transport layer for an architectural research group. Acknowledged in the resulting publication.", "tags": ["Python", "Flask", "MATLAB", "Rhino", "Grasshopper", "Networking"]}, {"chip": "AS", "date": "07/10/2022", "duration": "long", "heading": "Astrophysics Data Platform", "href": "content/experience/astrophysics-website.html", "image": "/static/media/astro-data-display.png", "reading_time": 1, "status": "shipped", "summary": "Enhanced an academic platform for astrophysicists with automated NASA dataset transfer, a rebuilt search interface, and a modernised UI.", "tags": ["Python", "PHP", "SQL", "Bash", "Material UI", "NASA"]}, {"chip": "DB", "date": "06/10/2023", "duration": "medium", "heading": "Linux Phone Call Recorder", "href": "content/experience/linux-call-recorder.html", "reading_time": 2, "status": "archived", "summary": "An automatic call-recording daemon for Linux phones, wired directly into ModemManager over D-Bus and capturing through PulseAudio and GStreamer.", "tags": ["Linux", "Python", "D-Bus", "PulseAudio", "GStreamer", "ModemManager"]}, {"chip": "ML", "date": "14/01/2025", "duration": "medium", "heading": "Instagram Analytics with Machine Learning", "href": "content/experience/cs412-project.html", "image": "/static/media/cs412-results.png", "metric": "1st", "metric_label": "Course-wide ML competition", "metric_unit": "in cohort", "reading_time": 2, "status": "archived", "summary": "Predictive models over large-scale Instagram data: post-engagement regression and account classification from content and behaviour patterns.", "tags": ["Machine Learning", "NLP", "Classification", "Python", "Data Science"]}, {"chip": "MX", "date": "09/05/2020", "duration": "medium", "heading": "Email PDF Extraction Automation", "href": "content/experience/email-automation.html", "metric": "20k", "metric_label": "Processed weekly, 100% reliability", "metric_unit": "mail/wk", "reading_time": 1, "status": "shipped", "summary": "Automated ingestion of 20,000 messages weekly, extracting password-protected ZIP attachments at full reliability without manual intervention.", "tags": ["Python", "Email Automation", "Gmail API", "Scalability", "Data Processing"]}, {"chip": "WS", "date": "15/12/2021", "duration": "long", "heading": "Kimiko \u2013 Browser Extension Chat Platform", "href": "content/experience/kimiko.html", "image": "/static/media/kimiko-demo.png", "reading_time": 2, "status": "archived", "summary": "A Chrome extension bringing real-time chat to any website through URL-keyed rooms, creating impromptu communities around shared web content.", "tags": ["Chrome Extension", "React", "TypeScript", "Node.js", "WebSocket", "MongoDB"]}, {"chip": "MB", "date": "05/01/2026", "duration": "medium", "heading": "Commitly \u2013 Gamified Habit Tracker", "href": "content/experience/commitly.html", "image": "/static/media/commitly-home-page.jpeg", "reading_time": 2, "status": "archived", "summary": "A cross-platform mobile app combining gamification and social accountability for habit building, with statistics and achievement systems.", "tags": ["Flutter", "Dart", "Firebase", "Mobile Development", "Testing"]}, {"chip": "CL", "date": "13/09/2018", "duration": "medium", "heading": "Color-Based Product Recommendation App", "href": "content/experience/color-recommendation-app.html", "image": "/static/media/color-picker.gif", "reading_time": 1, "status": "archived", "summary": "An Android app that extracts colour data from selected image regions and recommends matching nail products from an inventory.", "tags": ["Android", "Java", "Computer Vision", "Color Theory", "Mobile Development"]}, {"chip": "ST", "date": "11/11/2022", "duration": "short", "heading": "AnyDictate", "href": "content/experience/anydictate.html", "image": "/static/media/anydictate.png", "reading_time": 1, "status": "archived", "summary": "A real-time speech-to-text web application using the Web Speech API, piping recognised text into any focused application.", "tags": ["Python", "Web Speech API", "JavaScript", "Accessibility", "Automation"]}, {"chip": "LG", "date": "01/03/2021", "duration": "short", "heading": "MTG Arena Log Monitor", "href": "content/experience/mtg-arena-monitor.html", "reading_time": 1, "status": "archived", "summary": "A desktop app that tails and parses Magic: The Gathering Arena log files in real time to surface game state.", "tags": ["Python", "Tkinter", "Log Parsing", "Desktop App", "Gaming"]}, {"chip": "EX", "date": "05/05/2021", "duration": "short", "heading": "Image Metadata Translator", "href": "content/experience/image-metadata-translator.html", "reading_time": 1, "status": "archived", "summary": "A script that translates image EXIF and IPTC metadata in place through the DeepL API, preserving structure.", "tags": ["Python", "DeepL API", "EXIF", "IPTC", "Automation"]}, {"chip": "PP", "date": "10/05/2021", "duration": "short", "heading": "Premiere CSV Marker Importer", "href": "content/experience/premiere-csv-markers.html", "reading_time": 1, "status": "archived", "summary": "A tool importing CSV files as timeline markers into Adobe Premiere Pro, with customisable colours and durations.", "tags": ["Adobe Premiere Pro", "ExtendScript", "CSV", "Video Editing", "Automation"]}, {"chip": "01", "date": "01/12/2015", "duration": "medium", "heading": "Yearbook Website", "href": "content/experience/yearbook-website.html", "image": "/static/media/yal.png", "metric": "2015", "metric_label": "Where it started", "metric_unit": "origin", "reading_time": 1, "status": "archived", "summary": "My first fully functional website, and the first one that had a real-world effect on people who used it. Where all of this started.", "tags": ["PHP", "Apache", "Web Development"]}]
 </script>
 
-<button class="ai-summary-toggle" onclick="toggleAISummary()">AI Summary</button>
-<button class="human-summary-toggle" onclick="toggleHumanSummary()">Human Summary</button>
-
-<div class="ai-summary" id="ai-summary">
-    <button class="ai-summary-close" onclick="toggleAISummary()">×</button>
-    <h3>AI Summary</h3>
-    <div class="ai-summary-content" id="ai-summary-content"></div>
-</div>
-
-<div class="ai-summary" id="human-summary">
-    <button class="ai-summary-close" onclick="toggleHumanSummary()">×</button>
-    <h3>Human Summary</h3>
-    <div class="ai-summary-content" id="human-summary-content"></div>
-</div>
-
 <script>
-const aiSummaryText = `<p>
-    This developer demonstrates remarkable versatility across the full spectrum of software development, from low-level systems programming with D-Bus and PulseAudio on Linux phones to high-level web and mobile applications using modern frameworks like Flutter, React, and Node.js. Their work spans diverse domains including computer vision, machine learning, automation, and cross-platform development, with notable achievements such as <strong class="highlight">ranking first in a course-wide machine learning competition</strong> and <strong class="highlight">being acknowledged in a published academic paper</strong>. Client testimonials consistently praise their problem-solving abilities, communication skills, and commitment to delivering quality work on time.
-</p>
-<p>
-    Key strengths include <strong class="highlight">rapid adaptation to new technologies</strong> (evidenced by successfully bridging unfamiliar tools like Rhino, Grasshopper, and MATLAB), <strong class="highlight">building scalable systems under real constraints</strong> (processing 20,000 emails weekly with 100% reliability), and <strong class="highlight">creating practical solutions that bridge the gap between research and production</strong>. Their progression from a high school yearbook website to sophisticated deep learning systems for industrial safety applications shows a consistent trajectory of growth, technical depth, and the ability to <strong class="highlight">deliver impactful results</strong> across both freelance and academic contexts.
-</p>`;
+(function () {
+    const PROJECTS = JSON.parse(document.getElementById('deckData').textContent);
+    const list  = document.getElementById('hackList');
+    const media = document.getElementById('stageMedia');
+    const data  = document.getElementById('stageData');
+    let sel = 0;
 
-const humanSummaryText = `<p><img src="/static/media/aintmuch.png" alt="It's not much, but it's an honest work" style="max-width: 100%; border: none;" /></p>`;
+    function render(i) {
+        sel = i;
+        const p = PROJECTS[i];
 
-let typewriterTimeout = null;
+        [...list.children].forEach((el, j) => {
+            el.classList.toggle('sel', j === i);
+            el.setAttribute('aria-selected', j === i);
+        });
 
-function typeWriter(element, html, speed = 5) {
-    // Parse HTML and extract text with tags
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = html;
-    
-    // Get all nodes (text and elements)
-    const nodes = [];
-    function extractNodes(node) {
-        if (node.nodeType === Node.TEXT_NODE) {
-            const chars = node.textContent.split('');
-            chars.forEach(char => nodes.push({ type: 'text', char }));
-        } else if (node.nodeType === Node.ELEMENT_NODE) {
-            nodes.push({ type: 'openTag', tag: node.tagName.toLowerCase(), className: node.className });
-            node.childNodes.forEach(extractNodes);
-            nodes.push({ type: 'closeTag', tag: node.tagName.toLowerCase() });
-        }
+        document.getElementById('stageTitle').textContent = p.heading;
+        document.getElementById('stageSub').textContent = p.date;
+
+        media.innerHTML =
+            (p.image
+                ? `<img src="${p.image}" alt="${p.heading}" />`
+                : `<div class="noviz">
+                       <b>No visual data</b>
+                       <span>System unphotographed — capture required</span>
+                   </div>`) +
+            '<div class="scanline"></div>';
+
+        const tags = (p.tags || []).map(t => `<span>${t}</span>`).join('');
+        data.innerHTML = `
+            ${p.metric ? `<div class="stat">
+                <div class="stat-v">${p.metric}</div>
+                <div class="stat-k">${p.metric_label || p.metric_unit || ''}</div>
+            </div>` : ''}
+            <p class="data-summary">${p.summary}</p>
+            ${tags ? `<div class="stack">${tags}</div>` : ''}
+            <a class="open" href="${p.href}">Open dossier ▸</a>`;
     }
-    tempDiv.childNodes.forEach(extractNodes);
-    
-    let i = 0;
-    let currentHtml = '';
-    let openTags = [];
-    
-    function type() {
-        if (i < nodes.length) {
-            const node = nodes[i];
-            
-            if (node.type === 'text') {
-                currentHtml += node.char;
-            } else if (node.type === 'openTag') {
-                const classAttr = node.className ? ` class="${node.className}"` : '';
-                currentHtml += `<${node.tag}${classAttr}>`;
-                openTags.push(node.tag);
-            } else if (node.type === 'closeTag') {
-                currentHtml += `</${node.tag}>`;
-                openTags.pop();
-            }
-            
-            element.innerHTML = currentHtml;
-            i++;
-            typewriterTimeout = setTimeout(type, speed);
-        }
-    }
-    
-    type();
-}
 
-function toggleAISummary() {
-    const summary = document.getElementById('ai-summary');
-    const toggle = document.querySelector('.ai-summary-toggle');
-    const content = document.getElementById('ai-summary-content');
-    
-    if (summary.classList.contains('open')) {
-        // Close
-        if (typewriterTimeout) {
-            clearTimeout(typewriterTimeout);
-            typewriterTimeout = null;
-        }
-        summary.classList.remove('open');
-        toggle.classList.remove('hidden');
-        content.innerHTML = '';
-    } else {
-        // Open
-        summary.classList.add('open');
-        toggle.classList.add('hidden');
-        typeWriter(content, aiSummaryText, 0.5);
-    }
-}
+    list.addEventListener('click', e => {
+        const b = e.target.closest('.hack');
+        if (b) render(+b.dataset.i);
+    });
+    list.addEventListener('dblclick', e => {
+        const b = e.target.closest('.hack');
+        if (b) location.href = b.dataset.href;
+    });
+    list.addEventListener('keydown', e => {
+        if (e.key === 'ArrowDown') { e.preventDefault(); render((sel + 1) % PROJECTS.length); }
+        if (e.key === 'ArrowUp')   { e.preventDefault(); render((sel - 1 + PROJECTS.length) % PROJECTS.length); }
+        if (e.key === 'Enter')     { location.href = PROJECTS[sel].href; }
+    });
 
-function toggleHumanSummary() {
-    const summary = document.getElementById('human-summary');
-    const toggle = document.querySelector('.human-summary-toggle');
-    const content = document.getElementById('human-summary-content');
-    
-    if (summary.classList.contains('open')) {
-        // Close
-        if (typewriterTimeout) {
-            clearTimeout(typewriterTimeout);
-            typewriterTimeout = null;
-        }
-        summary.classList.remove('open');
-        toggle.classList.remove('hidden');
-        content.innerHTML = '';
-    } else {
-        // Open - show image directly without typewriter
-        summary.classList.add('open');
-        toggle.classList.add('hidden');
-        content.innerHTML = humanSummaryText;
-    }
-}
+    render(0);
+})();
 </script></div>
         </div>
 
@@ -912,6 +596,18 @@ function toggleHumanSummary() {
                     }
                 });
             });
+        </script>
+        <script>
+            // Pre-rendered at build time; corrected here so a stale build
+            // never shows the wrong age.
+            (function () {
+                var el = document.getElementById('hudAge');
+                if (!el) return;
+                var b = new Date(1998, 6, 1), n = new Date();
+                var a = n.getFullYear() - b.getFullYear();
+                if (n.getMonth() < 6 || (n.getMonth() === 6 && n.getDate() < 1)) a--;
+                el.textContent = a;
+            })();
         </script>
     </body>
 </html>

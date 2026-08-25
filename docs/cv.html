@@ -35,7 +35,6 @@
         ></script>
 
         <!-- Highlight.js for code syntax highlighting (vendored) -->
-        <link rel="stylesheet" href="/static/vendor/highlight/rose-pine.min.css" />
         <script defer src="/static/vendor/highlight/highlight.min.js"></script>
 
         <!-- Starry background effect 
@@ -43,13 +42,37 @@
          -->
     </head>
     <body>
-        <nav class="main-nav">
-            <h3><a href="/">Home</a></h3>
-            <h3><a href="/experience.html">Work</a></h3>
-            <h3><a href="/thought.html">Thoughts</a></h3>
-            <h3><a href="/cv.html">CV</a></h3>
-            <h3><a href="/music.html">Music</a></h3>
+        
+        <nav class="hud">
+            <div class="hud-inner">
+                <div class="hud-left">
+                    <div class="hud-stat">
+                        <div class="hud-stat-top"><b id="hudAge">28</b><span>Age</span></div>
+                        <div class="hud-bar"><i style="--f:56%"></i></div>
+                    </div>
+                    <div class="hud-stat cred">
+                        <div class="hud-stat-top"><b>549</b><span>XP</span></div>
+                        <div class="hud-bar"><i style="--f:74%"></i></div>
+                    </div>
+                </div>
+
+                <div class="hud-nav">
+                    <a href="/" class=""><i class="ico"></i>Home</a>
+                    <a href="/experience.html" class=""><i class="ico"></i>Work</a>
+                    <a href="/thought.html" class=""><i class="ico"></i>Thoughts</a>
+                    <a href="/cv.html" class="on"><i class="ico"></i>CV</a>
+                    <a href="/music.html" class=""><i class="ico"></i>Music</a>
+                </div>
+
+                <div class="hud-right">
+                    <span class="hud-meta"><i class="tri"></i>Istanbul</span>
+                    <span class="hud-meta open">◆ Available</span>
+                </div>
+            </div>
+            <div class="hud-rule"></div>
+            <div class="hud-sub">Curriculum vitae</div>
         </nav>
+
         <div class="page">
             <div class="content"><div class="cv">
     <header class="cv-header">
@@ -283,176 +306,80 @@
 </div>
 
 <style>
-    .cv-header h1 {
-        margin-bottom: 6px;
-    }
+/* CV keeps the palette but drops the HUD noise — it is a document, and it prints. */
+.cv-header h1{ border-bottom:none;padding-bottom:0;margin-bottom:8px;font-size:var(--fs-display) }
+.cv-tagline{
+  font-family:var(--ui);font-size:var(--fs-lead);letter-spacing:.1em;text-transform:uppercase;
+  color:var(--cyan);margin-bottom:8px;
+}
+.cv-contact{ font-size:var(--fs-small);color:var(--dim);margin-bottom:20px }
+.cv-contact .sep{ margin:0 9px;color:var(--faint) }
+.cv-summary{
+  font-size:var(--fs-small);color:var(--text);border-left:2px solid var(--cyan);
+  padding-left:18px;line-height:1.66;
+}
 
-    .cv-tagline {
-        color: var(--subtle);
-        margin-bottom: 4px;
-    }
+.cv-section{ margin-top:34px }
+.cv-section h2{
+  font-size:var(--fs-h3);letter-spacing:.2em;color:var(--red);
+  border-bottom:1px solid var(--red-dim);padding-bottom:8px;margin:0 0 18px;
+}
+.cv-section h2::after{ display:none }
 
-    .cv-contact {
-        font-size: 0.85rem;
-        color: var(--muted);
-        margin-bottom: 14px;
-    }
+.cv-entry{ margin-bottom:20px;page-break-inside:avoid }
+.cv-entry:last-child{ margin-bottom:0 }
+.cv-entry-head{ display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap }
+.cv-role{
+  font-family:var(--ui);font-size:var(--fs-h3);font-weight:600;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--text-strong);
+}
+.cv-date{
+  font-family:var(--ui);font-size:var(--fs-label);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--dim);white-space:nowrap;
+}
+.cv-entry ul{ margin:9px 0 0;padding-left:22px }
+.cv-entry li{ font-size:var(--fs-small);margin-bottom:7px;line-height:1.6 }
 
-    .cv-contact .sep {
-        margin: 0 6px;
-        color: var(--muted);
-    }
+.cv-skills{ display:grid;grid-template-columns:190px 1fr;gap:10px 22px;font-size:var(--fs-small) }
+.cv-skills dt{
+  font-family:var(--ui);letter-spacing:.14em;text-transform:uppercase;color:var(--cyan);font-weight:600;
+}
+.cv-skills dd{ color:var(--text);margin:0;line-height:1.6 }
 
-    .cv-summary {
-        font-size: 0.9rem;
-        color: var(--subtle);
-        border-left: 3px solid var(--pine);
-        padding-left: 15px;
-    }
+.cv-print-hint{ margin-top:36px;text-align:right }
+.cv-print-hint button{
+  background:transparent;color:var(--cyan);border:1px solid var(--cyan-dim);
+  padding:11px 22px;font-family:var(--ui);font-size:var(--fs-label);font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:all .14s;
+  clip-path:polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+}
+.cv-print-hint button:hover{ background:var(--cyan);color:var(--void) }
 
-    .cv-section {
-        margin-top: 26px;
-    }
+@media screen and (max-width:640px){
+  .cv-skills{ grid-template-columns:1fr;gap:3px 0 }
+  .cv-skills dd{ margin-bottom:12px }
+}
 
-    .cv-section h2 {
-        font-size: 0.95rem;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        border-bottom: 1px solid var(--overlay);
-        padding-bottom: 6px;
-        margin-bottom: 14px;
-    }
-
-    .cv-entry {
-        margin-bottom: 16px;
-        page-break-inside: avoid;
-    }
-
-    .cv-entry:last-child {
-        margin-bottom: 0;
-    }
-
-    .cv-entry-head {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        gap: 12px;
-        flex-wrap: wrap;
-    }
-
-    .cv-role {
-        color: var(--rose);
-        font-weight: 600;
-        font-size: 0.95rem;
-    }
-
-    .cv-date {
-        color: var(--muted);
-        font-size: 0.78rem;
-        white-space: nowrap;
-    }
-
-    .cv-entry ul {
-        margin: 6px 0 0;
-        padding-left: 20px;
-    }
-
-    .cv-entry li {
-        font-size: 0.87rem;
-        margin-bottom: 4px;
-    }
-
-    .cv-skills {
-        display: grid;
-        grid-template-columns: 150px 1fr;
-        gap: 6px 16px;
-        font-size: 0.87rem;
-    }
-
-    .cv-skills dt {
-        color: var(--foam);
-    }
-
-    .cv-skills dd {
-        color: var(--subtle);
-        margin: 0;
-    }
-
-    .cv-print-hint {
-        margin-top: 28px;
-        text-align: right;
-    }
-
-    .cv-print-hint button {
-        background: var(--highlight-low);
-        color: var(--iris);
-        border: 1px solid var(--overlay);
-        border-radius: 3px;
-        padding: 6px 14px;
-        font-family: "Fira Code", monospace;
-        font-size: 0.8rem;
-        cursor: pointer;
-    }
-
-    .cv-print-hint button:hover {
-        border-color: var(--iris);
-        color: var(--foam);
-    }
-
-    @media screen and (max-width: 600px) {
-        .cv-skills {
-            grid-template-columns: 1fr;
-            gap: 2px 0;
-        }
-
-        .cv-skills dd {
-            margin-bottom: 8px;
-        }
-    }
-
-    /* Print: a real document, not a screenshot of a website. */
-    @media print {
-        @page {
-            margin: 14mm 15mm;
-        }
-
-        .cv-summary {
-            border-left: 2px solid #666;
-            color: #222;
-        }
-
-        .cv-tagline,
-        .cv-contact,
-        .cv-contact .sep,
-        .cv-date,
-        .cv-skills dd,
-        .cv-entry li {
-            color: #222;
-        }
-
-        .cv-role,
-        .cv-skills dt {
-            color: #000;
-        }
-
-        .cv-section h2 {
-            color: #000;
-            border-bottom: 1px solid #000;
-        }
-
-        .cv-section {
-            margin-top: 16px;
-            page-break-inside: avoid;
-        }
-
-        .cv-entry strong {
-            color: #000;
-        }
-
-        .cv-print-hint {
-            display: none;
-        }
-    }
+/* Print: a real document. Black on white, no chrome. */
+@media print{
+  @page{ margin:14mm 15mm }
+  .cv-header h1{ font-size:20pt;color:#000 }
+  .cv-tagline{ color:#000;font-size:11pt;margin-bottom:5px }
+  .cv-contact{ color:#222;margin-bottom:11px;font-size:9pt }
+  .cv-contact .sep{ color:#666 }
+  .cv-summary{ border-left:2px solid #999;color:#000;font-size:9.5pt;padding-left:11px }
+  .cv-section{ margin-top:15px;page-break-inside:avoid }
+  .cv-section h2{ color:#000;border-bottom:1px solid #000;font-size:11pt;margin-bottom:9px;padding-bottom:4px }
+  .cv-entry{ margin-bottom:11px }
+  .cv-role{ color:#000;font-size:11pt }
+  .cv-date{ color:#333;font-size:8.5pt }
+  .cv-entry li{ font-size:9.5pt;margin-bottom:3px;line-height:1.34 }
+  .cv-skills{ font-size:9.5pt;gap:4px 16px;grid-template-columns:150px 1fr }
+  .cv-skills dt{ color:#000 }
+  .cv-skills dd{ color:#000;line-height:1.34 }
+  .cv-entry strong{ color:#000 }
+  .cv-print-hint{ display:none }
+}
 </style></div>
         </div>
 
@@ -494,6 +421,18 @@
                     }
                 });
             });
+        </script>
+        <script>
+            // Pre-rendered at build time; corrected here so a stale build
+            // never shows the wrong age.
+            (function () {
+                var el = document.getElementById('hudAge');
+                if (!el) return;
+                var b = new Date(1998, 6, 1), n = new Date();
+                var a = n.getFullYear() - b.getFullYear();
+                if (n.getMonth() < 6 || (n.getMonth() === 6 && n.getDate() < 1)) a--;
+                el.textContent = a;
+            })();
         </script>
     </body>
 </html>

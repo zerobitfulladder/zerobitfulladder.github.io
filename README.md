@@ -83,7 +83,7 @@ my-article:
   heading: "My Article Title"
   date: "15/01/2026"
   summary: "A brief description of the article"
-  draft: true          # optional — builds the page, hides it from the index
+  draft: true          # optional — excluded from the build entirely
 ```
 
 3. Run `uv run malvolio build`, or `uv run malvolio serve` for live preview.
@@ -115,6 +115,9 @@ Item metadata is also in scope inside a content file, so `{{ heading }}`,
 - **Static pages** (`index`, `cv`, `music`) are declared in `config.py` and
   rendered straight from their templates.
 - **List pages** (`thought`, `experience`) are built from their `meta.yaml`.
+- **Drafts** (`draft: true`) are not written to `docs/` at all, and a section
+  with no published items drops out of the nav. Since `docs/` is what GitHub
+  Pages serves, an unfinished piece is genuinely unpublished, not just unlinked.
 - **Individual content pages** are rendered through Jinja, wrapped in
   `article.html` (which emits the heading, summary, date, and tags from
   `meta.yaml`), then wrapped in `base.html`.

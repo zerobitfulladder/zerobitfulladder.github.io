@@ -1,198 +1,162 @@
+# Order here is display order on /experience.html — strongest first.
+# Optional deck fields: image, metric, metric_unit, metric_label, status.
+
 vision-based-edge-occupancy:
     heading: "Vision-Based Edge Occupancy Detection"
-    summary: "A graduation project replacing laser scanners with computer vision for parking system safety."
+    summary: "Replacing multi-thousand-euro laser scanners in an automated parking system with a MobileNetV3 classifier on Raspberry Pi and Jetson. Blender synthetic-data pipeline and a labelling tool that cut annotation from ~200 hours to ~2."
     date: "04/01/2026"
-    complexity: 9
+    chip: "CV"
+    status: "shipped"
+    image: "/static/media/edge-occ-full.png"
+    metric: "98.9"
+    metric_unit: "% acc"
+    metric_label: "Validation accuracy, live facility"
     duration: "long"
-    tags:
-        - "Computer Vision"
-        - "Deep Learning"
-        - "MobileNetV3"
-        - "Edge AI"
-        - "Blender"
-        - "Raspberry Pi"
-
-commitly:
-    heading: "Commitly – Gamified Habit Tracker"
-    summary: "A cross-platform mobile app combining gamification and social accountability for habit building."
-    date: "05/01/2026"
-    complexity: 6
-    duration: "medium"
-    tags:
-        - "Flutter"
-        - "Dart"
-        - "Firebase"
-        - "Mobile Development"
-        - "Testing"
-
-cs412-project:
-    heading: "Instagram Analytics with Machine Learning"
-    summary: "A machine learning project for Instagram account classification and engagement prediction."
-    date: "14/01/2025"
-    complexity: 7
-    duration: "medium"
-    tags:
-        - "Machine Learning"
-        - "NLP"
-        - "Classification"
-        - "Python"
-        - "Data Science"
-
-kimiko:
-    heading: "Kimiko – Browser Extension Chat Platform"
-    summary: "A Chrome extension enabling real-time chat on any website through URL-based chat rooms."
-    date: "15/12/2021"
-    complexity: 7
-    duration: "long"
-    tags:
-        - "Chrome Extension"
-        - "React"
-        - "TypeScript"
-        - "Node.js"
-        - "WebSocket"
-        - "MongoDB"
-
-email-automation:
-    heading: "Email PDF Extraction Automation"
-    summary: "Automated processing of 20,000 weekly emails with password-protected ZIP extraction."
-    date: "09/05/2020"
-    complexity: 7
-    duration: "medium"
-    tags:
-        - "Python"
-        - "Email Automation"
-        - "Gmail API"
-        - "Scalability"
-        - "Data Processing"
-
-color-recommendation-app:
-    heading: "Color-Based Product Recommendation App"
-    summary: "An Android app that extracts colors from images and recommends matching nail products."
-    date: "13/09/2018"
-    complexity: 6
-    duration: "medium"
-    tags:
-        - "Android"
-        - "Java"
-        - "Computer Vision"
-        - "Color Theory"
-        - "Mobile Development"
-
-mtg-arena-monitor:
-    heading: "MTG Arena Log Monitor"
-    summary: "A desktop app to monitor and parse Magic: The Gathering Arena log files in real time."
-    date: "01/03/2021"
-    complexity: 5
-    duration: "short"
-    tags:
-        - "Python"
-        - "Tkinter"
-        - "Log Parsing"
-        - "Desktop App"
-        - "Gaming"
-
-premiere-csv-markers:
-    heading: "Premiere CSV Marker Importer"
-    summary: "A tool to import CSV files as markers into Adobe Premiere Pro with customizable colors."
-    date: "10/05/2021"
-    complexity: 4
-    duration: "short"
-    tags:
-        - "Adobe Premiere Pro"
-        - "ExtendScript"
-        - "CSV"
-        - "Video Editing"
-        - "Automation"
-
-image-metadata-translator:
-    heading: "Image Metadata Translator"
-    summary: "A Python script to translate image EXIF/IPTC metadata using DeepL API."
-    date: "05/05/2021"
-    complexity: 4
-    duration: "short"
-    tags:
-        - "Python"
-        - "DeepL API"
-        - "EXIF"
-        - "IPTC"
-        - "Automation"
-
-anydictate:
-    heading: "AnyDictate"
-    summary: "A real-time speech-to-text web application using Web Speech API and Python."
-    date: "11/11/2022"
-    complexity: 5
-    duration: "short"
-    tags:
-        - "Python"
-        - "Web Speech API"
-        - "JavaScript"
-        - "Accessibility"
-        - "Automation"
-
-astrophysics-website:
-    heading: "Astrophysics Data Platform"
-    summary: "Enhanced an academic website for astrophysicists with automated data transfer and modern UI."
-    date: "07/10/2022"
-    complexity: 6
-    duration: "long"
-    tags:
-        - "Python"
-        - "PHP"
-        - "SQL"
-        - "Bash"
-        - "Material UI"
-        - "NASA"
-
-rhino-matlab-bridge:
-    heading: "Rhino-MATLAB Bridge"
-    summary: "Bridging Rhino with Grasshopper and MATLAB for academic research using Python."
-    date: "22/02/2022"
-    complexity: 8
-    duration: "long"
-    tags:
-        - "Python"
-        - "Flask"
-        - "MATLAB"
-        - "Rhino"
-        - "Grasshopper"
-        - "Networking"
+    tags: ["Computer Vision", "Deep Learning", "MobileNetV3", "Edge AI", "Blender", "Raspberry Pi"]
 
 info-screen:
     heading: "Raspberry Pi Information Display"
-    summary: "A responsive information display system with RTSP streaming and multi-source data integration."
+    summary: "A responsive information display system with RTSP streaming and multi-source data integration, running unattended on embedded hardware."
     date: "05/09/2023"
-    complexity: 7
+    chip: "PI"
+    status: "shipped"
+    image: "/static/media/info-screen-dark.png"
     duration: "long"
-    tags:
-        - "Raspberry Pi"
-        - "Python"
-        - "Flask"
-        - "jQuery"
-        - "RTSP"
-        - "ffmpeg"
+    tags: ["Raspberry Pi", "Python", "Flask", "jQuery", "RTSP", "ffmpeg"]
+
+rhino-matlab-bridge:
+    heading: "Rhino-MATLAB Bridge"
+    summary: "Bridging Rhino and Grasshopper to MATLAB over a Flask transport layer for an architectural research group. Acknowledged in the resulting publication."
+    date: "22/02/2022"
+    chip: "BR"
+    status: "shipped"
+    image: "/static/media/rhino.png"
+    metric: "ACK"
+    metric_unit: "in paper"
+    metric_label: "Acknowledged in publication"
+    duration: "long"
+    tags: ["Python", "Flask", "MATLAB", "Rhino", "Grasshopper", "Networking"]
+
+astrophysics-website:
+    heading: "Astrophysics Data Platform"
+    summary: "Enhanced an academic platform for astrophysicists with automated NASA dataset transfer, a rebuilt search interface, and a modernised UI."
+    date: "07/10/2022"
+    chip: "AS"
+    status: "shipped"
+    image: "/static/media/astro-data-display.png"
+    duration: "long"
+    tags: ["Python", "PHP", "SQL", "Bash", "Material UI", "NASA"]
 
 linux-call-recorder:
     heading: "Linux Phone Call Recorder"
-    summary: "An automatic call recording daemon for Linux phones using ModemManager and PulseAudio."
+    summary: "An automatic call-recording daemon for Linux phones, wired directly into ModemManager over D-Bus and capturing through PulseAudio and GStreamer."
     date: "06/10/2023"
-    complexity: 6
+    chip: "DB"
+    status: "archived"
     duration: "medium"
-    tags:
-        - "Linux"
-        - "Python"
-        - "D-Bus"
-        - "PulseAudio"
-        - "GStreamer"
-        - "ModemManager"
+    tags: ["Linux", "Python", "D-Bus", "PulseAudio", "GStreamer", "ModemManager"]
+
+cs412-project:
+    heading: "Instagram Analytics with Machine Learning"
+    summary: "Predictive models over large-scale Instagram data: post-engagement regression and account classification from content and behaviour patterns."
+    date: "14/01/2025"
+    chip: "ML"
+    status: "archived"
+    image: "/static/media/cs412-results.png"
+    metric: "1st"
+    metric_unit: "in cohort"
+    metric_label: "Course-wide ML competition"
+    duration: "medium"
+    tags: ["Machine Learning", "NLP", "Classification", "Python", "Data Science"]
+
+email-automation:
+    heading: "Email PDF Extraction Automation"
+    summary: "Automated ingestion of 20,000 messages weekly, extracting password-protected ZIP attachments at full reliability without manual intervention."
+    date: "09/05/2020"
+    chip: "MX"
+    status: "shipped"
+    metric: "20k"
+    metric_unit: "mail/wk"
+    metric_label: "Processed weekly, 100% reliability"
+    duration: "medium"
+    tags: ["Python", "Email Automation", "Gmail API", "Scalability", "Data Processing"]
+
+kimiko:
+    heading: "Kimiko – Browser Extension Chat Platform"
+    summary: "A Chrome extension bringing real-time chat to any website through URL-keyed rooms, creating impromptu communities around shared web content."
+    date: "15/12/2021"
+    chip: "WS"
+    status: "archived"
+    image: "/static/media/kimiko-demo.png"
+    duration: "long"
+    tags: ["Chrome Extension", "React", "TypeScript", "Node.js", "WebSocket", "MongoDB"]
+
+commitly:
+    heading: "Commitly – Gamified Habit Tracker"
+    summary: "A cross-platform mobile app combining gamification and social accountability for habit building, with statistics and achievement systems."
+    date: "05/01/2026"
+    chip: "MB"
+    status: "archived"
+    image: "/static/media/commitly-home-page.jpeg"
+    duration: "medium"
+    tags: ["Flutter", "Dart", "Firebase", "Mobile Development", "Testing"]
+
+color-recommendation-app:
+    heading: "Color-Based Product Recommendation App"
+    summary: "An Android app that extracts colour data from selected image regions and recommends matching nail products from an inventory."
+    date: "13/09/2018"
+    chip: "CL"
+    status: "archived"
+    image: "/static/media/color-picker.gif"
+    duration: "medium"
+    tags: ["Android", "Java", "Computer Vision", "Color Theory", "Mobile Development"]
+
+anydictate:
+    heading: "AnyDictate"
+    summary: "A real-time speech-to-text web application using the Web Speech API, piping recognised text into any focused application."
+    date: "11/11/2022"
+    chip: "ST"
+    status: "archived"
+    image: "/static/media/anydictate.png"
+    duration: "short"
+    tags: ["Python", "Web Speech API", "JavaScript", "Accessibility", "Automation"]
+
+mtg-arena-monitor:
+    heading: "MTG Arena Log Monitor"
+    summary: "A desktop app that tails and parses Magic: The Gathering Arena log files in real time to surface game state."
+    date: "01/03/2021"
+    chip: "LG"
+    status: "archived"
+    duration: "short"
+    tags: ["Python", "Tkinter", "Log Parsing", "Desktop App", "Gaming"]
+
+image-metadata-translator:
+    heading: "Image Metadata Translator"
+    summary: "A script that translates image EXIF and IPTC metadata in place through the DeepL API, preserving structure."
+    date: "05/05/2021"
+    chip: "EX"
+    status: "archived"
+    duration: "short"
+    tags: ["Python", "DeepL API", "EXIF", "IPTC", "Automation"]
+
+premiere-csv-markers:
+    heading: "Premiere CSV Marker Importer"
+    summary: "A tool importing CSV files as timeline markers into Adobe Premiere Pro, with customisable colours and durations."
+    date: "10/05/2021"
+    chip: "PP"
+    status: "archived"
+    duration: "short"
+    tags: ["Adobe Premiere Pro", "ExtendScript", "CSV", "Video Editing", "Automation"]
 
 yearbook-website:
     heading: "Yearbook Website"
-    summary: "My first ever fully function website that had a real world impact."
+    summary: "My first fully functional website, and the first one that had a real-world effect on people who used it. Where all of this started."
     date: "01/12/2015"
-    complexity: 3
+    chip: "01"
+    status: "archived"
+    image: "/static/media/yal.png"
+    metric: "2015"
+    metric_unit: "origin"
+    metric_label: "Where it started"
     duration: "medium"
-    tags:
-        - "PHP"
-        - "Apache"
-        - "Web Development"
+    tags: ["PHP", "Apache", "Web Development"]

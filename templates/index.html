@@ -1,46 +1,269 @@
-<h1>Tuğrul Ağrikli</h1>
+<div class="hero-grid">
+<div class="hero">
+    <div class="hero-tag micro">▸ Personnel file · Istanbul · online</div>
+    <h1 class="hero-name">Tuğrul Ağrikli</h1>
+    <p class="hero-say">
+        They call me Tuğrul.<audio controls src="static/media/tugrul.mp3"></audio>
+    </p>
 
-<p>
-    They call me Tuğrul.<audio controls src="static/media/tugrul.mp3" style="vertical-align: middle"></audio><br />
-</p>
+    <p class="lead">
+        Computer science graduate. I build systems at the level below the one the problem showed up on —
+        frameworks rather than apps, pipelines rather than datasets, a shell rather than a desktop.
+    </p>
 
-<p>
-    Computer science graduate, based in Istanbul. I build systems at the level below the one the problem showed up
-    on — frameworks rather than apps, pipelines rather than datasets, a shell rather than a desktop.
-</p>
+    <p>
+        Most of what I work on sits where deterministic control meets something stochastic: a scripted spine with
+        an improvised surface, a planner checked against a learned policy, a generative model given a rendering slot
+        but never the steering wheel. I've found myself interested in cognition — its existence, and its
+        realizability through computation — and in flying things.
+    </p>
+</div>
 
-<p>
-    Most of what I work on sits where deterministic control meets something stochastic: a scripted spine with an
-    improvised surface, a planner checked against a learned policy, an LLM given a rendering slot but never the
-    steering wheel. I've found myself interested in cognition — its existence, and its realizability through
-    computation — and in flying things.
-</p>
+<figure class="scan framed cy">
+    <figcaption class="scan-head">
+        <span class="scan-k">◉ Biometric scan</span>
+        <span class="micro">SUBJ: AGRIKLI, T. · 64,762 GAUSSIANS</span>
+        <button id="scanExpand" class="scan-expand" hidden>⤢ Expand</button>
+    </figcaption>
 
-<p>
-    <a href="/experience.html">What I've built</a> &nbsp;·&nbsp;
-    <a href="/thought.html">What I've been thinking about</a> &nbsp;·&nbsp;
-    <a href="/cv.html">CV</a>
-</p>
+    <div class="scan-stage">
+        <canvas id="scanCanvas"></canvas>
+        <div class="scanline"></div>
+        <div class="scan-load" id="scanLoad">
+            <span class="scan-load-k">Reconstructing</span>
+            <div class="scan-bar"><i id="scanBar"></i></div>
+            <span class="scan-pct" id="scanPct">0%</span>
+        </div>
+    </div>
 
-<div style="display: flex; justify-content: center; flex-wrap: wrap; align-items: center; gap: 1rem">
+    <div class="scan-foot micro">
+        <span>3DGS · SH0 · 1.0 MB</span>
+        <span id="scanHint">DRAG · SHIFT-DRAG PANS</span>
+    </div>
+</figure>
+</div>
+
+<div class="jump-grid">
+    <a class="jump" href="/experience.html" data-idx="01">
+        <span class="jump-body">
+            <span class="jump-t"><i class="dia"></i>Work</span>
+            <span class="jump-d">Systems, contracts, and what came of them.</span>
+        </span>
+        <span class="jump-go">Open ▸</span>
+    </a>
+    <a class="jump" href="/thought.html" data-idx="02">
+        <span class="jump-body">
+            <span class="jump-t"><i class="dia"></i>Thoughts</span>
+            <span class="jump-d">Constraints, update rules, and what a thing is.</span>
+        </span>
+        <span class="jump-go">Open ▸</span>
+    </a>
+    <a class="jump" href="/cv.html" data-idx="03">
+        <span class="jump-body">
+            <span class="jump-t"><i class="dia"></i>CV</span>
+            <span class="jump-d">The compressed version, printable.</span>
+        </span>
+        <span class="jump-go">Open ▸</span>
+    </a>
+</div>
+
+<div class="links-row">
     <a href="mailto:tagrikli@proton.me">Email</a>
-    <span>•</span>
     <a href="https://github.com/zerobitfulladder">GitHub</a>
-    <span>•</span>
     <a href="https://open.spotify.com/user/tagrikli">Spotify</a>
-    <span>•</span>
     <a href="https://letterboxd.com/tagrikli/">Letterboxd</a>
 </div>
 
-<div class="video-card">
-    <div class="video-container">
-        <iframe
-            src="https://www.youtube.com/embed/pLjHU7zj1aQ?si=uOn4ZA6mRyeYfTHs"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-        ></iframe>
-    </div>
-</div>
+<script type="module">
+// Gaussian-splat head scan. gsplat is vendored; nothing is fetched from a CDN.
+const stage  = document.querySelector('.scan-stage');
+const canvas = document.getElementById('scanCanvas');
+const load   = document.getElementById('scanLoad');
+const bar    = document.getElementById('scanBar');
+const pct    = document.getElementById('scanPct');
+const hint   = document.getElementById('scanHint');
+
+function fail(message) {
+    load.classList.add('done');
+    stage.insertAdjacentHTML('beforeend',
+        `<div class="scan-fallback"><b>${message}</b></div>`);
+}
+
+if (!document.createElement('canvas').getContext('webgl2')) {
+    fail('WebGL2 unavailable');
+} else {
+    try {
+        const SPLAT = await import('/static/vendor/gsplat/gsplat.js');
+
+        const renderer = new SPLAT.WebGLRenderer(canvas);
+        renderer.backgroundColor = new SPLAT.Color32(4, 6, 10, 0);
+
+        const scene  = new SPLAT.Scene();
+        const camera = new SPLAT.Camera();
+
+        // The splat is recentred on the head at export time, so the orbit
+        // target is the origin — this keeps the face centred while turning.
+        // Opening view, dialled in against the live scan and baked here.
+        // The capture's own tilt (39.5, 1.5, 7.5 deg) is baked into the
+        // export instead, so the model needs no runtime rotation:
+        //   uv run python tools/ply2splat.py ~/Projects/3DMe/out/export_30000.ply \
+        //     docs/static/media/face.splat \
+        //     --rotate 39.5,1.5,7.5 --shift -0.041,0.826,-0.024
+        const ALPHA = -0.0730;
+        const BETA  = 0.0560;
+        const BASE  = 11.271;   // opening distance, and the closest zoom allowed
+        // The pan offset is baked into the export (--shift), so the orbit
+        // target, the idle-rotation pivot and the origin all coincide —
+        // otherwise the head swings around a point beside itself.
+        const TARGET = new SPLAT.Vector3(0, 0, 0);
+
+        const HOME = { alpha: ALPHA, beta: BETA, radius: BASE };
+
+        // Manual orbit stays unrestricted — the visitor can go all the way
+        // round if they want to. Only the idle motion is bounded.
+        function makeControls() {
+            const c = new SPLAT.OrbitControls(
+                camera, canvas, HOME.alpha, HOME.beta, HOME.radius);
+            c.setCameraTarget(TARGET);
+            c.minZoom = BASE * 0.3;    // room to push in well past the opening view
+            c.maxZoom = BASE * 3.0;
+            c.orbitSpeed = 1.6;        // gsplat's default is 1.0
+            c.panSpeed = 1.4;          // drag with right/middle button, or shift
+            return c;
+        }
+        let controls = makeControls();
+
+        // gsplat sizes its canvas in CSS pixels, so on a HiDPI display the
+        // backing store ends up at 1x and the browser upscales it. Drive the
+        // size ourselves at devicePixelRatio (capped at 2 for fill-rate).
+        function resize() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            const w = stage.clientWidth, h = stage.clientHeight;
+            if (!w || !h) return;
+            renderer.setSize(Math.round(w * dpr), Math.round(h * dpr));
+        }
+        new ResizeObserver(resize).observe(stage);
+        resize();
+
+        const splat = await SPLAT.Loader.LoadAsync(
+            '/static/media/face.splat',
+            scene,
+            p => {
+                const v = Math.round(p * 100);
+                bar.style.width = v + '%';
+                pct.textContent = v + '%';
+            },
+        );
+
+        load.classList.add('done');
+        resize();
+
+        // Idle rotation: sideways only, +/-20 deg either side of the default.
+        // The capture only covers the front of the head, so it sways within
+        // bounds rather than spinning through the hollow back.
+        const MAX_YAW   = 20 * Math.PI / 180;
+        const RESUME_MS = 3000;
+        const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        let swayT = 0;
+        let wasIdle = true;
+        let lastInput = -1e9;      // sway from the first frame, not 3s in
+        let dragging = false;
+        const markInput = () => { lastInput = performance.now(); };
+
+        function grab() {
+            dragging = true;
+            markInput();
+            hint.textContent = 'TRACKING';
+        }
+        function release() {
+            if (!dragging) return;
+            dragging = false;
+            markInput();              // the idle countdown starts here
+            hint.textContent = 'DRAG · SHIFT-DRAG PANS';
+        }
+
+        canvas.addEventListener('contextmenu', e => e.preventDefault());
+        canvas.addEventListener('wheel', markInput, { passive: true });
+        canvas.addEventListener('mousedown', grab);
+        addEventListener('mouseup', release);
+
+        // Touch drags never fire mouse events, so without these the sway would
+        // resume mid-gesture on a phone.
+        canvas.addEventListener('touchstart', grab, { passive: true });
+        canvas.addEventListener('touchmove', markInput, { passive: true });
+        addEventListener('touchend', release);
+        addEventListener('touchcancel', release);
+
+        // If the button is released outside the window, the mouseup never
+        // arrives and we would stay "dragging" forever, freezing the sway.
+        addEventListener('blur', release);
+
+        // gsplat binds mouseup on window but mousemove on the canvas, so a drag
+        // dies the moment the pointer leaves this small panel. Forward the
+        // moves it misses; its handler only reads clientX/clientY.
+        addEventListener('mousemove', e => {
+            if (!dragging) return;
+            if (e.buttons === 0) { release(); return; }   // released off-window
+            markInput();
+            if (e.target === canvas) return;      // it already got this one
+            canvas.dispatchEvent(new MouseEvent('mousemove', {
+                clientX: e.clientX, clientY: e.clientY,
+                button: e.button, buttons: e.buttons,
+            }));
+        });
+
+        // Orbiting behind the subject shows nothing, so offer a way back.
+        canvas.addEventListener('dblclick', () => {
+            controls.dispose();
+            controls = makeControls();
+        });
+
+        const fig = document.querySelector('.scan');
+        const expand = document.getElementById('scanExpand');
+        expand.hidden = false;
+        expand.addEventListener('click', () => {
+            const on = fig.classList.toggle('expanded');
+            expand.textContent = on ? '× Close' : '⤢ Expand';
+            resize();
+        });
+        addEventListener('keydown', e => {
+            if (e.key === 'Escape' && fig.classList.contains('expanded')) expand.click();
+        });
+
+        let visible = true;
+        new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(stage);
+
+        // Dial a view in by hand, then read the exact numbers back out.
+        function frame() {
+            if (visible) {
+                // Holding the button without moving still counts as using it,
+                // so the countdown is suspended for the whole drag and only
+                // starts once the grab is released.
+                const idle = !dragging
+                    && performance.now() - lastInput > RESUME_MS;
+                if (idle && !wasIdle) {
+                    // Handing control back: ease pan and zoom to the defaults.
+                    // These are the controls' *target* values, and update()
+                    // damps toward them, so the move is smooth for free.
+                    controls.setState({ radius: BASE, target: TARGET });
+                }
+                wasIdle = idle;
+
+                if (idle && !reduced) {
+                    swayT += 0.006;
+                    splat.rotation = SPLAT.Quaternion.FromEuler(
+                        new SPLAT.Vector3(0, Math.sin(swayT) * MAX_YAW, 0));
+                }
+                controls.update();
+                renderer.render(scene, camera);
+            }
+            requestAnimationFrame(frame);
+        }
+        frame();
+    } catch (err) {
+        console.error(err);
+        fail('Scan failed to load');
+    }
+}
+</script>
