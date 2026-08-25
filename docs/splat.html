@@ -58,8 +58,8 @@ if (!document.createElement('canvas').getContext('webgl2')) {
         function makeControls() {
             const c = new SPLAT.OrbitControls(camera, canvas, ALPHA, BETA, BASE);
             c.setCameraTarget(TARGET);
-            c.minZoom = BASE * 0.3;
-            c.maxZoom = BASE * 3.0;
+            c.minZoom = BASE * 0.15;   // much closer in
+            c.maxZoom = BASE * 6.0;    // and much further out
             c.orbitSpeed = 1.6;
             c.panSpeed = 1.4;
             return c;
@@ -82,7 +82,12 @@ if (!document.createElement('canvas').getContext('webgl2')) {
 
         const MAX_YAW = 20 * Math.PI / 180;
         const RESUME_MS = 3000;
-        const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        // iOS reports reduce-motion whenever Low Power Mode is on, and it can
+        // be toggled while the page is open, so track it live rather than
+        // sampling once at load.
+        const motionQuery = matchMedia('(prefers-reduced-motion: reduce)');
+        let reduced = motionQuery.matches;
+        motionQuery.addEventListener('change', e => { reduced = e.matches; });
 
         let swayT = 0, wasIdle = true, lastInput = -1e9, dragging = false;
         const markInput = () => { lastInput = performance.now(); };
@@ -114,6 +119,9 @@ if (!document.createElement('canvas').getContext('webgl2')) {
         });
 
         function frame() {
+            // A touchend or mouseup can go missing (gesture interrupted, tab
+            // switch); without this the sway would never resume.
+            if (dragging && performance.now() - lastInput > 10000) release();
             const idle = !dragging && performance.now() - lastInput > RESUME_MS;
             if (idle && !wasIdle) controls.setState({ radius: BASE, target: TARGET });
             wasIdle = idle;
