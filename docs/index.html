@@ -294,8 +294,9 @@ if (!document.createElement('canvas').getContext('webgl2')) {
         expand.hidden = false;
         expand.addEventListener('click', () => {
             const on = fig.classList.toggle('expanded');
+            document.body.classList.toggle('scan-open', on);
             expand.textContent = on ? '× Close' : '⤢ Expand';
-            resize();
+            requestAnimationFrame(resize);   // let layout settle first
         });
         addEventListener('keydown', e => {
             if (e.key === 'Escape' && fig.classList.contains('expanded')) expand.click();
