@@ -1,0 +1,11 @@
+{#
+  Scene capture, 27/08/2026. The capture's tilt (found by eye in superspl.at)
+  is baked into the export, so the model needs no runtime rotation:
+    uv run python tools/ply2splat.py \
+      ~/Projects/3DMe/runs/20260827_232524_005816/out/export_30000.ply \
+      docs/static/media/babam.splat --rotate -28.27,0,0
+  The converter reported a subject p90 radius of 3.57 (camera distance ~6.8).
+#}
+{% set splat_src = "/static/media/babam.splat" %}
+{% set base = 6.8 %}
+{% include "splat.html" %}

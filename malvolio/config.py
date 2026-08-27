@@ -70,6 +70,14 @@ class Config:
                     standalone=True,
                 ),
                 StaticPage(
+                    name="babam",
+                    template="babam.html",
+                    output="babam.html",
+                    title="Scan",
+                    description="Gaussian-splat viewer.",
+                    standalone=True,
+                ),
+                StaticPage(
                     name="music",
                     template="music.html",
                     output="music.html",

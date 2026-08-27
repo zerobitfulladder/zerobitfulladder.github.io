@@ -44,8 +44,8 @@ if (!document.createElement('canvas').getContext('webgl2')) {
         const SPLAT = await import('/static/vendor/gsplat/gsplat.js');
 
         // Same opening view as the homepage panel.
-        const ALPHA = -0.0730;
-        const BETA  = 0.0560;
+        const ALPHA = -0.073;
+        const BETA  = 0.056;
         const BASE  = 11.271;
         const TARGET = new SPLAT.Vector3(0, 0, 0);
 
@@ -76,7 +76,8 @@ if (!document.createElement('canvas').getContext('webgl2')) {
         resize();
 
         const splat = await SPLAT.Loader.LoadAsync(
-            '/static/media/face.splat', scene, p => { bar.style.width = (p * 100) + '%'; });
+            '/static/media/face.splat',
+            scene, p => { bar.style.width = (p * 100) + '%'; });
         bar.classList.add('done');
         resize();
 
