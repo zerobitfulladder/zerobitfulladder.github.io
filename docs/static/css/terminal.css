@@ -1,0 +1,393 @@
+/* The user-agent rule for [hidden] is display:none at the same weight
+   as any author rule, so anything with its own display would ignore it. */
+[hidden]{display:none !important}
+
+/* ══════════════════════════════════════════════════════════════
+   Three-pane Miller-column browser, ranger/yazi style.
+   col1 MENU · col2 the section's contents · col3 preview.
+   VT323, one phosphor, no bold: emphasis is brightness only.
+   ══════════════════════════════════════════════════════════════ */
+:root{
+  --h:40; --s:100%;                          /* amber, P3 */
+  --bg:hsl(var(--h) 30% 4%);
+  --bg2:hsl(var(--h) 26% 8%);
+  --bright:hsl(var(--h) var(--s) 66%);
+  --text:hsl(var(--h) 40% 78%);
+  --dim:hsl(var(--h) 30% 48%);
+  --faint:hsl(var(--h) 26% 22%);
+  --bloom:hsl(var(--h) var(--s) 66% / .34);
+  --tint:hsl(var(--h) calc(var(--s) * 0.75) 48%);   /* the ramp's 0.60 stop */
+  --face:"VT323","Px437 IBM VGA","Terminus","Courier New",monospace;
+  --fs:22px; --row:26px; --col:1ch; --bar:26px;
+}
+:root[data-phosphor="green"]{--h:132;--s:88%}
+:root[data-phosphor="amber"]{--h:40;--s:100%}
+:root[data-phosphor="cyan"]{--h:185;--s:95%}
+:root[data-phosphor="magenta"]{--h:320;--s:88%}
+:root[data-phosphor="white"]{--h:200;--s:14%;
+  --bright:hsl(200 16% 92%);--text:hsl(200 10% 74%);--dim:hsl(200 10% 50%);--faint:hsl(200 10% 24%);
+  --bloom:hsl(200 20% 92% / .24);--tint:hsl(200 12% 62%)}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg)}
+body{
+  background:var(--bg);color:var(--text);
+  font:400 var(--fs)/var(--row) var(--face);
+  /* The whole page is a character grid — wrapped prose, dotted leaders, the
+     drawn boxes. A ligature draws two characters as one glyph and every count
+     downstream is then wrong, so "fi" in "filter" pulled that row's border a
+     character left of the corners. */
+  font-variant-ligatures:none;font-feature-settings:"liga" 0,"clig" 0;
+  text-shadow:0 0 7px var(--bloom);
+  height:100vh;overflow:hidden;
+  display:flex;flex-direction:column;
+}
+::selection{background:var(--bright);color:var(--bg);text-shadow:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}
+a{color:var(--bright);text-decoration:none}
+:focus-visible{outline:1px solid var(--bright);outline-offset:0}
+pre,code,input{font:inherit}
+b,strong{font-weight:400;color:var(--bright)}
+*{scrollbar-width:none}
+::-webkit-scrollbar{width:0;height:0;display:none}
+
+.crt{position:fixed;inset:0;z-index:80;pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg, rgba(0,0,0,.13) 0 1px, transparent 1px 3px),
+    radial-gradient(ellipse 88% 78% at 50% 50%, transparent 56%, rgba(0,0,0,.5) 100%);
+}
+.cur{background:var(--bright);color:var(--bg);text-shadow:none;animation:blink 1.06s steps(1) infinite}
+@keyframes blink{0%,50%{opacity:1}50.01%,100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){ .cur{animation:none} }
+
+/* ── Boot ───────────────────────────────────────────────────── */
+#boot{position:fixed;inset:0;z-index:70;background:var(--bg);overflow:hidden;
+  /* the log is scrolled to its own foot as it fills, so the skip hint needs
+     a line of its own reserved or the newest line prints underneath it */
+  padding:var(--row) calc(var(--col)*2) calc(var(--row)*2)}
+#bootlog{white-space:pre;color:var(--text)}
+
+/* ── Console and panic ──────────────────────────────────────
+   The panic is written directly beneath the console, starting just past the
+   bottom edge, and the whole console is walked upward as lines arrive — so
+   the interface scrolls off the top exactly as it would on a real tty. */
+#console{flex:1;min-height:0;display:flex;flex-direction:column;position:relative}
+#panicLog{position:absolute;top:100%;left:0;right:0;
+  white-space:pre;color:var(--text);padding-top:var(--row)}
+#panicLog .hi{color:var(--bright)}
+/* Once the dump has stopped, the flood becomes scrollback: the console keeps
+   its screenful at the top, the log flows on below it, and the page scrolls
+   normally so everything that went past can be read back. */
+:root[data-crashed] body{height:auto;overflow-y:auto}
+:root[data-crashed] #console{flex:none;height:100vh;transform:none}
+:root[data-crashed] #panicLog{position:static;flex:none}
+#panicLog .d{color:var(--dim)}
+#bootlog .hi{color:var(--bright)}
+#bootlog .d{color:var(--dim)}
+/* The hint is chrome laid over the tube rather than a line of the log, so it
+   carries the ground with it — while the sequence is still filling the pane
+   it has not begun to scroll, and a line would otherwise print through it. */
+.bootskip{position:fixed;left:calc(var(--col)*2);bottom:var(--row);color:var(--faint);
+  background:var(--bg);padding-right:var(--col)}
+
+/* ── Chrome lines: no fill, no rule — they only occlude ─────── */
+.bar{flex:none;height:var(--bar);display:flex;align-items:center;gap:calc(var(--col)*2);
+  padding:0 calc(var(--col)*2);background:var(--bg);white-space:nowrap;overflow:hidden}
+.sys{color:var(--bright)}
+.crumb{color:var(--dim);overflow:hidden;text-overflow:ellipsis}
+.crumb b{color:var(--text)}
+.spacer{flex:1}
+.phos{display:flex;gap:var(--col);align-items:center;color:var(--dim);flex:none}
+.phos button{width:11px;height:11px;background:var(--sw)}
+.phos button.on{outline:1px solid var(--bright);outline-offset:2px}
+.fkeys{display:flex;gap:calc(var(--col)*2);overflow:hidden;color:var(--dim)}
+.fk i{font-style:normal;background:var(--bright);color:var(--bg);text-shadow:none;padding:0 2px}
+.fk span{padding-left:3px;color:var(--text)}
+.readout{color:var(--dim)}
+.readout b{color:var(--text)}
+
+/* ── Command input borrows the key bar, vim-style ───────────── */
+.cmdwrap{display:flex;align-items:center;gap:var(--col);flex:1;min-width:0}
+.cmdwrap .p{color:var(--bright);flex:none}
+.cmdwrap input{flex:1;min-width:0;background:none;border:0;color:var(--bright);outline:none;
+  caret-color:var(--bright);text-shadow:inherit}
+.ln{white-space:pre-wrap;min-height:var(--row)}
+
+#stage{flex:1;min-height:0;display:flex;flex-direction:column;padding:0 calc(var(--col)*2)}
+
+/* ── Header: one-line block banner + one true status line ───── */
+.head{flex:none;padding-bottom:calc(var(--row)*.5)}
+.bwrap{line-height:0}
+.banner{display:block;image-rendering:pixelated}
+.sub{color:var(--dim)}
+
+/* ── Columns ────────────────────────────────────────────────── */
+.cols{flex:1;min-height:0;display:grid;
+  grid-template-columns:minmax(0,0.5fr) minmax(0,1fr) minmax(0,1fr);gap:0}
+.col{min-width:0;min-height:0;overflow-y:auto;overflow-x:hidden;padding:0 calc(var(--col)*2) var(--row) 0}
+.col + .col{border-left:1px solid var(--faint);padding-left:calc(var(--col)*2)}
+/* A file section has no preview to show, and below a certain width the grid
+   folds that share into the document rather than leaving it standing empty —
+   which leaves the third column with nothing to draw but its own rule. */
+.cols[data-merged] #col3{display:none}
+/* Two shares of a wide screen is more line than anyone reads, so the folded
+   column stops the document at a long tty measure rather than at its own
+   edge. Only where the fold happened: elsewhere the column is the measure,
+   which is the whole idea. */
+.cols[data-merged] .prose{max-width:110ch}
+.ch{position:sticky;top:0;background:var(--bg);z-index:2;display:flex;gap:var(--col);color:var(--dim);
+  align-items:baseline;white-space:nowrap;overflow:hidden;
+  /* an empty header still holds its line, so the columns stay in step */
+  min-height:var(--row)}
+.ch .r{flex:1;overflow:hidden;color:var(--faint)}
+.ch.act{color:var(--bright)}
+
+/* rows — inverse when the column has focus, ghosted when it doesn't */
+.row{display:flex;gap:var(--col);width:100%;color:var(--text);scroll-margin-block:var(--row)}
+/* The name yields before anything else does: the leader has no width of its
+   own to give up, and the size on the right is the one thing a listing may
+   never lose — a name too long for the column is ellipsised instead. */
+.row .n{flex:0 1 auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .g{flex:none;color:var(--dim)}
+.row .r{flex:1;overflow:hidden;white-space:nowrap;color:var(--faint)}
+.row .v{flex:none;color:var(--dim)}
+.row.dir .n{color:var(--bright)}
+.row:hover,.row:hover .n{color:var(--bright)}
+.row.sel,.row.sel .n,.row.sel .g,.row.sel .v,.row.sel .r{background:var(--faint);color:var(--text)}
+.col.on .row.sel,.col.on .row.sel .n,.col.on .row.sel .g,.col.on .row.sel .v,.col.on .row.sel .r{
+  background:var(--bright);color:var(--bg);text-shadow:none}
+.hd{display:flex;gap:var(--col);color:var(--dim);align-items:baseline;white-space:nowrap;overflow:hidden}
+.hd>span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis}
+/* ![Name] in an _order file: the same heading, lifted one step. */
+.hd.bright>span:first-child{color:var(--bright)}
+.hd .r{flex:1;overflow:hidden;color:var(--faint)}
+.gap{height:var(--row)}
+.empty{color:var(--dim)}
+
+/* ── Preview column ─────────────────────────────────────────── */
+.scan{max-width:38ch}
+/* the portrait sits beside the prose; a float is escaped by the block below */
+.doc figure.portrait{float:right;width:52%;max-width:40ch;margin:0 0 var(--row) calc(var(--col)*3)}
+/* the figure already sizes and places the portrait, so the layout class every
+   other capture gets has no business shrinking it inside its own frame */
+.doc figure.portrait img{width:100%;max-width:100%;max-height:none}
+/* the caption is as narrow as the picture, so it wraps rather than clipping */
+.doc figure.portrait figcaption{white-space:normal;text-align:center}
+/* A scan fills the pane it is given rather than dictating its own height:
+   the document becomes a column, the captions keep their lines, and the box
+   takes whatever is left — so a scan never needs scrolling to see. */
+/* keyed on the declaration rather than on the mounted box, so the layout
+   does not depend on hydration having run; the slot is itself a flex parent
+   because the viewer is mounted one level inside it */
+.doc:has([data-splat]){display:flex;flex-direction:column;height:100%;min-height:0}
+.doc [data-splat]{flex:1;min-height:0;display:flex}
+.splatbox{position:relative;flex:1;min-height:0;width:100%;background:var(--bg2);
+  box-shadow:inset 0 0 0 1px var(--faint);overflow:hidden;
+  /* lifted clear of the page raster, so nothing is laid over the scan */
+  z-index:90}
+.splatbox canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.splatsrc{cursor:grab}
+.splatsrc:active{cursor:grabbing}
+.splatload{position:absolute;left:0;right:0;bottom:0;padding:0 var(--col);
+  background:linear-gradient(0deg,var(--bg),transparent);color:var(--dim);transition:opacity .4s}
+.splatload.done{opacity:0;pointer-events:none}
+.scan img{width:100%;height:auto;display:block}
+/* a caption too long for its column is cut, so say so rather than letting
+   it stop mid-word against the edge */
+.cap{color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dt{color:var(--bright)}
+.dm{color:var(--dim)}
+/* leaders need the full measure, so the block starts below the picture
+   rather than half beside it */
+.doc .facts{clear:both}
+.fr{display:flex;gap:var(--col);color:var(--text)}
+.fr .k{color:var(--dim);width:10ch;flex:none}
+.fr .r{overflow:hidden;white-space:nowrap;flex:1;color:var(--faint)}
+.fr .v{flex:none}
+.links{display:flex;gap:calc(var(--col)*2);flex-wrap:wrap}
+.links.center{justify-content:center}
+.links a:hover{background:var(--bright);color:var(--bg);text-shadow:none}
+.say{color:var(--dim)}
+.say:hover{color:var(--bright)}
+/* the filled variant: the accent as ink rather than as text */
+.btn{background:var(--bright);color:var(--bg);text-shadow:none;padding:0 calc(var(--col)*2)}
+.btn:hover{background:var(--text)}
+.welcome{max-width:72ch;overflow:hidden}
+.welcome .hi{color:var(--bright)}
+
+/* ── Document pane: its own scroller, a position rail, and a
+      vim-style status line that brightens when the pane has focus ── */
+/* one status line under all three columns, for whatever is selected */
+.docstat{flex:none;display:flex;gap:var(--col);white-space:nowrap;overflow:hidden;
+  background:var(--faint);color:var(--text);padding:0 var(--col)}
+.docstat.act{background:var(--bright);color:var(--bg);text-shadow:none}
+.docstat .path{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;direction:rtl;text-align:left}
+.docstat .perm,.docstat .mod{flex:none}
+.docstat .statline{flex:1;min-width:0;display:flex;gap:var(--col);overflow:hidden}
+.docstat .cur{flex:none;margin-right:var(--col)}
+.prose{max-width:none}
+.prose h1,.prose h2{font-size:inherit;font-weight:400;color:var(--bright)}
+.prose h2{margin-top:var(--row)}
+/* The embed is a white page we do not control. Multiply a phosphor tint
+   over it so white becomes the tint and the artwork keeps its structure,
+   then lay the same raster over it as the dithered stills carry.
+   isolation keeps the blend inside this box. */
+.bcstack{display:flex;flex-direction:column;gap:3px;margin-bottom:var(--row);max-width:46ch}
+.bcwrap{position:relative;isolation:isolate;line-height:0;
+  border:1px solid var(--faint);height:44px}
+.bcwrap iframe{display:block;width:100%;height:100%;border:0;background:#fff}
+.bcwrap .tint,.bcwrap .scan{position:absolute;inset:0;pointer-events:none}
+.bcwrap .tint{background:var(--tint);mix-blend-mode:multiply}
+.bcwrap .scan{background:repeating-linear-gradient(0deg,
+  rgba(0,0,0,.20) 0 1px, transparent 1px 3px)}
+.ramps{position:absolute;width:0;height:0;overflow:hidden}
+/* Images are stored grayscale and take the phosphor from a colour ramp, so
+   switching is a filter change with no reload and no second copy on disk. */
+/* Only the dithered portrait takes the ramp: it is grayscale, so the ramp is
+   the only colour it has. */
+.doc .scan img{filter:url(#ph-amber-mono)}
+:root[data-phosphor="green"] .doc .scan img{filter:url(#ph-green-mono)}
+:root[data-phosphor="amber"] .doc .scan img{filter:url(#ph-amber-mono)}
+:root[data-phosphor="cyan"] .doc .scan img{filter:url(#ph-cyan-mono)}
+:root[data-phosphor="magenta"] .doc .scan img{filter:url(#ph-magenta-mono)}
+:root[data-phosphor="white"] .doc .scan img{filter:url(#ph-white-mono)}
+/* a capture opens to its own size on click; a video keeps its controls */
+.doc img.docimg{cursor:zoom-in}
+.doc .scan img{cursor:default}
+/* the measure that keeps a tall capture in its column has no business
+   constraining it once the browser hands it the whole screen */
+.doc video.docimg:fullscreen{max-width:none;max-height:none;width:100%;height:100%}
+#lightbox{position:fixed;inset:0;z-index:100;display:grid;place-items:center;
+  background:hsl(var(--h) 30% 4% / .94);padding:var(--row) calc(var(--col)*2);cursor:zoom-out}
+#lightbox[hidden]{display:none}
+#lightbox img{max-width:92vw;max-height:88vh;display:block;
+  outline:1px solid var(--bright);outline-offset:0}
+/* A tall photograph would otherwise be scaled up to the full column and run
+   off the screen, so height is capped and the width follows from it. */
+.doc img.docimg,.doc video.docimg{width:auto;height:auto;display:block;
+  /* capped in both directions: wide enough to read, never so large that one
+     picture owns the pane */
+  max-width:min(100%, 68ch);max-height:42vh;
+  margin:0 0 var(--row);box-shadow:inset 0 0 0 1px var(--faint)}
+/* Captures carry no treatment of their own — they are shown as they are.
+   Hovering pulls one up through the page raster, so what is left on screen
+   is the file itself. The columns still clip it, so it cannot escape the
+   pane it belongs to. */
+.doc img.docimg,.doc video.docimg{position:relative}
+.doc img.docimg:hover,.doc video.docimg:hover{z-index:90}
+/* Layout variants, chosen by the image title in Markdown. Small enough that
+   prose keeps its measure beside them.
+
+   These set `max-width` only — never `width`. A fixed width cannot yield to
+   the height cap above, so a tall photograph would grow past it in the one
+   direction nothing was limiting. With both bounds expressed as maxima the
+   browser keeps the aspect ratio and whichever bound binds first simply
+   wins: a wide capture takes its share of the column, a portrait one comes
+   out narrower than its share rather than taller than the screen.
+
+   They carry the type selector so they outrank the cap above: a bare
+   `.doc .img-right` loses to `.doc img.docimg`, and the float silently
+   never applies. */
+.doc img.img-left,.doc img.img-right,.doc video.img-left,.doc video.img-right{
+  max-width:42%}
+.doc img.img-left,.doc video.img-left{
+  float:left;margin:calc(var(--row)*.25) calc(var(--col)*3) calc(var(--row)*.5) 0}
+.doc img.img-right,.doc video.img-right{
+  float:right;margin:calc(var(--row)*.25) 0 calc(var(--row)*.5) calc(var(--col)*3)}
+.doc img.img-center,.doc video.img-center{
+  max-width:62%;margin-left:auto;margin-right:auto}
+/* Two stills written as one paragraph — a left and a right — are a pair meant
+   to be read side by side, and on a wide screen the prose threads neatly
+   between them. Narrow the column and that thread is six or seven characters
+   wide: a word to a line. So under this width the pair stops floating and
+   becomes what it always was, two pictures in a row, with the paragraph that
+   follows taking the full measure underneath. */
+@media (max-width:1600px){
+  .doc p:has(img.img-left):has(img.img-right){
+    display:flex;gap:calc(var(--col)*2);align-items:flex-start;
+    margin:0 0 var(--row)}
+  .doc p:has(img.img-left):has(img.img-right) img{
+    float:none;margin:0;max-width:50%}
+}
+/* a heading must never sit beside a float it does not belong to */
+.doc h1,.doc h2,.doc h3,.doc .tbl,.doc pre.code{clear:both}
+.doc::after{content:"";display:block;clear:both}
+/* KaTeX defaults to 1.21em, which towers over VT323's small x-height */
+.doc .katex{color:var(--text);font-size:1.02em}
+.doc .katex-display>.katex{font-size:1.1em}
+.doc .katex-display{overflow-x:auto;overflow-y:hidden;margin:0 0 var(--row)}
+.prose .meta{color:var(--dim)}
+.prose p{margin:0 0 var(--row)}
+.prose p.lead{color:var(--bright)}
+.prose h3{font-size:inherit;font-weight:400;color:var(--bright)}
+.prose a{text-decoration:underline;text-underline-offset:2px}
+.prose a:hover{background:var(--bright);color:var(--bg);text-shadow:none;text-decoration:none}
+.prose blockquote{color:var(--dim);margin:0 0 var(--row);padding-left:calc(var(--col)*2)}
+.prose pre.code,.prose .tbl{overflow-x:auto;margin:0 0 var(--row);color:var(--text);white-space:pre}
+.prose code{color:var(--bright)}
+.prose ul{list-style:none;margin:0 0 var(--row)}
+.prose li::before{content:"  * ";color:var(--dim)}
+
+/* ── Pressed ─────────────────────────────────────────────────
+   A hover says the control is live; a press has to say it was heard.
+   Filled controls sink a step, quiet ones invert the way a terminal
+   answers a keypress. ───────────────────────────────────────── */
+.btn:active,#backBtn:active{background:var(--dim)}
+.say:active{background:var(--bright);color:var(--bg);text-shadow:none}
+.links a:active,.prose a:active{background:var(--text);color:var(--bg);text-shadow:none}
+.phos button:active{outline:1px solid var(--text);outline-offset:2px}
+.row:active,.row:active .n,.row:active .g,.row:active .v,.row:active .r{
+  background:var(--bright);color:var(--bg);text-shadow:none}
+
+/* ── Help ───────────────────────────────────────────────────── */
+.help{position:fixed;inset:0;z-index:65;display:grid;place-items:center;background:hsl(var(--h) 30% 4% / .92);padding:var(--row)}
+/* The table is drawn in characters, so the box takes its width from the
+   table rather than from a guessed column count — 76ch was one character
+   short of the widest row, which set the whole card scrolling sideways, and
+   the line-box rounding then made it scroll a couple of pixels down too. */
+.helpbox{background:var(--bg);width:fit-content;max-width:100%;
+  padding:var(--row) calc(var(--col)*2);white-space:pre;color:var(--text);
+  overflow:auto;max-height:90vh}
+.helpbox .k{color:var(--bright)}
+.helpbox .n{color:var(--dim)}
+
+/* A bar this narrow cannot carry the word and the swatches both, and it is
+   the swatches that are the control — the breadcrumb takes back the room. */
+@media (max-width:560px){ .phos>span:first-child{display:none} }
+
+/* Off on a pointer screen, on inside the touch query below. Stated here
+   rather than after it: both selectors are one ID, so the later rule wins
+   at equal weight — and from below, this `none` put the button out
+   everywhere, leaving touch with no way back up the tree. */
+#backBtn{display:none;align-items:center;gap:var(--col);color:var(--bg);
+  background:var(--bright);text-shadow:none;padding:0 var(--col);flex:none}
+
+/* ── Touch: one column at a time, like pages ─────────────────
+   The same three panes, but only the current level is on screen and
+   a tap descends into the next one. ─────────────────────────── */
+@media (max-width:1000px){
+  .cols{grid-template-columns:1fr !important;gap:0}
+  #col1,#col2,#col3{display:none;border-left:0;
+    padding-left:calc(var(--col)*2);padding-right:calc(var(--col)*2)}
+  .cols[data-level="menu"] #col1,
+  .cols[data-level="list"] #col2{display:block}
+  .cols[data-level="doc"]  #col3{display:block}
+  /* a dotted leader needs width these screens do not have */
+  .fr{flex-wrap:wrap}
+  .fr .r{display:none}
+  .fr .v{width:100%;color:var(--bright)}
+  /* fingers need a target; 26px rows do not give one */
+  .row{padding-top:6px;padding-bottom:6px}
+  .fkeys{display:none}
+  .docstat .perm{display:none}
+  /* the identity belongs to the menu page; the pages below it are content */
+  .head{display:none}
+  :root[data-level="menu"] .head{display:block}
+  #backBtn{display:inline-flex}
+  .phos button{width:16px;height:16px}
+  .readout .opt{display:none}
+  /* no room to flow text beside an image on a phone */
+  .doc img.img-left,.doc img.img-right,.doc img.img-center,
+  .doc video.img-left,.doc video.img-right,.doc video.img-center,
+  .doc figure.portrait{float:none;width:100%;max-width:100%;margin:0 0 var(--row)}
+}

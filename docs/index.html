@@ -1,0 +1,938 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tuğrul Ağrikli</title>
+<meta name="description" content="Systems and machine learning engineer in Istanbul. Computer vision on the edge, desktop shells, LLM-driven agents.">
+<meta name="author" content="Tuğrul Ağrikli">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tuğrul Ağrikli">
+<meta property="og:description" content="Systems and machine learning engineer in Istanbul. Computer vision on the edge, desktop shells, LLM-driven agents.">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23040608'/><text y='24' x='5' font-family='monospace' font-size='22' fill='%23ffb300'>i</text></svg>">
+
+<!-- Self-hosted, so the page asks no third party for anything and renders
+     the same offline. latin-ext carries the Turkish forms. -->
+<link rel="stylesheet" href="/static/fonts/fonts.css">
+<link rel="stylesheet" href="/static/css/terminal.css">
+
+<!-- KaTeX is not loaded here. Two documents in the tree carry math, and
+     hydrate.js fetches the typesetter the first time one of them is opened. -->
+</head>
+<body>
+<!-- The phosphor is applied to grayscale images by these ramps, so a picture
+     needs one file rather than one per colour and switching costs nothing. -->
+<svg class="ramps" aria-hidden="true" focusable="false">
+  <defs>
+    
+    <!-- over the dithered portrait, which is already grayscale: the ramp
+         supplies all of its colour -->
+    <filter id="ph-green-mono" color-interpolation-filters="sRGB">
+      <feColorMatrix type="saturate" values="0" />
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0.0 0.00266 0.00532 0.00798 0.01064 0.0133 0.01595 0.01861 0.03013 0.04201 0.05389 0.06577 0.07765 0.08953 0.10142 0.1133 0.12518 0.13706 0.14894 0.16082 0.19937 0.24458 0.28978 0.33499 0.3802 0.42541 0.47062 0.51583 0.56104 0.60625 0.65145 0.69666 0.74187" />
+        <feFuncG type="table" tableValues="0.0 0.02291 0.04582 0.06873 0.09164 0.11455 0.13745 0.16036 0.21145 0.26372 0.31598 0.36824 0.42051 0.47277 0.52503 0.57729 0.62956 0.68182 0.73408 0.78635 0.80938 0.82511 0.84084 0.85657 0.8723 0.88803 0.90376 0.91948 0.93521 0.95094 0.96667 0.9824 0.99813" />
+        <feFuncB type="table" tableValues="0.0 0.00671 0.01342 0.02013 0.02684 0.03355 0.04025 0.04696 0.06639 0.08635 0.10631 0.12627 0.14622 0.16618 0.18614 0.2061 0.22605 0.24601 0.26597 0.28593 0.32137 0.36068 0.4 0.43931 0.47862 0.51793 0.55725 0.59656 0.63587 0.67518 0.7145 0.75381 0.79312" />
+      </feComponentTransfer>
+    </filter>
+    
+    <!-- over the dithered portrait, which is already grayscale: the ramp
+         supplies all of its colour -->
+    <filter id="ph-amber-mono" color-interpolation-filters="sRGB">
+      <feColorMatrix type="saturate" values="0" />
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0.0 0.02429 0.04858 0.07287 0.09716 0.12145 0.14574 0.17003 0.22382 0.27883 0.33385 0.38887 0.44388 0.4989 0.55391 0.60893 0.66395 0.71896 0.77398 0.829 0.85 0.8625 0.875 0.8875 0.9 0.9125 0.925 0.9375 0.95 0.9625 0.975 0.9875 1.0" />
+        <feFuncG type="table" tableValues="0.0 0.01662 0.03324 0.04986 0.06648 0.0831 0.09972 0.11634 0.15513 0.19485 0.23457 0.27429 0.31401 0.35373 0.39345 0.43317 0.47289 0.51262 0.55234 0.59206 0.61958 0.64406 0.66854 0.69302 0.7175 0.74198 0.76646 0.79094 0.81542 0.8399 0.86438 0.88885 0.91333" />
+        <feFuncB type="table" tableValues="0.0 0.00128 0.00256 0.00384 0.00511 0.00639 0.00767 0.00895 0.01776 0.02689 0.03602 0.04515 0.05428 0.0634 0.07253 0.08166 0.09079 0.09992 0.10905 0.11817 0.15875 0.20719 0.25562 0.30406 0.3525 0.40094 0.44937 0.49781 0.54625 0.59469 0.64312 0.69156 0.74" />
+      </feComponentTransfer>
+    </filter>
+    
+    <!-- over the dithered portrait, which is already grayscale: the ramp
+         supplies all of its colour -->
+    <filter id="ph-cyan-mono" color-interpolation-filters="sRGB">
+      <feColorMatrix type="saturate" values="0" />
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0.0 0.00185 0.00371 0.00556 0.00741 0.00927 0.01112 0.01298 0.02291 0.03319 0.04347 0.05374 0.06402 0.07429 0.08457 0.09484 0.10512 0.11539 0.12567 0.13594 0.17563 0.22266 0.26969 0.31672 0.36375 0.41078 0.45781 0.50484 0.55188 0.59891 0.64594 0.69297 0.74" />
+        <feFuncG type="table" tableValues="0.0 0.02189 0.04379 0.06568 0.08757 0.10946 0.13136 0.15325 0.20235 0.25259 0.30282 0.35306 0.4033 0.45353 0.50377 0.55401 0.60424 0.65448 0.70472 0.75495 0.77833 0.795 0.81167 0.82833 0.845 0.86167 0.87833 0.895 0.91167 0.92833 0.945 0.96167 0.97833" />
+        <feFuncB type="table" tableValues="0.0 0.02371 0.04743 0.07114 0.09486 0.11857 0.14229 0.166 0.21866 0.27253 0.3264 0.38027 0.43414 0.48801 0.54188 0.59575 0.64962 0.70349 0.75736 0.81123 0.83312 0.84703 0.86094 0.87484 0.88875 0.90266 0.91656 0.93047 0.94438 0.95828 0.97219 0.98609 1.0" />
+      </feComponentTransfer>
+    </filter>
+    
+    <!-- over the dithered portrait, which is already grayscale: the ramp
+         supplies all of its colour -->
+    <filter id="ph-magenta-mono" color-interpolation-filters="sRGB">
+      <feColorMatrix type="saturate" values="0" />
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0.0 0.02291 0.04582 0.06873 0.09164 0.11455 0.13745 0.16036 0.21145 0.26372 0.31598 0.36824 0.42051 0.47277 0.52503 0.57729 0.62956 0.68182 0.73408 0.78635 0.80938 0.82511 0.84084 0.85657 0.8723 0.88803 0.90376 0.91948 0.93521 0.95094 0.96667 0.9824 0.99813" />
+        <feFuncG type="table" tableValues="0.0 0.00266 0.00532 0.00798 0.01064 0.0133 0.01595 0.01861 0.03013 0.04201 0.05389 0.06577 0.07765 0.08953 0.10142 0.1133 0.12518 0.13706 0.14894 0.16082 0.19937 0.24458 0.28978 0.33499 0.3802 0.42541 0.47062 0.51583 0.56104 0.60625 0.65145 0.69666 0.74187" />
+        <feFuncB type="table" tableValues="0.0 0.01616 0.03232 0.04848 0.06464 0.0808 0.09695 0.11311 0.15101 0.18981 0.22862 0.26742 0.30622 0.34502 0.38383 0.42263 0.46143 0.50023 0.53904 0.57784 0.60604 0.6316 0.65716 0.68271 0.70827 0.73382 0.75938 0.78493 0.81049 0.83604 0.8616 0.88715 0.91271" />
+      </feComponentTransfer>
+    </filter>
+    
+    <!-- over the dithered portrait, which is already grayscale: the ramp
+         supplies all of its colour -->
+    <filter id="ph-white-mono" color-interpolation-filters="sRGB">
+      <feColorMatrix type="saturate" values="0" />
+      <feComponentTransfer>
+        <feFuncR type="table" tableValues="0.0 0.01117 0.02235 0.03352 0.04469 0.05587 0.06704 0.07821 0.10637 0.13523 0.16409 0.19295 0.22181 0.25067 0.27953 0.30839 0.33725 0.36611 0.39497 0.42383 0.45585 0.48866 0.52148 0.55429 0.58711 0.61992 0.65273 0.68555 0.71836 0.75117 0.78399 0.8168 0.84962" />
+        <feFuncG type="table" tableValues="0.0 0.01332 0.02664 0.03996 0.05328 0.06661 0.07993 0.09325 0.1256 0.15874 0.19188 0.22503 0.25817 0.29131 0.32446 0.3576 0.39074 0.42389 0.45703 0.49017 0.52055 0.55024 0.57992 0.60961 0.6393 0.66899 0.69867 0.72836 0.75805 0.78773 0.81742 0.84711 0.87679" />
+        <feFuncB type="table" tableValues="0.0 0.01439 0.02879 0.04318 0.05758 0.07197 0.08637 0.10076 0.13521 0.1705 0.20578 0.24107 0.27635 0.31164 0.34692 0.3822 0.41749 0.45277 0.48806 0.52334 0.5529 0.58102 0.60915 0.63727 0.66539 0.69352 0.72164 0.74977 0.77789 0.80601 0.83414 0.86226 0.89038" />
+      </feComponentTransfer>
+    </filter>
+    
+  </defs>
+</svg>
+
+<div class="crt" aria-hidden="true"></div>
+
+<div id="boot"><pre id="bootlog"></pre><div class="bootskip">PRESS ENTER TO SKIP</div></div>
+
+<!-- the console: everything the tube is showing. A panic is written below
+     it and scrolls it up and away, the way a flooded tty does. -->
+<div id="console">
+
+<header class="bar" id="topbar" hidden>
+  <span class="sys">INDIGO 0.1.0</span>
+  <span class="crumb" id="crumb"></span>
+  <span class="spacer"></span>
+  <span class="phos" id="phos" role="group" aria-label="Phosphor">
+    <span>PHOSPHOR</span>
+    <button data-p="green"   style="--sw:hsl(132 88% 58%)" title="green, P1" aria-label="green"></button>
+    <button data-p="amber"   style="--sw:hsl(40 100% 58%)" title="amber, P3" aria-label="amber"></button>
+    <button data-p="cyan"    style="--sw:hsl(185 95% 60%)" title="cyan" aria-label="cyan"></button>
+    <button data-p="magenta" style="--sw:hsl(320 88% 62%)" title="magenta" aria-label="magenta"></button>
+    <button data-p="white"   style="--sw:hsl(200 16% 88%)" title="white, P4" aria-label="white"></button>
+  </span>
+</header>
+
+<main id="stage" hidden>
+  <div class="head">
+    <div class="bwrap"><canvas class="banner" id="nameBanner" aria-label="Tuğrul Ağrikli"></canvas></div>
+    <div class="sub" id="sub"></div>
+  </div>
+
+  <div class="cols" id="colsView">
+    <div class="col on" id="col1">
+      <div class="ch act" id="c1h">MENU<span class="r"></span></div>
+      <div id="menuList" role="listbox" aria-label="Main menu"></div>
+    </div>
+    <!-- the second column holds rows when the section is a directory and the
+         page itself when it is a file, so it carries both panes -->
+    <div class="col" id="col2">
+      <div class="ch" id="c2h"></div>
+      <div id="listCol" role="listbox" aria-label="Section contents"></div>
+      <div class="doc prose" id="doc2" hidden></div>
+    </div>
+    <div class="col" id="col3">
+      <div class="doc prose" id="doc3"></div>
+    </div>
+  </div>
+
+  <!-- one status line for whatever is selected, in whichever column -->
+  <div class="docstat"><span class="statline" id="docstat"></span></div>
+
+</main>
+
+
+
+<footer class="bar" id="botbar" hidden>
+  <button id="backBtn" hidden>&lsaquo; BACK</button>
+  <span class="fkeys" id="fkeys"></span>
+  <span class="cmdwrap" id="cmdwrap" hidden><span class="p" id="cmdP">:</span><input id="cmdIn"
+    autocomplete="off" spellcheck="false" aria-label="Command"></span>
+  <span class="spacer"></span>
+  <span class="readout">
+    <span class="opt"><b id="rCount"></b> ENTRIES · </span><span class="opt">AGE <b id="rAge"></b> · </span><b id="rClock"></b> <span id="rZone"></span>
+  </span>
+</footer>
+
+</div>
+
+<div class="help" id="help" hidden><pre class="helpbox" id="helpbox"></pre></div>
+
+<script>
+/* A module that fails to parse would leave the boot screen sitting there with
+   no explanation, so surface it where the reader already is. */
+addEventListener('error', e => {
+  const where = `${e.message} — ${(e.filename || '').split('/').pop()}:${e.lineno}`;
+  const log = document.getElementById('bootlog');
+  if (log) log.textContent += `\n\nERROR ${where}`;
+  const crumb = document.getElementById('crumb');   // visible after boot too
+  if (crumb) crumb.textContent = 'ERROR ' + where;
+});
+</script>
+
+<script type="application/json" id="site-data">{"root": [{"id": "me", "path": "me", "name": "ME", "ext": ".html", "src": "content/me.html", "html": "<figure class=\"scan portrait\">\n  <img class=\"docimg img-center\" src=\"/static/media/crt/profile.jpg\" alt=\"Tuğrul Ağrikli\" width=\"880\" height=\"855\" />\n  <figcaption class=\"cap\">PHOTOGRAPH · AĞRİKLİ,&nbsp;T.</figcaption>\n</figure>\n\n<div class=\"welcome\" data-wrap>Hehe, hello!\nI'm not sure whether I exist or not.\n\nCurrently exploring gradient-free, local, online learning mechanisms, in search of one that recognizes and generates from the same weights and keeps learning without forgetting. \nMostly it's a catalogue of what doesn't work so far.\nWhat I've been reading, and notes on it: <a href=\"#library\">LIBRARY</a>.\n\n<div class=\"welcome\" data-wrap>I also freelance on <a href=\"https://www.upwork.com/freelancers/~01b6222728cba6f1ac\">Upwork</a> occasionally.</div>\n\nFeel free to browse, or click this button.</div>\n<button class=\"btn\" type=\"button\" data-crash>BUTTON</button>\n\n<div class=\"gap\"></div>\n\n\n<div class=\"gap\"></div>\n\n<div class=\"facts\">\n<div class=\"fr\"><span class=\"k\">WORKS</span><span class=\"r\" data-leader></span><span class=\"v\"><span data-count=\"work\">-</span></span></div>\n<div class=\"fr\"><span class=\"k\">THOUGHTS</span><span class=\"r\" data-leader></span><span class=\"v\"><span data-count=\"thoughts\">-</span></span></div>\n<div class=\"fr\"><span class=\"k\">ON FILE</span><span class=\"r\" data-leader></span><span class=\"v\"><span data-count=\"work\">-</span> ENTRIES</span></div>\n<div class=\"fr\"><span class=\"k\">STATUS</span><span class=\"r\" data-leader></span><span class=\"v\">AVAILABLE</span></div>\n</div>\n\n\n<div class=\"gap\"></div>\n\n<div class=\"links center\">\n  <a href=\"mailto:tagrikli@proton.me\">EMAIL</a>\n  <a href=\"https://github.com/zerobitfulladder\">GITHUB</a>\n  <a href=\"https://www.upwork.com/freelancers/~01b6222728cba6f1ac\">UPWORK</a>\n  <a href=\"https://open.spotify.com/user/tagrikli\">SPOTIFY</a>\n  <a href=\"https://letterboxd.com/tagrikli/\">LETTERBOXD</a>\n</div>", "v": "1.8 KB", "modified": "2026-09-09"}, {"id": "thoughts", "path": "thoughts", "name": "THOUGHTS", "src": "content/thoughts/", "children": [{"id": "analysis-by-synthesis", "path": "thoughts/analysis-by-synthesis", "name": "ANALYSIS BY SYNTHESIS?", "ext": ".md", "src": "content/thoughts/analysis-by-synthesis.md", "html": "<p>Today I've read the paper called <em><a href=\"https://doi.org/10.1016/j.tics.2006.05.002\">Vision as Bayesian inference: analysis by synthesis?</a></em>, from 2006, by Alan Yuille and Daniel Kersten.</p>\n<h2>I. Reading old papers</h2>\n<p>A cognitive science paper from 2006. As I read more old papers, I just get more and more interested in them at this point. It's not like reading an old novel (I guess, I'm not a novel reader), where you witness the storytelling of a writer of that time and, despite the change of contexts or norms, still find something familiar due to human nature. Here it is quite different, as if I'm reading the highly structured ideas of a very smart people, composing such novel ideas without knowing about the advancements of the years to come. This paper is <strong>6 years</strong> before AlexNet, for the god's sake.</p>\n<p>I had heard of Bayesian approaches to brain function before, tho I never left the shallow waters. This is the first paper I've actually read on the topic, and it left a strong impression.</p>\n<h2>II. What they argue</h2>\n<p>Their argument, as far as I follow it, goes like this. Vision is an inverse problem: the world generates the image, and the brain has to run that generation backwards, asking what could have caused the thing it received. Bayes gives the shape of the answer, but it needs two pieces to work: a <em>generative model</em> of how a cause produces an image, and a <em>prior</em> over which causes are likely in the first place. Analysis by synthesis is the <strong>mechanism</strong> for actually computing it. You don't invert the generative model directly, because you can't. You propose a cause, synthesize what it would have looked like, and compare that against the image you actually got.</p>\n<h2>III. The input is already a lossy projection</h2>\n<p>I've acquired a new way of thinking about perception with this paper. As they mention, the image that falls onto the retina is a higher dimensional <em>thing</em> projected onto a lower dimension in a <em>lossy</em> way, which wasn't something I had thought about before. When I was experimenting with different architectures, I only thought about the lossiness of the network, mainly whether it should lower the dimension or keep it the same. I never thought that the input would <em>already</em> be a lossy projection of the real thing, let alone that the network could be given the job of figuring out what was lost. So then the function of the network is not just to represent the input losslessly, but to expand its dimensions even further, toward modelling the actual thing.</p>\n<h2>IV. What it would feel like</h2>\n<p>The claim that analysis by synthesis is the mechanism of Bayesian inference is a fascinating idea. Input is never the whole thing, only a cue. Then the recognition task is taking that cue to propose causes, rendering them to find a fit, which makes me think that if such a thing would feel like anything, it would feel close to the feeling of <strong>trying to figure something out</strong>.</p>\n<h2>V. Then it is a search problem</h2>\n<p>If that is the mechanism, then the shape of the working is a search, and there is more than one way it could go.</p>\n<p>The plainest version is to propose every cause, score them all, and return the best one. A cheaper version is to keep several proposals alive at once, rank them, and stop early on the ones that are clearly losing. Or you could hill climb: hold some of the causes fixed, iterate the others, and keep going while the fit improves.</p>\n<p>The one I keep coming back to is that this could be an A* like search. The proposed causes define a state. The valid actions are changes to those causes that don't contradict what is already proposed, each one putting you in a different state. And the heuristic function is just the probabilities.</p>\n<p>Though A* wants an admissible heuristic, one that never overestimates what is left to pay, and I don't think perception has that luxury. Being too optimistic about the probability that remains only makes the search slow.</p>\n<p>But hear me out. I often don't find any answer at all, so the bare search isn't complete. Clearly I do not go over the whole state space. What actually happens is more like there being a low probability option that I never even <strong>thought of</strong>, which points towards something closer to a beam search.</p>\n<p>Either way, being too pessimistic prunes the right explanation and hands you a fast, confident, wrong answer, which sounds a lot like the kind of mistake perception actually makes in optical illusions.</p>\n<h2>VI. What could actually run it</h2>\n<p>All of these are expensive, and that is the part that bothers me, because whatever the brain is doing here, it does it fast.</p>\n<p>It could be a sequential search. It could be a parallel one that evaluates branches separately, which I find unlikely given how much the branching factor varies. It could be an approximation of a search using a tally like structure, the one I come back to at the end.</p>\n<p>Or, more elegantly, and here I am guessing, sparse representations. If the proposals are sparse enough, a superposition of several of them could be held at once without lengthening the dimension and without them interfering with each other. (I got this idea from HTM theory.) I've heard from somewhere that PFC proposes and the basal ganglia picks. So maybe the output of PFC is a superposition of sparse proposals, and instead of a fixed priority queue, the basal ganglia is the policy that picks one proposition out of that superposition to expand, to propose that idea, for generation to check against the evidence.</p>\n<p>And even tho the sparsity helps, as the proposal count goes up the interference gets more likely, and that is the thing that defines the beam width. Then the incompleteness I noticed above wouldn't be a design choice, it would fall out of how much the representation can carry at once. You can't consider the option you never thought of because it never fit.</p>\n<p>I'm not a knowledgable person in this area, so I need more reading and experimentation to test any of this. These are mainly ideas composed from things I've read here and there, without much structure.</p>\n<h2>VII. Symmetry</h2>\n<p>The model that I'm envisioning should generate well in order to discriminate well, and the other way around, in a fully symmetric way, where performance on one directly affects the other. This is the same thing I have been circling from the other end: one set of constraints serving both as a grammar for generating instances and as a classifier for recognizing them. When I look at architectures such as CNNs or ViTs, they discriminate quite well but can't generate at all, whereas diffusion models can generate but discriminate poorly, natively.</p>\n<p>So overall, I think this idea of forward and backward projection, of analysis by synthesis, fits my vision about the importance of the symmetry, and I think the paper already circles around it. The discriminative property proposing, the generative property verifying.</p>\n<hr>\n<h2>Pondering upon</h2>\n<p>While pondering on this idea, I recalled that in my own experiments discrimination and generation were always in tension. My intuition was that weights tuned for discrimination cannot generate well, and weights tuned for description cannot discriminate well.</p>\n<p>I think that tension is structural rather than incidental. A description good enough to regenerate the input has to keep position, because you cannot render a digit without knowing where it sits. A classifier wants position gone, because for the label it is noise. The description is <em>equivariant</em>, move the digit and the code moves with it, while the label has to be <em>invariant</em>, move the digit and the answer must not move. Both objectives are pulling on the same weights in opposite directions, and whichever loss reaches those weights is the one that wins. The usual escape is pooling, but pooling is a trick. The invariance doesn't come from anything the network learned about translation, it comes from discarding the position by construction. Without it, even MNIST digits at different positions produce quite different descriptions. So how are you going to discriminate that?</p>\n<p>What I want instead is a backbone that stays purely descriptive, trained only by a generative objective, with a layer above it that does the arbitrary part. But the interesting question is what that upper layer is actually doing, and I don't think it is inventing invariance out of nothing. It reads the position out of the description, explains it away, and what is left no longer varies with where the thing was. Only then does the genuinely arbitrary step happen, the one that says this identity is called \"7\". So it is closer to a factorization into identity and pose, with a trivial lookup on the end, than to a mapping learned from scratch.</p>\n<p>Stated that way I can also say when it would be working. If I can take the identity and the pose that layer separated, put the pose back, and re-render the original image, then nothing was destroyed and the descriptive system is still whole. If position is gone for good, I have just bolted a classifier onto a generator, and the symmetry I actually care about is broken.</p>\n<p>We were doing half of this already. In our experiments we ran a tally on top of the descriptions, and that tally was the Bayesian inference layer: features voting for what could have caused them, evidence accumulating on whichever cause explains the most. What we never had was the other direction, the synthesis, actually producing a candidate and checking it against the input. So the tally was doing the inference in one compiled shot, without the generative loop that would have justified it.</p>\n<p>Which leaves me where I started, to be honest. I suspect these two aspects cannot sit in a single layer of one homogeneous stack. They want to be different organs of a larger system that is Bayesian as a whole: something that describes, something that proposes, and the traffic between them being where recognition actually happens.</p>", "date": "2026-09-09", "reading": 8, "summary": "On a 2006 paper, and why recognition might feel like remembering.", "wonder": true, "v": "9.8 KB", "modified": "2026-09-09", "group": "Posts"}], "v": "1", "modified": "2026-09-10"}, {"id": "work", "path": "work", "name": "WORK", "src": "content/work/", "children": [{"id": "axonforge", "path": "work/axonforge", "name": "AXONFORGE", "ext": ".md", "src": "content/work/axonforge.md", "html": "<p>Most dataflow tools force you into a directed acyclic graph. Most simulators lock you into one model family. AxonForge does neither: a live visual graph where every node is a plain Python class, connections may form cycles, and execution ticks forward one step at a time — which makes feedback, recurrence and iterative learning first-class rather than something you work around.</p>\n<video class=\"docimg img-center\" src=\"/static/media/axonforge.mp4\" autoplay loop muted playsinline controls></video>\n\n<p>It was built as a research substrate, after notebooks and Tk canvases both failed to give the visual feedback loop the work needed. Watching weights organise and activations sharpen while a system runs is the point; reading a final number is not.</p>\n<h3>Feedback-native execution</h3>\n<p>Topological sort with cycle-aware semantics. A recurrent connection delivers the previous step's value automatically — no delay nodes, no manual buffering, no rewriting a graph to make it acyclic before it will run.</p>\n<h3>Declarative nodes</h3>\n<p>A node is a Python class with descriptors. Ports, fields, displays and state are all declared as class attributes, so the boilerplate stays close to zero and the interesting part of a node is the part you actually wrote.</p>\n<p>Parameters are tuned live — sliders, toggles, enums and file pickers render inside the node itself, and a change takes effect immediately. Heatmaps, plots, images and text displays are embedded in the same way, so a graph is its own instrumentation.</p>\n<h3>Hot reload</h3>\n<p>Edit a node's source, hit reload: field values are preserved, the code is swapped, and nothing restarts. Over a long experiment that difference compounds.</p>\n<h3>Project-local</h3>\n<p>Research lives in its own directory — its own nodes, graphs and data — and the framework stays separate, so a project can be moved, shared and versioned independently of the tool that runs it.</p>\n<p>Roughly 17,000 lines. Highly experimental, unpublished, and still moving: graph formats and node interfaces change between commits.</p>", "date": "2026-03-20", "reading": 1, "summary": "A node-based computational framework for algorithms that evolve over time. Cycles are first-class, execution ticks one step at a time, and nodes hot-reload without restarting the server.", "tags": ["Python", "Framework", "Computational Neuroscience", "Dataflow", "Hot Reload"], "v": "2.3 KB", "modified": "2026-03-20", "group": "Highlight", "bright": true}, {"id": "breadcrumbs", "path": "work/breadcrumbs", "name": "BREADCRUMBS", "ext": ".md", "src": "content/work/breadcrumbs.md", "html": "<p>A local tool for studying a body of literature. It keeps papers, their references, your notes and your highlights in a SQLite database on your own machine, and lays the library out on a time grid so you can see how the work developed.</p>\n<p><img class=\"docimg img-center\" alt=\"The grid, with one paper pinned and its references drawn across the columns\" src=\"/static/media/breadcrumbs-grid.png\" width=\"1400\" height=\"718\" /></p>\n<p>Papers are added one at a time, by you. Adding one records the identifiers of everything it cites but creates no other papers; when you later add one of those, the link appears on its own. The graph assembles itself out of deliberate choices rather than by crawling outward until it is unreadable.</p>\n<h3>The grid</h3>\n<p>Every paper on one screen, in fixed columns of N years. A card's column depends on its year alone, so nothing moves when a panel opens or a paper is selected — the layout is stable under interaction, which is the whole reason it is usable at a glance. Empty intervals keep their column, so width measures elapsed time honestly. The interval is adjustable from 1 to 50 years.</p>\n<p><img class=\"docimg img-center\" alt=\"The reader\" src=\"/static/media/breadcrumbs-reader.png\" width=\"1400\" height=\"718\" /></p>\n<h3>Metadata, from several sources</h3>\n<p>Records come from OpenAlex, Crossref and Unpaywall, with Semantic Scholar supplying references when it is available and OpenAlex standing in when it throttles. An institutional EZproxy or OpenAthens prefix can be set, so publisher links go through a subscription rather than a paywall.</p>\n<p>There is an assistant, with the provider and model chosen from whatever a given key can actually reach rather than from a hardcoded list.</p>\n<h3>Status</h3>\n<p>Built for my own use and still changing often — schema, commands and layout all move without notice, and migrations are written for my library rather than for anyone else's. It is the thing behind <a href=\"#library\">LIBRARY</a> on this site.</p>", "date": "2026-09-07", "reading": 1, "summary": "A local tool for studying a body of literature. Papers, references, notes and highlights in a SQLite database on your own machine, laid out on a time grid so you can see how the work developed.", "tags": ["Python", "SQLite", "Vite", "OpenAlex", "Research Tooling"], "v": "2.1 KB", "modified": "2026-09-07", "group": "Highlight", "bright": true}, {"id": "viturebd", "path": "work/viturebd", "name": "VITUREBD", "ext": ".md", "src": "content/work/viturebd.md", "html": "<p>The glasses present a flat mirror of your desktop. VitureBD makes it stereoscopic: capture the desktop, estimate monocular depth with Depth Anything V2 Small, mesh-warp the result into a stereo pair, and present it side-by-side fullscreen on the Viture Luma Ultra, all live.</p>\n<h3>Avoiding the two obvious failures</h3>\n<p>Capture is by window pixmap rather than screen grab, so the output never contains the thing it is drawing. A screen-grab approach feeds itself and collapses on the first frame.</p>\n<p>The desktop is rendered on a <strong>separate head</strong> — the laptop's own eDP panel, which the NVIDIA GPU drives directly under EnvyControl's nvidia mode — while the overlay owns the glasses on DP-0. Because the rendered desktop and the overlay live on different physical outputs, a window going fullscreen cannot restack above the overlay. There is no stacking race to lose.</p>\n<h3>Head tracking</h3>\n<p>A companion viewer reads live IMU and pose data from the glasses over <code>libglasses</code> and renders a 3D scene with raylib.</p>\n<p>Unpublished, and specific to one pair of glasses and one driver arrangement.</p>", "date": "2026-06-25", "reading": 1, "summary": "Turning the desktop stereoscopic on Viture Luma Ultra glasses — capture, monocular depth estimation, mesh-warp to a stereo pair, presented side-by-side, live.", "tags": ["Python", "Depth Anything V2", "OpenGL", "Xorg", "AR", "Viture Luma Ultra"], "v": "1.3 KB", "modified": "2026-06-25", "group": "Highlight", "bright": true}, {"id": "vision-based-edge-occupancy", "path": "work/vision-based-edge-occupancy", "name": "VISION-BASED EDGE OCCUPANCY DETECTION", "ext": ".md", "src": "content/work/vision-based-edge-occupancy.md", "html": "<p>This graduation project focused on replacing expensive laser scanners in automated parking systems with a computer vision–based solution. The goal was to detect whether a vehicle extends beyond pallet edges—an error that can cause serious collisions during automated transport—using low-cost cameras and edge AI hardware.</p>\n<p><img class=\"docimg img-left\" alt=\"Empty pallet\" src=\"/static/media/edge-occ-empty.png\" width=\"922\" height=\"519\" />\n<img class=\"docimg img-right\" alt=\"Occupied pallet\" src=\"/static/media/edge-occ-full.png\" width=\"944\" height=\"531\" /></p>\n<p>Existing industrial systems rely on laser sensors costing thousands of euros per unit and suffer from reliability issues with dark vehicle surfaces. My objective was to demonstrate that a carefully engineered deep learning system could match their accuracy at a fraction of the cost.</p>\n<h3>The Challenge</h3>\n<p>The main technical challenge was building a reliable safety-critical classifier from limited real-world data collected in a single parking facility. While occupied pallets naturally vary with different vehicles, empty pallets are visually uniform, creating strong risks of overfitting and poor generalization.</p>\n<p>Additional constraints included real-time inference requirements, low hardware budgets, and strict limits on false negatives, where missed detections could lead to physical damage.</p>\n<h3>The Solution</h3>\n<p><strong>Data Pipeline:</strong> I designed a semi-automated labeling system that reduced manual annotation effort from over 200 hours to roughly 2 hours, enabling efficient creation of a high-quality dataset.</p>\n<p><strong>Model Architecture:</strong> A MobileNetV3-based convolutional neural network was implemented using transfer learning, optimized for deployment on embedded devices such as Raspberry Pi and Jetson platforms.</p>\n<p><strong>Validation Methodology:</strong> Through systematic error analysis, I refined the augmentation and testing pipeline after discovering that common occlusion techniques introduced misleading artifacts. This led to a more realistic and robust evaluation framework.</p>\n<p><strong>Synthetic Data Generation:</strong> To address limited environmental diversity, I developed a Blender-based rendering pipeline that generated thousands of labeled synthetic images. Pre-training on this dataset significantly improved generalization to unseen conditions.</p>\n<p><img class=\"docimg img-left\" alt=\"Synthetic empty pallet\" src=\"/static/media/edge-occ-empty-syn.png\" width=\"744\" height=\"60\" />\n<img class=\"docimg img-right\" alt=\"Synthetic occupied pallet\" src=\"/static/media/edge-occ-full-syn.png\" width=\"744\" height=\"60\" /></p>\n<p><strong>Deployment Architecture:</strong> A modular real-time processing pipeline was designed for multi-camera monitoring, enabling low-latency inference and redundancy-based safety guarantees.</p>\n<h3>Results</h3>\n<p>The final system achieved up to 98.94% validation accuracy on real operational data and maintained strong performance under simulated environmental variations. Synthetic pre-training further improved robustness while reducing false positives by over 70%.</p>\n<p>Compared to traditional laser-based systems, the solution offers approximately 96% cost reduction while eliminating color-dependent failure modes.</p>\n<hr>\n<p>Beyond technical performance, this project provided hands-on experience in building industrial-grade machine learning systems under real operational constraints—from data acquisition and validation design to deployment planning and ethical considerations.</p>\n<p>The complete technical documentation is available in the <a href=\"/static/media/edge-occ-report.pdf\">final report</a>, detailing the methodology, experiments, and system architecture.</p>", "date": "2026-01-04", "reading": 2, "summary": "Replacing multi-thousand-euro laser scanners in an automated parking system with a MobileNetV3 classifier on Raspberry Pi and Jetson. Blender synthetic-data pipeline and a labelling tool that cut annotation from ~200 hours to ~2.", "tags": ["Computer Vision", "Deep Learning", "MobileNetV3", "Edge AI", "Blender", "Raspberry Pi"], "v": "3.7 KB", "modified": "2026-01-04", "group": "Highlight", "bright": true}, {"id": "rhino-matlab-bridge", "path": "work/rhino-matlab-bridge", "name": "RHINO-MATLAB BRIDGE", "ext": ".md", "src": "content/work/rhino-matlab-bridge.md", "html": "<p><img class=\"docimg img-center\" alt=\"\" src=\"/static/media/rhino.png\" width=\"669\" height=\"320\" /></p>\n<p>The project presented a significant challenge as it required bridging the gap between disparate software systems—specifically, Rhino with Grasshopper and MATLAB—for an academic research initiative led by an esteemed architecture professor at Istanbul Technical University.</p>\n<p>The main challenge was to seamlessly integrate these distinct platforms to facilitate the research process.</p>\n<h3>The Challenge</h3>\n<p>To address this challenge effectively, I embarked on a comprehensive research journey to familiarize myself with Rhino, Grasshopper, and MATLAB, even though I had no prior experience with these tools. After gaining a foundational understanding of these technologies, I devised an innovative solution using Python as the central bridge.</p>\n<h3>The Solution</h3>\n<p><strong>Flask Application:</strong> I developed a Flask application to serve as the intermediary between Rhino with Grasshopper and MATLAB. This application was configured to communicate with a specific Grasshopper component designed for network data exchange.</p>\n<p><strong>Python Integration:</strong> Leveraging Python's versatility, I utilized a Python module to interact programmatically with MATLAB. This allowed for the seamless transmission of input data to MATLAB and the retrieval of relevant results.</p>\n<p><strong>Networking:</strong> I established a robust networking framework to enable the smooth transfer of data between the different software environments. This network connectivity formed the backbone of the entire solution, ensuring data exchange and synchronization between Rhino with Grasshopper and MATLAB.</p>\n<hr>\n<p>By meticulously implementing this comprehensive solution, I successfully bridged the gap between Rhino with Grasshopper and MATLAB, facilitating the academic research project's objectives. This innovative approach streamlined the research process, enabling efficient data exchange and computation between the two distinct platforms.</p>\n<p>The professor mentioned that I would be thanked in the acknowledgements section of the resulting article—and they followed through. \nI'm literally in the acknowledgements part of <a href=\"https://www.tandfonline.com/doi/full/10.1080/00038628.2023.2269549#:~:text=Tu%C4%9Frul%20Agrikli\">the published paper</a>.</p>", "date": "2022-02-22", "reading": 1, "summary": "Bridging Rhino and Grasshopper to MATLAB over a Flask transport layer for an architectural research group. Acknowledged in the resulting publication.", "tags": ["Python", "Flask", "MATLAB", "Rhino", "Grasshopper", "Networking"], "v": "2.4 KB", "modified": "2022-02-22", "group": "Highlight", "bright": true}, {"id": "indigoshell", "path": "work/indigoshell", "name": "INDIGOSHELL", "ext": ".md", "src": "content/work/indigoshell.md", "html": "<p>A desktop shell written as a widget engine rather than as a bar with features bolted on. A configurable bottom bar, popup windows, toast command-runners with dialog-tree pipelines, an interactive floating terminal, a StatusNotifierItem system tray and a built-in <code>org.freedesktop.Notifications</code> daemon — all in a single Python process on top of GTK 3 and PyGObject.</p>\n<video class=\"docimg img-center\" src=\"/static/media/indigoshell.mp4\" autoplay loop muted playsinline controls></video>\n\n<p>It runs on a bare-Xorg qtile setup, where nothing else was going to supply these pieces, and it is styled out of the box with the INDIGO Cyberpunk palette the rest of my work borrows from.</p>\n<h3>The bar</h3>\n<p>A transparent dock-strut at the screen edge, composed declaratively — <code>Box([…])</code>, <code>Spacer()</code> — rather than configured through a schema. Widgets include workspaces with an urgent-ring blink, CPU / RAM / temperature meters, volume, network, a media widget with a cava equaliser background and beat pulse, a clock with a battery underline, scrambling beat-synced lyrics, and an identity tag with pulsing corner brackets.</p>\n<h3>Popups and the terminal</h3>\n<p>Popups host real programs rather than reimplementing them: <code>fastfetch</code>, <code>sptlrx</code>, <code>spotify-player</code>, <code>nmtui</code>, alongside a network panel, a hardware panel with CPU/RAM history and live GPU readouts, a calendar and a systray panel.</p>\n<p><code>indigoshell open terminal</code> summons a floating <code>$SHELL</code> in the top right wearing the bar's theme, closed with <code>exit</code>, Ctrl-D or mod+q — one keybind to get a shell in front of you and one gesture to put it away.</p>\n<h3>Where it is going</h3>\n<p>Being rewritten onto xcffib, Skia and dbus-fast with direct EGL/GL rendering and a single asyncio loop, plus a plugin system that merges third-party panels into one settings surface.</p>\n<p>Roughly 36,000 lines. Unpublished.</p>", "date": "2026-08-02", "reading": 1, "summary": "A widget-engine desktop shell for bare Xorg — bar, popups, system tray and a notification daemon — all driven by one Python process on GTK 3.", "tags": ["Python", "GTK3", "PyGObject", "Linux", "D-Bus", "Desktop Shell"], "v": "2.0 KB", "modified": "2026-08-02", "group": "Highlight", "bright": true}, {"id": "astrophysics-website", "path": "work/astrophysics-website", "name": "ASTROPHYSICS DATA PLATFORM", "ext": ".md", "src": "content/work/astrophysics-website.md", "html": "<p><img class=\"docimg img-right\" alt=\"\" src=\"/static/media/astro-data-display.png\" width=\"1325\" height=\"1226\" /></p>\n<p>The goal of this project was to enhance an existing academic website developed for astrophysicist teachers at my university. The website consisted of two servers, with one server responsible for gathering measurements from NASA and performing calculations to detect cosmic events, while the other server displayed the results and facilitated data queries.</p>\n<p>However, there were several challenges that needed to be addressed to improve the efficiency and usability of the system.</p>\n<h3>The Challenges</h3>\n<p>The existing system required manual data transfers between servers, which was time-consuming and prone to human error. The user interface was outdated, making it difficult for professors to efficiently search and analyze data. Additionally, there was no proper database integration for managing the calculated results.</p>\n<h3>The Solution</h3>\n<p><strong>Automated Data Transfer:</strong> I developed a solution that automated the data transfer process using Python and FTP. This eliminated the need for manual transfers between servers, saving time and reducing the risk of human error.</p>\n<p><img class=\"docimg img-left\" alt=\"\" src=\"/static/media/astro-search.png\" width=\"1372\" height=\"1112\" /></p>\n<p><strong>Modern UI:</strong> I revamped the website's user interface by replacing the outdated UI with a modern Material UI framework. This upgrade enhanced the overall user experience and enabled the implementation of advanced search and display functionalities.</p>\n<p><strong>Database Integration:</strong> To facilitate data management, I integrated a database into the website. This allowed for seamless storage, retrieval, and presentation of the calculated data, improving the overall efficiency and accessibility of the system.</p>\n<hr>\n<p>Throughout the project, I utilized various technologies, including Bash, Python, SQL, and PHP, to develop and implement the solutions. These tools were instrumental in achieving the project's goals and delivering a more efficient and user-friendly website for astrophysicist teachers.</p>", "date": "2022-10-07", "reading": 1, "summary": "Enhanced an academic platform for astrophysicists with automated NASA dataset transfer, a rebuilt search interface, and a modernised UI.", "tags": ["Python", "PHP", "SQL", "Bash", "Material UI", "NASA"], "v": "2.2 KB", "modified": "2022-10-07", "group": "Tools & Coursework"}, {"id": "cs412-project", "path": "work/cs412-project", "name": "INSTAGRAM ANALYTICS WITH MACHINE LEARNING", "ext": ".md", "src": "content/work/cs412-project.md", "html": "<p><img class=\"docimg img-center\" alt=\"\" src=\"/static/media/cs412-trampoline.gif\" width=\"500\" height=\"281\" /></p>\n<p>This project was developed for the CS412 Machine Learning course and focused on building predictive models for large-scale Instagram data. The system addresses two core problems: predicting post engagement and classifying accounts based on their content and behavior patterns.</p>\n<p>The overall objective was to explore how statistical features and modern language representations can be combined to model social media dynamics at scale. My primary contribution was the complete design and implementation of the classification pipeline, developed independently.</p>\n<h3>The Challenge</h3>\n<p>The dataset contained thousands of accounts with heterogeneous behavior, noisy metadata, and unstructured textual content. Accurately modeling such data required careful feature engineering and robust representation learning.</p>\n<p>For the classification task, the main challenge was extracting meaningful signals from short, informal, and multilingual text while maintaining generalization across unseen evaluation datasets.</p>\n<h3>The Solution</h3>\n<p><strong>Data Engineering:</strong> Extensive preprocessing pipelines were implemented to clean profiles, normalize engagement statistics, and generate derived behavioral features capturing long-term interaction patterns.</p>\n<p><strong>Text Representation:</strong> User biographies and captions were encoded using modern embedding models, including transformer-based sentence encoders and large-scale semantic representations.</p>\n<p><strong>Classification Pipeline:</strong> I designed and trained multi-class classifiers to categorize Instagram accounts into ten distinct content domains (e.g., fashion, travel, food, entertainment, education). The pipeline combined textual embeddings with structured features for improved accuracy.</p>\n<p><strong>Model Optimization:</strong> Hyperparameters were tuned using automated optimization frameworks, ensuring strong performance across multiple hidden test sets.</p>\n<p><strong>Evaluation Strategy:</strong> Models were validated against several independent datasets provided during the course, emphasizing robustness rather than single-test optimization.</p>\n<h3>Results</h3>\n<p><img class=\"docimg img-center\" alt=\"\" src=\"/static/media/cs412-results.png\" width=\"576\" height=\"336\" /></p>\n<p>The classification system achieved top performance in the course-wide evaluation, ranking first among all project submissions. The model demonstrated consistent generalization across diverse account types and content styles.</p>\n<p>The complete project also included a regression component for engagement prediction, enabling comprehensive analysis of both content category and popularity dynamics.</p>\n<hr>\n<p>The full codebase is available on <a href=\"https://github.com/Tagrikli/CS412-Term-Project\">GitHub</a>.</p>\n<p>I developed the entire classification framework independently, from feature extraction and embedding integration to training, evaluation, and optimization. This work was recognized as the highest-performing classification system in the course.</p>\n<p>The project strengthened my experience in applied machine learning, large-scale data modeling, and modern NLP-based representation learning, while emphasizing reproducibility and rigorous evaluation.</p>\n<p><img class=\"docimg img-right\" alt=\"\" src=\"/static/media/cs412-msg.jpeg\" width=\"945\" height=\"2048\" /></p>", "date": "2025-01-14", "reading": 2, "summary": "Predictive models over large-scale Instagram data: post-engagement regression and account classification from content and behaviour patterns.", "tags": ["Machine Learning", "NLP", "Classification", "Python", "Data Science"], "v": "3.3 KB", "modified": "2025-01-14", "group": "Tools & Coursework"}, {"id": "commitly", "path": "work/commitly", "name": "COMMITLY – GAMIFIED HABIT TRACKER", "ext": ".md", "src": "content/work/commitly.md", "html": "<p>Commitly is a cross-platform mobile application developed as part of the CS310 Mobile Application Development course. The project explores how gamification and social accountability can be combined to help users build sustainable habits through shared responsibility and visible progress.</p>\n<p><img class=\"docimg img-left\" alt=\"\" src=\"/static/media/commitly-home-page.jpeg\" width=\"945\" height=\"2048\" />\n<img class=\"docimg img-right\" alt=\"\" src=\"/static/media/commitly-add-habit-page.jpeg\" width=\"945\" height=\"2048\" /></p>\n<p>Unlike traditional habit trackers that focus solely on individual progress, Commitly introduces team-based streaks, where members share collective responsibility. This transforms habit formation into a collaborative process rather than a solitary one.</p>\n<h3>The Challenge</h3>\n<p>The core challenge was designing a system that balances personal motivation with social dynamics while remaining technically robust across platforms. Implementing reliable streak logic, real-time synchronization, and intuitive UI flows required careful architectural decisions.</p>\n<p>Additional complexity came from integrating offline storage with cloud-based synchronization, ensuring consistency between local and remote data sources.</p>\n<h3>The Solution</h3>\n<p><strong>Cross-Platform Architecture:</strong> The application was developed using Flutter and Dart, enabling a unified codebase for Android and iOS with consistent UI behavior.</p>\n<p><strong>Backend Integration:</strong> Firebase Authentication and Firestore were used for real-time data synchronization, user management, and team-based interactions. Local persistence was implemented using SQLite for partial offline support.</p>\n<p><img class=\"docimg img-left\" alt=\"\" src=\"/static/media/commitly-statistics-page.jpeg\" width=\"945\" height=\"2048\" />\n<img class=\"docimg img-right\" alt=\"\" src=\"/static/media/commitly-achievements-page.jpeg\" width=\"945\" height=\"2048\" /></p>\n<p><strong>Gamification System:</strong> An XP and streak mechanism was designed to reinforce positive behavior, providing continuous feedback and long-term motivation.</p>\n<p><strong>Team Streaks:</strong> A shared streak model was implemented where group performance depends on all members, encouraging accountability and peer support.</p>\n<p><strong>Quality Assurance:</strong> The project included unit and widget tests covering core business logic and critical UI flows, ensuring data integrity and interaction reliability.</p>\n<h3>Results</h3>\n<p>The final application delivered a fully functional habit-tracking platform with real-time synchronization, leaderboard support, detailed statistics, and theme customization. Team streaks proved effective in creating sustained engagement among users.</p>\n<p>The project demonstrated the feasibility of building scalable, socially driven productivity tools using modern mobile frameworks and cloud services.</p>\n<hr>\n<p>My primary responsibility in the team was leading testing and quality assurance, validating business logic, UI behavior, and data consistency across different usage scenarios. This role strengthened my experience in systematic validation and production-level debugging.</p>\n<p>Commitly reflects an end-to-end mobile development process, covering system design, cloud integration, automated testing, and collaborative software engineering practices. The source code is available on <a href=\"https://github.com/erenayar-12/CS310-Group-21\">GitHub</a>.</p>", "date": "2026-01-05", "reading": 2, "summary": "A cross-platform mobile app combining gamification and social accountability for habit building, with statistics and achievement systems.", "tags": ["Flutter", "Dart", "Firebase", "Mobile Development", "Testing"], "v": "3.3 KB", "modified": "2026-01-05", "group": "Tools & Coursework"}, {"id": "color-recommendation-app", "path": "work/color-recommendation-app", "name": "COLOR-BASED PRODUCT RECOMMENDATION APP", "ext": ".md", "src": "content/work/color-recommendation-app.md", "html": "<p><img class=\"docimg img-right\" alt=\"\" src=\"/static/media/color-picker.gif\" width=\"720\" height=\"1280\" /></p>\n<p>Developed an Android application that captures images and enables users to select specific regions to extract color data. Leveraged this to recommend matching nail products from an inventory.</p>\n<h3>The Challenge</h3>\n<p>The biggest challenge was understanding color spaces and color similarity. Different color spaces perceive and calculate color similarity differently, and some don't align with how humans actually perceive colors. This required deep research into color theory to ensure accurate product matching.</p>\n<h3>Solution</h3>\n<p>Built with pure Java in Android Studio, the application integrated computer vision techniques with real-world product mapping. Users could capture or select an image, tap on specific regions to extract colors, and receive recommendations for matching nail products from the inventory.</p>\n<p>The project significantly enhanced my understanding of color spaces and their practical applications in consumer-facing products.</p>", "date": "2018-09-13", "reading": 1, "summary": "An Android app that extracts colour data from selected image regions and recommends matching nail products from an inventory.", "tags": ["Android", "Java", "Computer Vision", "Color Theory", "Mobile Development"], "v": "1.2 KB", "modified": "2018-09-13", "group": "Tools & Coursework"}, {"id": "anydictate", "path": "work/anydictate", "name": "ANYDICTATE", "ext": ".md", "src": "content/work/anydictate.md", "html": "<p><img class=\"docimg img-center\" alt=\"\" src=\"/static/media/anydictate.png\" width=\"1089\" height=\"653\" /></p>\n<p>I have developed a dynamic web application that harnesses the power of Python and the Web Speech API to provide real-time speech-to-text conversion. With this innovative tool, users can effortlessly convert their spoken words into written text.</p>\n<p>The application seamlessly integrates with various platforms, allowing users to input text wherever a cursor can be placed.</p>\n<h3>How It Works</h3>\n<p>Using the Web Speech API, the application records speech input and swiftly converts it into textual format. This text is then sent to the backend, powered by Python, which emulates key presses to effectively simulate typing.</p>\n<p>This unique functionality enables users to effortlessly type anywhere, saving time and streamlining their workflow. By combining the strengths of web technologies and Python, this project offers a versatile solution for those who prefer speech input over traditional typing.</p>\n<hr>\n<p>The seamless integration and real-time transcription capabilities make it a valuable tool for a wide range of applications, from drafting emails and documents to interacting with text-based interfaces.</p>", "date": "2022-11-11", "reading": 1, "summary": "A real-time speech-to-text web application using the Web Speech API, piping recognised text into any focused application.", "tags": ["Python", "Web Speech API", "JavaScript", "Accessibility", "Automation"], "v": "1.4 KB", "modified": "2022-11-11", "group": "Tools & Coursework"}, {"id": "mtg-arena-monitor", "path": "work/mtg-arena-monitor", "name": "MTG ARENA LOG MONITOR", "ext": ".md", "src": "content/work/mtg-arena-monitor.md", "html": "<p>A client needed a desktop application to monitor the log file of Magic: The Gathering Arena and selectively display game actions in real time. The project required parsing undocumented but human-readable logs to extract meaningful game events.</p>\n<h3>Requirements</h3>\n<p>The project had specific requirements:</p>\n<ul>\n<li>Build a desktop app using Python with Kivy or Tkinter</li>\n<li>Monitor game log file in real time</li>\n<li>Parse and display relevant game events:<ul>\n<li>Match Start</li>\n<li>DeckList for the match</li>\n<li>Cards drawn by player</li>\n<li>Cards played by player</li>\n<li>Cards played by opponent</li>\n<li>Match End and Match Result</li>\n</ul>\n</li>\n</ul>\n<h3>Solution</h3>\n<p>I developed a Python desktop application that continuously monitored the game's log file, parsing entries to identify and display relevant game events in real time. Working with undocumented log formats required careful analysis and pattern recognition to accurately extract the required information.</p>\n<hr>\n<blockquote>\n<p>Exceptionally focused and dedicated freelancer. Hope to work in future projects.</p>\n<p>— Upwork Client ★★★★★</p>\n</blockquote>", "date": "2021-03-01", "reading": 1, "summary": "A desktop app that tails and parses Magic: The Gathering Arena log files in real time to surface game state.", "tags": ["Python", "Tkinter", "Log Parsing", "Desktop App", "Gaming"], "v": "1.3 KB", "modified": "2021-03-01", "group": "Tools & Coursework"}, {"id": "image-metadata-translator", "path": "work/image-metadata-translator", "name": "IMAGE METADATA TRANSLATOR", "ext": ".md", "src": "content/work/image-metadata-translator.md", "html": "<p>A client needed a script that could process a folder of images, read their metadata (title, description, keywords), translate the metadata using the DeepL API, and write the translated data back to the images.</p>\n<h3>Requirements</h3>\n<p>The project had specific requirements:</p>\n<ul>\n<li>Allow the user to specify a folder of images, source language, and target language</li>\n<li>Translate EXIF/IPTC metadata fields: Headline, Description, Keywords</li>\n<li>Write the new metadata back to the files without modifying filenames</li>\n<li>Integrate with the DeepL API for translation</li>\n</ul>\n<h3>Solution</h3>\n<p>I wrote a Python script that integrated with the DeepL API to automate this manual process. The code was designed to be straightforward and well-documented, making it easy for the client to run on their Mac via Terminal.</p>\n<p>The script handled all the specified metadata fields and included proper error handling for edge cases that emerged during development.</p>\n<hr>\n<blockquote>\n<p>Tuğrul wrote a script in Python that integrated with a third party API to automate a manual process. His code was straightforward and well-documented. He went out of his way to resolve some unexpected issues and always delivered on time. I would be happy to work with Tuğrul again.</p>\n<p>— Upwork Client ★★★★★</p>\n</blockquote>", "date": "2021-05-05", "reading": 1, "summary": "A script that translates image EXIF and IPTC metadata in place through the DeepL API, preserving structure.", "tags": ["Python", "DeepL API", "EXIF", "IPTC", "Automation"], "v": "1.4 KB", "modified": "2021-05-05", "group": "Tools & Coursework"}, {"id": "premiere-csv-markers", "path": "work/premiere-csv-markers", "name": "PREMIERE CSV MARKER IMPORTER", "ext": ".md", "src": "content/work/premiere-csv-markers.md", "html": "<p>A client needed a tool to import CSV files as markers into Adobe Premiere Pro. The project required handling multiple CSV files with customizable settings for marker limits and color coding.</p>\n<h3>Requirements</h3>\n<p>The project had specific requirements:</p>\n<ul>\n<li>Import multiple CSV files as markers into Adobe Premiere Pro</li>\n<li>Setting to limit the number of markers imported</li>\n<li>Ability to assign different colors for markers from different CSV files</li>\n</ul>\n<h3>Solution</h3>\n<p>I developed a solution that extended an existing open-source project, customizing it to meet the client's specific workflow needs. The tool allowed video editors to efficiently import timestamped markers from external sources, streamlining their post-production process.</p>\n<hr>\n<blockquote>\n<p>Goes an extra mile to offer the optimal solution for clients!</p>\n<p>— Upwork Client ★★★★★</p>\n</blockquote>", "date": "2021-05-10", "reading": 1, "summary": "A tool importing CSV files as timeline markers into Adobe Premiere Pro, with customisable colours and durations.", "tags": ["Adobe Premiere Pro", "ExtendScript", "CSV", "Video Editing", "Automation"], "v": "1.1 KB", "modified": "2021-05-10", "group": "Tools & Coursework"}, {"id": "yearbook-website", "path": "work/yearbook-website", "name": "YEARBOOK WEBSITE", "ext": ".md", "src": "content/work/yearbook-website.md", "html": "<p><img class=\"docimg img-center\" alt=\"\" src=\"/static/media/yal.png\" width=\"1150\" height=\"646\" /></p>\n<p>I was in my last year in one of the public high schools in Istanbul, <a href=\"https://yesilkoyanadolu.meb.k12.tr/\">Yesilkoy Anadolu Lisesi</a>, where some of my sweetest memories were formed.</p>\n<p>Even though we had internet <em>haha</em>, we were still writing our yearbook entries using a text editor and passing them to the teacher with USB sticks.</p>\n<p>I wasn't aware of any website that eased this process, and even though I should have been studying for my university exam, I thought this would be a good project, and I thought I could manage them both.</p>\n<p>So in a week or so, I set up Apache on a Windows machine that resided in my home, configured the router to forward the required port, got a free dynamic DNS domain, and wrote several PHP pages to make it work.</p>\n<h3>The Workflow</h3>\n<p>There was no registration. I don't remember how I got all of the students' names, but I just hard-coded everyone's name in a big select tag. Then I somehow generated unique passwords for each student and distributed them physically.</p>\n<p>So what they needed to do was only:</p>\n<ul>\n<li>Enter the website.</li>\n<li>Pick themselves and the person they wanted to write to.</li>\n<li>Write their yearbook entry and press the Send/Update button.</li>\n</ul>\n<p>Their entries were sent to the computer and stored in a directory.</p>\n<hr>\n<p>I had a few maintenance issues. Whenever something happened to the computer, I needed to be there to fix it in order to keep the website alive. It was a 24/7 service after all.</p>\n<p>And whenever a new person needed to be added, or someone lost their password, I was there to modify the site and update their passwords.</p>\n<p>So overall, it took some effort and time, but it was a nice thing to have, and I felt useful.</p>\n<p>I wish I had a screenshot, but the only proof that the site existed is this archive... <a href=\"https://web.archive.org/web/20151212123104/http://yalyillik.wha.la/\">yalyillik.wha.la</a></p>", "date": "2015-12-01", "reading": 1, "summary": "My first fully functional website, and the first one that had a real-world effect on people who used it. Where all of this started.", "tags": ["PHP", "Apache", "Web Development"], "v": "2.1 KB", "modified": "2015-12-01", "group": "Tools & Coursework"}, {"id": "linux-call-recorder", "path": "work/linux-call-recorder", "name": "LINUX PHONE CALL RECORDER", "ext": ".md", "src": "content/work/linux-call-recorder.md", "html": "<p>PCMin was a project to build an automatic call recording system for Linux phones. Running as a background daemon, it monitors cellular calls through ModemManager and captures both audio channels – the microphone and the speaker output – saving each side of the conversation as separate WAV files.</p>\n<h3>The Problem</h3>\n<p>Linux phones like the Librem 5 or PinePhone lack the polished ecosystem of their Android and iOS counterparts. Call recording, a feature many take for granted, simply didn't exist in a usable form. The goal was to fill that gap with a lightweight, set-and-forget solution.</p>\n<h3>The Solution</h3>\n<p><strong>D-Bus Integration:</strong> The system hooks into ModemManager via D-Bus, listening for call state changes. When a call transitions to active, recording begins automatically. When it terminates, files are saved with timestamps, direction (incoming/outgoing), and the caller's number.</p>\n<p><strong>Dual Audio Capture:</strong> Using PulseAudio, the application captures from two sources simultaneously – the microphone input and the speaker monitor. This separation preserves audio quality and allows for post-processing if needed.</p>\n<p><strong>GStreamer Pipeline:</strong> Audio encoding is handled through GStreamer, with raw PulseAudio sources piped through caps filters and WAV encoders. The pipeline runs independently for each audio channel, writing to temporary files before moving them to permanent storage.</p>\n<h3>Challenges Faced</h3>\n<p><strong>Audio Source Detection:</strong> PulseAudio sources can change between calls, especially when switching between earpiece and speakerphone. The system repopulates source names before each recording to ensure the correct devices are captured.</p>\n<p><strong>Event-Driven Architecture:</strong> The application needed to run continuously without polling, responding instantly to call events. GLib's main loop combined with D-Bus signal handlers provided the necessary event-driven foundation.</p>\n<p><strong>Resource Constraints:</strong> Linux phones have limited resources. The design avoids unnecessary processing, using temporary files during recording and only performing file operations when the call ends.</p>\n<h3>What I Learned</h3>\n<p>This project deepened my understanding of the Linux audio stack – PulseAudio's source/sink model, monitor devices, and the intricacies of capturing system audio. Working with D-Bus and ModemManager also provided insight into how cellular functionality is exposed to userspace on Linux.</p>\n<p>The experience highlighted the challenges of developing for niche platforms, where documentation is sparse and solutions often require piecing together information from multiple sources.</p>\n<hr>\n<p>Built for the Librem 5, but applicable to any Linux phone running ModemManager and PulseAudio.</p>", "date": "2023-10-06", "reading": 2, "summary": "An automatic call-recording daemon for Linux phones, wired directly into ModemManager over D-Bus and capturing through PulseAudio and GStreamer.", "tags": ["Linux", "Python", "D-Bus", "PulseAudio", "GStreamer", "ModemManager"], "v": "2.9 KB", "modified": "2023-10-06", "group": "Contracts"}, {"id": "info-screen", "path": "work/info-screen", "name": "RASPBERRY PI INFORMATION DISPLAY", "ext": ".md", "src": "content/work/info-screen.md", "html": "<p><img class=\"docimg img-center\" alt=\"\" src=\"/static/media/info-screen-light.png\" width=\"1880\" height=\"957\" /></p>\n<p>The main goal of this project was to develop a responsive information display system for a Raspberry Pi, which would be connected to a vertical TV. The client's requirements included the integration of various data inputs onto a single page, necessitating the creation of a backend to fetch data from different services via APIs.</p>\n<p>Additionally, the project involved the challenge of displaying an RTSP stream on the screen, which required innovative solutions.</p>\n<h3>Challenges Faced</h3>\n<p><strong>Data Integration:</strong> Integrating data from multiple sources into a single page presented a significant challenge. Each data source had its own API structure and requirements, requiring meticulous backend development.</p>\n<p><strong>RTSP Stream:</strong> One of the client's key requirements was displaying an RTSP stream on the Raspberry Pi. However, web browsers do not natively support RTSP, prompting the need for a creative solution.</p>\n<h3>Solutions Implemented</h3>\n<p><strong>Technology Stack:</strong> Initially, the project was developed using Svelte, but after careful consideration, it was transitioned to jQuery to simplify and optimize the solution.</p>\n<p><strong>Backend Development:</strong> Python, along with Flask, was employed to create a robust backend. Custom modules were developed to retrieve data from various APIs, including services like Ecowitt and Bluriiot, ensuring seamless data integration.</p>\n<p><strong>RTSP Streaming:</strong> To overcome the browser limitations regarding RTSP streams, ffmpeg was leveraged to convert the stream into a JPEG sequence. This inventive approach enabled the smooth display of the RTSP stream on the vertical TV.</p>\n<p><strong>Configurability:</strong> A highly configurable system was designed, allowing for easy adjustments through a configuration file. This file accommodated data types, units, RTSP URL, and credentials for user customization.</p>\n<p><strong>User-Friendly Scripts:</strong> To simplify installation and uninstallation processes, bash scripts were created. These scripts also added menu entries for user convenience, making it effortless to run and configure the system.</p>\n<p><img class=\"docimg img-right\" alt=\"\" src=\"/static/media/info-screen-dark.png\" width=\"540\" height=\"950\" /></p>\n<p>The project resulted in the successful creation of a responsive information display system that met the client's expectations. It effectively integrated data from diverse sources and overcame the challenges associated with RTSP streaming.</p>\n<p>The addition of a dark mode option enhanced user experience, and the system's configurability ensures flexibility for future adaptations.</p>\n<hr>\n<p>Working on this project enhanced my skills in backend development, data integration, and creative problem-solving. It underscored the importance of adaptability and the ability to choose the right technologies for the task at hand.</p>\n<h3>Client Feedback</h3>\n<blockquote>\n<p>From the onset, Tuğrul demonstrated a high level of proficiency and commitment to the project. He was responsible for developing and implementing software to display information on a physical screen using a Raspberry Pi computer. His tasks included working with webcams and APIs to gather and display real-time data on a Samsung iFrame set up in a vertical layout.</p>\n<p>Throughout the project, Tuğrul showcased not only strong technical skills but also excellent collaboration and communication abilities. He was consistently proactive in troubleshooting issues and took the time to collaborate with stakeholders to ensure the project requirements were met effectively and efficiently.</p>\n<p>What impressed me the most was Tuğrul's ability to deliver quality work within the stipulated timeframe. His skill in API integration and real-time data display was evident as the project came together smoothly and met all the predetermined requirements.</p>\n<p>I am extremely satisfied with the work Tuğrul has done and can vouch for his technical skills, work ethic, and professional attitude. I would not hesitate to engage him in future projects and highly recommend him for any endeavors he chooses to pursue.</p>\n<p>— Upwork Client ★★★★★</p>\n</blockquote>", "date": "2023-09-05", "reading": 3, "summary": "A responsive information display system with RTSP streaming and multi-source data integration, running unattended on embedded hardware.", "tags": ["Raspberry Pi", "Python", "Flask", "jQuery", "RTSP", "ffmpeg"], "v": "4.2 KB", "modified": "2023-09-05", "group": "Contracts"}, {"id": "email-automation", "path": "work/email-automation", "name": "EMAIL PDF EXTRACTION AUTOMATION", "ext": ".md", "src": "content/work/email-automation.md", "html": "<p>A client was receiving 20,000 emails per week, each with a password-protected ZIP file containing a PDF. The password for each ZIP file arrived in a separate email. They needed a robust automation solution to extract all PDFs without missing any.</p>\n<h3>The Challenge</h3>\n<p>This was the first project where I needed to seriously consider data volume and scalability. Processing 20,000 emails weekly required careful attention to performance, error handling, and ensuring no PDFs were missed.</p>\n<h3>Requirements</h3>\n<ul>\n<li>Process ~20,000 emails per week automatically</li>\n<li>Match password emails with their corresponding ZIP file emails</li>\n<li>Extract PDFs from password-protected ZIP attachments</li>\n<li>Organize extracted files locally on a Remote Desktop</li>\n<li>Ensure 100% extraction rate—no PDFs could be missed</li>\n</ul>\n<h3>Solution</h3>\n<p>I built a Python automation system that parsed Gmail content, matched password emails with their corresponding ZIP files, extracted the protected attachments, and organized the data locally. The solution emphasized robustness and secure automation workflows to handle the high volume reliably.</p>\n<p>This project taught me valuable lessons about building scalable systems and the importance of comprehensive error handling when dealing with large-scale data processing.</p>", "date": "2020-05-09", "reading": 1, "summary": "Automated ingestion of 20,000 messages weekly, extracting password-protected ZIP attachments at full reliability without manual intervention.", "tags": ["Python", "Email Automation", "Gmail API", "Scalability", "Data Processing"], "v": "1.5 KB", "modified": "2020-05-09", "group": "Contracts"}, {"id": "kimiko", "path": "work/kimiko", "name": "KIMIKO – BROWSER EXTENSION CHAT PLATFORM", "ext": ".md", "src": "content/work/kimiko.md", "html": "<p><img class=\"docimg img-right\" alt=\"\" src=\"/static/media/kimiko-demo.png\" width=\"864\" height=\"755\" /></p>\n<p>Kimiko was a course project for CS308 at Sabanci University – a Chrome extension that brings real-time chat to any website. The idea was simple: people visiting the same URL could communicate with each other through a sidebar overlay, creating impromptu communities around shared web content.</p>\n<h3>The Concept</h3>\n<p>The extension injects an iframe sidebar into any page the user visits. Each URL becomes a chat room, identified by a hashed version of the address. Users can toggle the sidebar with a double-Shift hotkey, resize it to their preference, and start chatting with others on the same page.</p>\n<p>User profiles persist across sessions, storing avatars, usernames, bios, and social links. Clicking on a user in the chat reveals their profile, enabling a basic social layer on top of the anonymous chat experience.</p>\n<h3>The Architecture</h3>\n<p><strong>Chrome Extension:</strong> A content script injects the sidebar iframe and handles cross-origin communication between the page and the embedded React app. Chrome storage persists user identity and preferences locally.</p>\n<p><strong>React Frontend:</strong> The sidebar UI was built with React and TypeScript, handling message display, user input, profile management, and real-time updates. CSS transitions provided smooth animations for settings and profile panels.</p>\n<p><strong>Node.js Backend:</strong> An Express server with WebSocket support managed real-time message routing. MongoDB stored user profiles and message history per URL hash, enabling conversation persistence.</p>\n<h3>Challenges Faced</h3>\n<p><strong>Cross-Origin Communication:</strong> The extension's content script and the iframe run in different contexts with different origins. Coordinating user identity and profile updates required careful use of postMessage and Chrome's runtime messaging API.</p>\n<p><strong>URL-Based Room Partitioning:</strong> Messages needed to be isolated per URL while maintaining performance. Using murmurhash to generate room identifiers from URLs allowed efficient database queries and quick client-side routing.</p>\n<p><strong>Real-Time Synchronization:</strong> Managing WebSocket connections, handling disconnections gracefully, and ensuring message delivery order required a robust client manager that tracked online users per room.</p>\n<h3>What I Learned</h3>\n<p>This was my first deep dive into browser extension development, and it taught me the intricacies of Chrome's extension APIs, content security policies, and the security considerations of injecting code into arbitrary web pages.</p>\n<p>The project also reinforced lessons about real-time systems – managing WebSocket state, handling edge cases in connection drops, and designing for the asynchronous nature of distributed chat systems.</p>\n<hr>\n<p>A team project developed with classmates for the CS308 Software Engineering course at Sabanci University.</p>", "date": "2021-12-15", "reading": 2, "summary": "A Chrome extension bringing real-time chat to any website through URL-keyed rooms, creating impromptu communities around shared web content.", "tags": ["Chrome Extension", "React", "TypeScript", "Node.js", "WebSocket", "MongoDB"], "v": "3.0 KB", "modified": "2021-12-15", "group": "Contracts"}], "v": "19", "modified": "2026-09-09"}, {"id": "cv", "path": "cv", "name": "CURRICULUM VITAE", "ext": ".html", "src": "content/cv.html", "html": "<div class=\"cv\">\n    <header class=\"cv-header\">\n        <h1>Tuğrul Ağrikli</h1>\n        <p class=\"cv-tagline\">Systems &amp; machine learning engineer — Istanbul, Türkiye</p>\n        <p class=\"cv-contact\">\n            <a href=\"mailto:tagrikli@proton.me\">tagrikli@proton.me</a>\n            <span class=\"sep\">·</span>\n            <a href=\"https://github.com/zerobitfulladder\">github.com/zerobitfulladder</a>\n            <span class=\"sep\">·</span>\n            <a href=\"https://zerobitfulladder.github.io/\">zerobitfulladder.github.io</a>\n        </p>\n        <p class=\"cv-summary\">\n            Ten years of engineering across freelance delivery, academic research tooling, embedded Linux, and machine\n            learning. I tend to solve problems one level below where they appear: building the framework rather than\n            using one, generating the dataset rather than labelling it. Most of my work sits at the seam between\n            deterministic control and stochastic components — planners checked against learned policies, generative\n            models given bounded authority inside a scripted skeleton.\n        </p>\n    </header>\n\n    <section class=\"cv-section\">\n        <h2>Education</h2>\n        <div class=\"cv-entry\">\n            <div class=\"cv-entry-head\">\n                <span class=\"cv-role\">Sabancı University — BSc, Computer Science &amp; Engineering</span>\n                <span class=\"cv-date\">Graduated January 2026</span>\n            </div>\n            <ul>\n                <li>Ranked <strong>first in the machine learning cohort</strong>.</li>\n                <li>\n                    Graduation project: vision-based edge occupancy detection for automated parking safety (detailed\n                    below).\n                </li>\n            </ul>\n        </div>\n    </section>\n\n    <section class=\"cv-section\">\n        <h2>Experience</h2>\n\n        <div class=\"cv-entry\">\n            <div class=\"cv-entry-head\">\n                <span class=\"cv-role\">Independent Research &amp; Development</span>\n                <span class=\"cv-date\">2026 — present</span>\n            </div>\n            <ul>\n                <li>\n                    Self-funded period dedicated to building systems end-to-end: a computational framework, a desktop\n                    shell, and an LLM-driven narrative agent architecture (detailed below).\n                </li>\n            </ul>\n        </div>\n\n        <div class=\"cv-entry\">\n            <div class=\"cv-entry-head\">\n                <span class=\"cv-role\">Freelance Software Engineer — Upwork</span>\n                <span class=\"cv-date\">2015 — 2023</span>\n            </div>\n            <ul>\n                <li>\n                    <strong>12 contracts delivered, 5.0 / 5.0 rating.</strong> Clients across research, industrial, and\n                    consumer software.\n                </li>\n                <li>\n                    Built an email ingestion pipeline processing <strong>20,000 messages weekly</strong> with\n                    password-protected archive extraction, at 100% reliability.\n                </li>\n                <li>\n                    Bridged Rhino/Grasshopper to MATLAB over a Flask transport layer for an architectural research\n                    group; <strong>acknowledged in the resulting publication</strong>.\n                </li>\n                <li>\n                    Delivered an astrophysics data platform (Python/PHP/SQL) with automated NASA dataset transfer, a\n                    Raspberry Pi RTSP information-display system, a Linux-phone call-recording daemon over D-Bus and\n                    PulseAudio, and a Chrome extension chat platform on React/TypeScript/WebSocket.\n                </li>\n            </ul>\n        </div>\n    </section>\n\n    <section class=\"cv-section\">\n        <h2>Selected Systems</h2>\n\n        <div class=\"cv-entry\">\n            <div class=\"cv-entry-head\">\n                <span class=\"cv-role\">Vision-Based Edge Occupancy Detection</span>\n                <span class=\"cv-date\">Graduation project, 2026</span>\n            </div>\n            <ul>\n                <li>\n                    Replaced multi-thousand-euro laser scanners in an automated parking system with a MobileNetV3\n                    classifier running on Raspberry Pi and Jetson.\n                </li>\n                <li>\n                    Built a <strong>Blender synthetic-data pipeline</strong> and a semi-automated labelling tool that\n                    cut annotation from <strong>~200 hours to ~2</strong>.\n                </li>\n                <li>\n                    <strong>98.94% validation accuracy</strong>, false positives down over 70% via synthetic\n                    pre-training, <strong>~96% hardware cost reduction</strong>. Validated on a live parking facility.\n                </li>\n            </ul>\n        </div>\n\n        <div class=\"cv-entry\">\n            <div class=\"cv-entry-head\">\n                <span class=\"cv-role\">AxonForge — node-based computational framework</span>\n                <span class=\"cv-date\">~17,000 LOC · unpublished</span>\n            </div>\n            <ul>\n                <li>\n                    Real-time web UI for defining computational units as nodes, editing their properties live, and\n                    hot-reloading behaviour without restarting the server.\n                </li>\n                <li>\n                    Built as research substrate for dynamic systems, after notebooks and Tk canvases both failed to give\n                    the necessary visual feedback loop.\n                </li>\n            </ul>\n        </div>\n\n        <div class=\"cv-entry\">\n            <div class=\"cv-entry-head\">\n                <span class=\"cv-role\">indigoshell — desktop shell</span>\n                <span class=\"cv-date\">~12,000 LOC · unpublished</span>\n            </div>\n            <ul>\n                <li>\n                    A full GTK3 desktop shell — bar, launcher, notifications, system tray — for a bare-Xorg qtile\n                    setup.\n                </li>\n                <li>\n                    Being rewritten onto <strong>xcffib + Skia + dbus-fast</strong> with direct EGL/GL rendering, a\n                    single asyncio loop, and a plugin system merging third-party panels into one settings surface.\n                </li>\n            </ul>\n        </div>\n\n        <div class=\"cv-entry\">\n            <div class=\"cv-entry-head\">\n                <span class=\"cv-role\">LLM-driven NPC &amp; emotion architecture</span>\n                <span class=\"cv-date\">2026 — present</span>\n            </div>\n            <ul>\n                <li>\n                    Narrative game built around a single LLM-driven character: a deterministic control skeleton with\n                    stochastic rendering slots, so that model failure modes read as characterisation rather than as\n                    defects.\n                </li>\n                <li>\n                    Emotion model grounded in <strong>appraisal theory and the OCC framework</strong>, separating felt\n                    from expressed affect.\n                </li>\n                <li>\n                    Concurrent-task phone-call system in which agents can decline, hang up, and hold competing\n                    objectives.\n                </li>\n            </ul>\n        </div>\n\n        <div class=\"cv-entry\">\n            <div class=\"cv-entry-head\">\n                <span class=\"cv-role\">Warehouse &amp; ASRS automation</span>\n                <span class=\"cv-date\">Ongoing</span>\n            </div>\n            <ul>\n                <li>\n                    Deterministic planner for an automated storage-and-retrieval parking facility: block relocation,\n                    carrier routing, deadlock valves, and liveness guarantees.\n                </li>\n                <li>\n                    Comparative study of <strong>A* against SMDP PPO</strong> for carrier planning, plus a learned\n                    heuristic (PyTorch MLP) trained on reverse-generated states.\n                </li>\n            </ul>\n        </div>\n\n        <div class=\"cv-entry\">\n            <div class=\"cv-entry-head\">\n                <span class=\"cv-role\">Other ongoing work</span>\n            </div>\n            <ul>\n                <li>\n                    <strong>Zenith</strong> — from-scratch learning-architecture research: local receptive fields,\n                    normalised-correlation units, skeleton learning.\n                </li>\n                <li>\n                    <strong>AR spatial computing</strong> — real-time monocular-depth 2D→3D conversion via mesh-warp\n                    DIBR on AR glasses, monitor-as-fiducial world anchoring with SPAAM calibration.\n                </li>\n                <li>\n                    <strong>Haptic guidance glove</strong> for blind users — vision-to-touch navigation cues.\n                </li>\n            </ul>\n        </div>\n    </section>\n\n    <section class=\"cv-section\">\n        <h2>Technical</h2>\n        <dl class=\"cv-skills\">\n            <dt>Languages</dt>\n            <dd>Python, C, C++, JavaScript/TypeScript, Dart, Java, GDScript, Bash, SQL</dd>\n\n            <dt>Machine learning</dt>\n            <dd>\n                PyTorch, transfer learning, model compression for edge inference, reinforcement learning (PPO, SMDP),\n                synthetic data generation, NLP &amp; classification\n            </dd>\n\n            <dt>Systems</dt>\n            <dd>\n                Embedded Linux (Raspberry Pi, Jetson), X11/xcffib, D-Bus, PulseAudio/GStreamer, EGL/OpenGL, Skia,\n                asyncio, systemd\n            </dd>\n\n            <dt>Vision &amp; graphics</dt>\n            <dd>OpenCV, monocular depth estimation, camera calibration, Blender pipelines, DIBR / stereo rendering</dd>\n\n            <dt>Application</dt>\n            <dd>Flask, React, Node.js, Flutter, Firebase, Godot, MongoDB, WebSocket</dd>\n\n            <dt>Environment</dt>\n            <dd>Arch Linux, qtile on bare Xorg, neovim, git, uv</dd>\n        </dl>\n    </section>\n\n    <p class=\"cv-print-hint\">\n        <button data-print>Print / save as PDF</button>\n    </p>\n</div>", "v": "10.0 KB", "modified": "2026-09-08"}, {"id": "splat", "path": "splat", "name": "SPLAT!", "src": "content/splat/", "children": [{"id": "face", "path": "splat/face", "name": "FACE SCAN", "ext": ".html", "src": "content/splat/face.html", "html": "<div class=\"cap\">LIVE SCAN · 3DGS · DRAG TO ORBIT · SHIFT-DRAG PANS · DOUBLE-CLICK RESETS</div>\n<div data-splat=\"/static/media/face.splat\" data-alpha=\"-0.0730\" data-beta=\"0.0560\" data-base=\"11.271\"></div>\n<div class=\"cap\">64,762 GAUSSIANS · LIVE, SHOWN AS CAPTURED</div>", "v": "0.3 KB", "modified": "2026-09-08"}], "v": "1", "modified": "2026-09-10"}, {"id": "music", "path": "music", "name": "MUSIC", "src": "content/music/", "children": [{"id": "gemma-ray", "path": "music/gemma-ray", "name": "GEMMA RAY", "ext": ".html", "src": "content/music/gemma-ray.html", "html": "<div class=\"dt\">HAVE YOU EVER EVER LOST CONTROL?</div>\n<div class=\"dm\">GEMMA RAY · SPOTIFY PLAYLIST</div>\n<div class=\"gap\"></div>\n<div class=\"links\">\n  <a href=\"https://open.spotify.com/playlist/55F3o2CO8pJjsVhhoOtDlW\">OPEN PLAYLIST IN SPOTIFY &rarr;</a>\n  <a href=\"https://gemmaray.tv/\">ARTIST SITE &rarr;</a>\n</div>\n<div class=\"gap\"></div>\n<div class=\"bcstack\">\n  <div class=\"bcwrap\"><iframe title=\"GEMMA RAY\" loading=\"lazy\" seamless src=\"https://bandcamp.com/EmbeddedPlayer/album=2559686509/size=small/bgcol=ffffff/linkcol=0687f5/track=4132199552/transparent=true/\"></iframe><span class=\"tint\"></span><span class=\"scan\"></span></div>\n  <div class=\"bcwrap\"><iframe title=\"GEMMA RAY\" loading=\"lazy\" seamless src=\"https://bandcamp.com/EmbeddedPlayer/album=1996921711/size=small/bgcol=ffffff/linkcol=0687f5/track=3266682679/transparent=true/\"></iframe><span class=\"tint\"></span><span class=\"scan\"></span></div>\n  <div class=\"bcwrap\"><iframe title=\"GEMMA RAY\" loading=\"lazy\" seamless src=\"https://bandcamp.com/EmbeddedPlayer/album=1996921711/size=small/bgcol=ffffff/linkcol=0687f5/track=1482714954/transparent=true/\"></iframe><span class=\"tint\"></span><span class=\"scan\"></span></div>\n  <div class=\"bcwrap\"><iframe title=\"GEMMA RAY\" loading=\"lazy\" seamless src=\"https://bandcamp.com/EmbeddedPlayer/album=3889476296/size=small/bgcol=ffffff/linkcol=0687f5/track=1068816564/transparent=true/\"></iframe><span class=\"tint\"></span><span class=\"scan\"></span></div>\n  <div class=\"bcwrap\"><iframe title=\"GEMMA RAY\" loading=\"lazy\" seamless src=\"https://bandcamp.com/EmbeddedPlayer/album=3889476296/size=small/bgcol=ffffff/linkcol=0687f5/track=1794014392/transparent=true/\"></iframe><span class=\"tint\"></span><span class=\"scan\"></span></div>\n  <div class=\"bcwrap\"><iframe title=\"GEMMA RAY\" loading=\"lazy\" seamless src=\"https://bandcamp.com/EmbeddedPlayer/album=3889476296/size=small/bgcol=ffffff/linkcol=0687f5/track=3457795150/transparent=true/\"></iframe><span class=\"tint\"></span><span class=\"scan\"></span></div>\n  <div class=\"bcwrap\"><iframe title=\"GEMMA RAY\" loading=\"lazy\" seamless src=\"https://bandcamp.com/EmbeddedPlayer/album=1627953844/size=small/bgcol=ffffff/linkcol=0687f5/license_id=2660/track=2427326128/transparent=true/\"></iframe><span class=\"tint\"></span><span class=\"scan\"></span></div>\n  <div class=\"bcwrap\"><iframe title=\"GEMMA RAY\" loading=\"lazy\" seamless src=\"https://bandcamp.com/EmbeddedPlayer/album=1627953844/size=small/bgcol=ffffff/linkcol=0687f5/license_id=2660/track=3986796009/transparent=true/\"></iframe><span class=\"tint\"></span><span class=\"scan\"></span></div>\n</div>", "v": "2.6 KB", "modified": "2026-09-08"}, {"id": "alexandra-savior", "path": "music/alexandra-savior", "name": "ALEXANDRA SAVIOR", "ext": ".html", "src": "content/music/alexandra-savior.html", "html": "<div class=\"dt\">SAVING GRACE, COME HERE TO BETRAY ME AGAIN</div>\n<div class=\"dm\">ALEXANDRA SAVIOR · SPOTIFY PLAYLIST</div>\n<div class=\"gap\"></div>\n<div class=\"links\">\n  <a href=\"https://open.spotify.com/playlist/624vPT8KeOMDQaiE4Tv775\">OPEN PLAYLIST IN SPOTIFY &rarr;</a>\n  <a href=\"https://www.alexandrasavior.com/\">ARTIST SITE &rarr;</a>\n</div>", "v": "0.4 KB", "modified": "2026-09-08"}, {"id": "agnes-obel", "path": "music/agnes-obel", "name": "AGNES OBEL", "ext": ".html", "src": "content/music/agnes-obel.html", "html": "<div class=\"dt\">NO LAWS OF TIME</div>\n<div class=\"dm\">AGNES OBEL · SPOTIFY PLAYLIST</div>\n<div class=\"gap\"></div>\n<div class=\"links\">\n  <a href=\"https://open.spotify.com/playlist/3iUrDk05e3OrBrH1OhQAiL\">OPEN PLAYLIST IN SPOTIFY &rarr;</a>\n  <a href=\"https://www.agnesobel.com/\">ARTIST SITE &rarr;</a>\n</div>", "v": "0.3 KB", "modified": "2026-09-08"}, {"id": "wet-leg", "path": "music/wet-leg", "name": "WET LEG", "ext": ".html", "src": "content/music/wet-leg.html", "html": "<div class=\"dt\">GOT THE BIG D</div>\n<div class=\"dm\">WET LEG · SPOTIFY PLAYLIST</div>\n<div class=\"gap\"></div>\n<div class=\"links\">\n  <a href=\"https://open.spotify.com/playlist/4g7oySBURM1faZqqvsYzmH\">OPEN PLAYLIST IN SPOTIFY &rarr;</a>\n  <a href=\"https://wetlegband.com/\">ARTIST SITE &rarr;</a>\n</div>", "v": "0.3 KB", "modified": "2026-09-08"}], "v": "4", "modified": "2026-09-10", "html": "<div class=\"welcome\" data-wrap>Some of my favourite artists and favourite tracks of them that I just can't stop listening over and over and over and over and over and over and over and over and over and over and over and over and over and over and over...</div>"}, {"id": "library", "path": "library", "name": "LIBRARY", "ext": ".md", "src": "content/library.md", "html": "<p>A reading library: papers and articles I am working through, with the ones\nI keep coming back to marked, and whatever I was in the middle of when I\nlast looked.</p>\n<p>It is its own small application rather than a page of this site, so it\nopens on its own.</p>\n<p><a href=\"/library/\">Open the library &rarr;</a></p>", "v": "0.3 KB", "modified": "2026-09-08"}], "settings": {"title": "Tuğrul Ağrikli", "description": "Systems and machine learning engineer in Istanbul. Computer vision on the edge, desktop shells, LLM-driven agents.", "banner": "TUĞRUL AĞRİKLİ", "tagline": "AI & MACHINE LEARNING · ISTANBUL · HOPEFULLY AVAILABLE", "operator": "AĞRİKLİ, T. · İSTANBUL", "born": "1998-07-01", "timezone": "Europe/Istanbul", "timezone_label": "IST", "phosphor": "amber", "columns": [0.2, 0.4, 0.5]}, "build": "2026-09-10", "commit": "A3D7482"}</script>
+
+<noscript>
+  <div class="noscript prose">
+    
+    <article id="me">
+      <h1>ME</h1>
+      <figure class="scan portrait">
+  <img class="docimg img-center" src="/static/media/crt/profile.jpg" alt="Tuğrul Ağrikli" width="880" height="855" />
+  <figcaption class="cap">PHOTOGRAPH · AĞRİKLİ,&nbsp;T.</figcaption>
+</figure>
+
+<div class="welcome" data-wrap>Hehe, hello!
+I'm not sure whether I exist or not.
+
+Currently exploring gradient-free, local, online learning mechanisms, in search of one that recognizes and generates from the same weights and keeps learning without forgetting. 
+Mostly it's a catalogue of what doesn't work so far.
+What I've been reading, and notes on it: <a href="#library">LIBRARY</a>.
+
+<div class="welcome" data-wrap>I also freelance on <a href="https://www.upwork.com/freelancers/~01b6222728cba6f1ac">Upwork</a> occasionally.</div>
+
+Feel free to browse, or click this button.</div>
+<button class="btn" type="button" data-crash>BUTTON</button>
+
+<div class="gap"></div>
+
+
+<div class="gap"></div>
+
+<div class="facts">
+<div class="fr"><span class="k">WORKS</span><span class="r" data-leader></span><span class="v"><span data-count="work">-</span></span></div>
+<div class="fr"><span class="k">THOUGHTS</span><span class="r" data-leader></span><span class="v"><span data-count="thoughts">-</span></span></div>
+<div class="fr"><span class="k">ON FILE</span><span class="r" data-leader></span><span class="v"><span data-count="work">-</span> ENTRIES</span></div>
+<div class="fr"><span class="k">STATUS</span><span class="r" data-leader></span><span class="v">AVAILABLE</span></div>
+</div>
+
+
+<div class="gap"></div>
+
+<div class="links center">
+  <a href="mailto:tagrikli@proton.me">EMAIL</a>
+  <a href="https://github.com/zerobitfulladder">GITHUB</a>
+  <a href="https://www.upwork.com/freelancers/~01b6222728cba6f1ac">UPWORK</a>
+  <a href="https://open.spotify.com/user/tagrikli">SPOTIFY</a>
+  <a href="https://letterboxd.com/tagrikli/">LETTERBOXD</a>
+</div>
+    </article>
+    
+    <article id="analysis-by-synthesis">
+      <h1>ANALYSIS BY SYNTHESIS?</h1>
+      <p>Today I've read the paper called <em><a href="https://doi.org/10.1016/j.tics.2006.05.002">Vision as Bayesian inference: analysis by synthesis?</a></em>, from 2006, by Alan Yuille and Daniel Kersten.</p>
+<h2>I. Reading old papers</h2>
+<p>A cognitive science paper from 2006. As I read more old papers, I just get more and more interested in them at this point. It's not like reading an old novel (I guess, I'm not a novel reader), where you witness the storytelling of a writer of that time and, despite the change of contexts or norms, still find something familiar due to human nature. Here it is quite different, as if I'm reading the highly structured ideas of a very smart people, composing such novel ideas without knowing about the advancements of the years to come. This paper is <strong>6 years</strong> before AlexNet, for the god's sake.</p>
+<p>I had heard of Bayesian approaches to brain function before, tho I never left the shallow waters. This is the first paper I've actually read on the topic, and it left a strong impression.</p>
+<h2>II. What they argue</h2>
+<p>Their argument, as far as I follow it, goes like this. Vision is an inverse problem: the world generates the image, and the brain has to run that generation backwards, asking what could have caused the thing it received. Bayes gives the shape of the answer, but it needs two pieces to work: a <em>generative model</em> of how a cause produces an image, and a <em>prior</em> over which causes are likely in the first place. Analysis by synthesis is the <strong>mechanism</strong> for actually computing it. You don't invert the generative model directly, because you can't. You propose a cause, synthesize what it would have looked like, and compare that against the image you actually got.</p>
+<h2>III. The input is already a lossy projection</h2>
+<p>I've acquired a new way of thinking about perception with this paper. As they mention, the image that falls onto the retina is a higher dimensional <em>thing</em> projected onto a lower dimension in a <em>lossy</em> way, which wasn't something I had thought about before. When I was experimenting with different architectures, I only thought about the lossiness of the network, mainly whether it should lower the dimension or keep it the same. I never thought that the input would <em>already</em> be a lossy projection of the real thing, let alone that the network could be given the job of figuring out what was lost. So then the function of the network is not just to represent the input losslessly, but to expand its dimensions even further, toward modelling the actual thing.</p>
+<h2>IV. What it would feel like</h2>
+<p>The claim that analysis by synthesis is the mechanism of Bayesian inference is a fascinating idea. Input is never the whole thing, only a cue. Then the recognition task is taking that cue to propose causes, rendering them to find a fit, which makes me think that if such a thing would feel like anything, it would feel close to the feeling of <strong>trying to figure something out</strong>.</p>
+<h2>V. Then it is a search problem</h2>
+<p>If that is the mechanism, then the shape of the working is a search, and there is more than one way it could go.</p>
+<p>The plainest version is to propose every cause, score them all, and return the best one. A cheaper version is to keep several proposals alive at once, rank them, and stop early on the ones that are clearly losing. Or you could hill climb: hold some of the causes fixed, iterate the others, and keep going while the fit improves.</p>
+<p>The one I keep coming back to is that this could be an A* like search. The proposed causes define a state. The valid actions are changes to those causes that don't contradict what is already proposed, each one putting you in a different state. And the heuristic function is just the probabilities.</p>
+<p>Though A* wants an admissible heuristic, one that never overestimates what is left to pay, and I don't think perception has that luxury. Being too optimistic about the probability that remains only makes the search slow.</p>
+<p>But hear me out. I often don't find any answer at all, so the bare search isn't complete. Clearly I do not go over the whole state space. What actually happens is more like there being a low probability option that I never even <strong>thought of</strong>, which points towards something closer to a beam search.</p>
+<p>Either way, being too pessimistic prunes the right explanation and hands you a fast, confident, wrong answer, which sounds a lot like the kind of mistake perception actually makes in optical illusions.</p>
+<h2>VI. What could actually run it</h2>
+<p>All of these are expensive, and that is the part that bothers me, because whatever the brain is doing here, it does it fast.</p>
+<p>It could be a sequential search. It could be a parallel one that evaluates branches separately, which I find unlikely given how much the branching factor varies. It could be an approximation of a search using a tally like structure, the one I come back to at the end.</p>
+<p>Or, more elegantly, and here I am guessing, sparse representations. If the proposals are sparse enough, a superposition of several of them could be held at once without lengthening the dimension and without them interfering with each other. (I got this idea from HTM theory.) I've heard from somewhere that PFC proposes and the basal ganglia picks. So maybe the output of PFC is a superposition of sparse proposals, and instead of a fixed priority queue, the basal ganglia is the policy that picks one proposition out of that superposition to expand, to propose that idea, for generation to check against the evidence.</p>
+<p>And even tho the sparsity helps, as the proposal count goes up the interference gets more likely, and that is the thing that defines the beam width. Then the incompleteness I noticed above wouldn't be a design choice, it would fall out of how much the representation can carry at once. You can't consider the option you never thought of because it never fit.</p>
+<p>I'm not a knowledgable person in this area, so I need more reading and experimentation to test any of this. These are mainly ideas composed from things I've read here and there, without much structure.</p>
+<h2>VII. Symmetry</h2>
+<p>The model that I'm envisioning should generate well in order to discriminate well, and the other way around, in a fully symmetric way, where performance on one directly affects the other. This is the same thing I have been circling from the other end: one set of constraints serving both as a grammar for generating instances and as a classifier for recognizing them. When I look at architectures such as CNNs or ViTs, they discriminate quite well but can't generate at all, whereas diffusion models can generate but discriminate poorly, natively.</p>
+<p>So overall, I think this idea of forward and backward projection, of analysis by synthesis, fits my vision about the importance of the symmetry, and I think the paper already circles around it. The discriminative property proposing, the generative property verifying.</p>
+<hr>
+<h2>Pondering upon</h2>
+<p>While pondering on this idea, I recalled that in my own experiments discrimination and generation were always in tension. My intuition was that weights tuned for discrimination cannot generate well, and weights tuned for description cannot discriminate well.</p>
+<p>I think that tension is structural rather than incidental. A description good enough to regenerate the input has to keep position, because you cannot render a digit without knowing where it sits. A classifier wants position gone, because for the label it is noise. The description is <em>equivariant</em>, move the digit and the code moves with it, while the label has to be <em>invariant</em>, move the digit and the answer must not move. Both objectives are pulling on the same weights in opposite directions, and whichever loss reaches those weights is the one that wins. The usual escape is pooling, but pooling is a trick. The invariance doesn't come from anything the network learned about translation, it comes from discarding the position by construction. Without it, even MNIST digits at different positions produce quite different descriptions. So how are you going to discriminate that?</p>
+<p>What I want instead is a backbone that stays purely descriptive, trained only by a generative objective, with a layer above it that does the arbitrary part. But the interesting question is what that upper layer is actually doing, and I don't think it is inventing invariance out of nothing. It reads the position out of the description, explains it away, and what is left no longer varies with where the thing was. Only then does the genuinely arbitrary step happen, the one that says this identity is called "7". So it is closer to a factorization into identity and pose, with a trivial lookup on the end, than to a mapping learned from scratch.</p>
+<p>Stated that way I can also say when it would be working. If I can take the identity and the pose that layer separated, put the pose back, and re-render the original image, then nothing was destroyed and the descriptive system is still whole. If position is gone for good, I have just bolted a classifier onto a generator, and the symmetry I actually care about is broken.</p>
+<p>We were doing half of this already. In our experiments we ran a tally on top of the descriptions, and that tally was the Bayesian inference layer: features voting for what could have caused them, evidence accumulating on whichever cause explains the most. What we never had was the other direction, the synthesis, actually producing a candidate and checking it against the input. So the tally was doing the inference in one compiled shot, without the generative loop that would have justified it.</p>
+<p>Which leaves me where I started, to be honest. I suspect these two aspects cannot sit in a single layer of one homogeneous stack. They want to be different organs of a larger system that is Bayesian as a whole: something that describes, something that proposes, and the traffic between them being where recognition actually happens.</p>
+    </article>
+    
+    <article id="axonforge">
+      <h1>AXONFORGE</h1>
+      <p>Most dataflow tools force you into a directed acyclic graph. Most simulators lock you into one model family. AxonForge does neither: a live visual graph where every node is a plain Python class, connections may form cycles, and execution ticks forward one step at a time — which makes feedback, recurrence and iterative learning first-class rather than something you work around.</p>
+<video class="docimg img-center" src="/static/media/axonforge.mp4" autoplay loop muted playsinline controls></video>
+
+<p>It was built as a research substrate, after notebooks and Tk canvases both failed to give the visual feedback loop the work needed. Watching weights organise and activations sharpen while a system runs is the point; reading a final number is not.</p>
+<h3>Feedback-native execution</h3>
+<p>Topological sort with cycle-aware semantics. A recurrent connection delivers the previous step's value automatically — no delay nodes, no manual buffering, no rewriting a graph to make it acyclic before it will run.</p>
+<h3>Declarative nodes</h3>
+<p>A node is a Python class with descriptors. Ports, fields, displays and state are all declared as class attributes, so the boilerplate stays close to zero and the interesting part of a node is the part you actually wrote.</p>
+<p>Parameters are tuned live — sliders, toggles, enums and file pickers render inside the node itself, and a change takes effect immediately. Heatmaps, plots, images and text displays are embedded in the same way, so a graph is its own instrumentation.</p>
+<h3>Hot reload</h3>
+<p>Edit a node's source, hit reload: field values are preserved, the code is swapped, and nothing restarts. Over a long experiment that difference compounds.</p>
+<h3>Project-local</h3>
+<p>Research lives in its own directory — its own nodes, graphs and data — and the framework stays separate, so a project can be moved, shared and versioned independently of the tool that runs it.</p>
+<p>Roughly 17,000 lines. Highly experimental, unpublished, and still moving: graph formats and node interfaces change between commits.</p>
+    </article>
+    
+    <article id="breadcrumbs">
+      <h1>BREADCRUMBS</h1>
+      <p>A local tool for studying a body of literature. It keeps papers, their references, your notes and your highlights in a SQLite database on your own machine, and lays the library out on a time grid so you can see how the work developed.</p>
+<p><img class="docimg img-center" alt="The grid, with one paper pinned and its references drawn across the columns" src="/static/media/breadcrumbs-grid.png" width="1400" height="718" /></p>
+<p>Papers are added one at a time, by you. Adding one records the identifiers of everything it cites but creates no other papers; when you later add one of those, the link appears on its own. The graph assembles itself out of deliberate choices rather than by crawling outward until it is unreadable.</p>
+<h3>The grid</h3>
+<p>Every paper on one screen, in fixed columns of N years. A card's column depends on its year alone, so nothing moves when a panel opens or a paper is selected — the layout is stable under interaction, which is the whole reason it is usable at a glance. Empty intervals keep their column, so width measures elapsed time honestly. The interval is adjustable from 1 to 50 years.</p>
+<p><img class="docimg img-center" alt="The reader" src="/static/media/breadcrumbs-reader.png" width="1400" height="718" /></p>
+<h3>Metadata, from several sources</h3>
+<p>Records come from OpenAlex, Crossref and Unpaywall, with Semantic Scholar supplying references when it is available and OpenAlex standing in when it throttles. An institutional EZproxy or OpenAthens prefix can be set, so publisher links go through a subscription rather than a paywall.</p>
+<p>There is an assistant, with the provider and model chosen from whatever a given key can actually reach rather than from a hardcoded list.</p>
+<h3>Status</h3>
+<p>Built for my own use and still changing often — schema, commands and layout all move without notice, and migrations are written for my library rather than for anyone else's. It is the thing behind <a href="#library">LIBRARY</a> on this site.</p>
+    </article>
+    
+    <article id="viturebd">
+      <h1>VITUREBD</h1>
+      <p>The glasses present a flat mirror of your desktop. VitureBD makes it stereoscopic: capture the desktop, estimate monocular depth with Depth Anything V2 Small, mesh-warp the result into a stereo pair, and present it side-by-side fullscreen on the Viture Luma Ultra, all live.</p>
+<h3>Avoiding the two obvious failures</h3>
+<p>Capture is by window pixmap rather than screen grab, so the output never contains the thing it is drawing. A screen-grab approach feeds itself and collapses on the first frame.</p>
+<p>The desktop is rendered on a <strong>separate head</strong> — the laptop's own eDP panel, which the NVIDIA GPU drives directly under EnvyControl's nvidia mode — while the overlay owns the glasses on DP-0. Because the rendered desktop and the overlay live on different physical outputs, a window going fullscreen cannot restack above the overlay. There is no stacking race to lose.</p>
+<h3>Head tracking</h3>
+<p>A companion viewer reads live IMU and pose data from the glasses over <code>libglasses</code> and renders a 3D scene with raylib.</p>
+<p>Unpublished, and specific to one pair of glasses and one driver arrangement.</p>
+    </article>
+    
+    <article id="vision-based-edge-occupancy">
+      <h1>VISION-BASED EDGE OCCUPANCY DETECTION</h1>
+      <p>This graduation project focused on replacing expensive laser scanners in automated parking systems with a computer vision–based solution. The goal was to detect whether a vehicle extends beyond pallet edges—an error that can cause serious collisions during automated transport—using low-cost cameras and edge AI hardware.</p>
+<p><img class="docimg img-left" alt="Empty pallet" src="/static/media/edge-occ-empty.png" width="922" height="519" />
+<img class="docimg img-right" alt="Occupied pallet" src="/static/media/edge-occ-full.png" width="944" height="531" /></p>
+<p>Existing industrial systems rely on laser sensors costing thousands of euros per unit and suffer from reliability issues with dark vehicle surfaces. My objective was to demonstrate that a carefully engineered deep learning system could match their accuracy at a fraction of the cost.</p>
+<h3>The Challenge</h3>
+<p>The main technical challenge was building a reliable safety-critical classifier from limited real-world data collected in a single parking facility. While occupied pallets naturally vary with different vehicles, empty pallets are visually uniform, creating strong risks of overfitting and poor generalization.</p>
+<p>Additional constraints included real-time inference requirements, low hardware budgets, and strict limits on false negatives, where missed detections could lead to physical damage.</p>
+<h3>The Solution</h3>
+<p><strong>Data Pipeline:</strong> I designed a semi-automated labeling system that reduced manual annotation effort from over 200 hours to roughly 2 hours, enabling efficient creation of a high-quality dataset.</p>
+<p><strong>Model Architecture:</strong> A MobileNetV3-based convolutional neural network was implemented using transfer learning, optimized for deployment on embedded devices such as Raspberry Pi and Jetson platforms.</p>
+<p><strong>Validation Methodology:</strong> Through systematic error analysis, I refined the augmentation and testing pipeline after discovering that common occlusion techniques introduced misleading artifacts. This led to a more realistic and robust evaluation framework.</p>
+<p><strong>Synthetic Data Generation:</strong> To address limited environmental diversity, I developed a Blender-based rendering pipeline that generated thousands of labeled synthetic images. Pre-training on this dataset significantly improved generalization to unseen conditions.</p>
+<p><img class="docimg img-left" alt="Synthetic empty pallet" src="/static/media/edge-occ-empty-syn.png" width="744" height="60" />
+<img class="docimg img-right" alt="Synthetic occupied pallet" src="/static/media/edge-occ-full-syn.png" width="744" height="60" /></p>
+<p><strong>Deployment Architecture:</strong> A modular real-time processing pipeline was designed for multi-camera monitoring, enabling low-latency inference and redundancy-based safety guarantees.</p>
+<h3>Results</h3>
+<p>The final system achieved up to 98.94% validation accuracy on real operational data and maintained strong performance under simulated environmental variations. Synthetic pre-training further improved robustness while reducing false positives by over 70%.</p>
+<p>Compared to traditional laser-based systems, the solution offers approximately 96% cost reduction while eliminating color-dependent failure modes.</p>
+<hr>
+<p>Beyond technical performance, this project provided hands-on experience in building industrial-grade machine learning systems under real operational constraints—from data acquisition and validation design to deployment planning and ethical considerations.</p>
+<p>The complete technical documentation is available in the <a href="/static/media/edge-occ-report.pdf">final report</a>, detailing the methodology, experiments, and system architecture.</p>
+    </article>
+    
+    <article id="rhino-matlab-bridge">
+      <h1>RHINO-MATLAB BRIDGE</h1>
+      <p><img class="docimg img-center" alt="" src="/static/media/rhino.png" width="669" height="320" /></p>
+<p>The project presented a significant challenge as it required bridging the gap between disparate software systems—specifically, Rhino with Grasshopper and MATLAB—for an academic research initiative led by an esteemed architecture professor at Istanbul Technical University.</p>
+<p>The main challenge was to seamlessly integrate these distinct platforms to facilitate the research process.</p>
+<h3>The Challenge</h3>
+<p>To address this challenge effectively, I embarked on a comprehensive research journey to familiarize myself with Rhino, Grasshopper, and MATLAB, even though I had no prior experience with these tools. After gaining a foundational understanding of these technologies, I devised an innovative solution using Python as the central bridge.</p>
+<h3>The Solution</h3>
+<p><strong>Flask Application:</strong> I developed a Flask application to serve as the intermediary between Rhino with Grasshopper and MATLAB. This application was configured to communicate with a specific Grasshopper component designed for network data exchange.</p>
+<p><strong>Python Integration:</strong> Leveraging Python's versatility, I utilized a Python module to interact programmatically with MATLAB. This allowed for the seamless transmission of input data to MATLAB and the retrieval of relevant results.</p>
+<p><strong>Networking:</strong> I established a robust networking framework to enable the smooth transfer of data between the different software environments. This network connectivity formed the backbone of the entire solution, ensuring data exchange and synchronization between Rhino with Grasshopper and MATLAB.</p>
+<hr>
+<p>By meticulously implementing this comprehensive solution, I successfully bridged the gap between Rhino with Grasshopper and MATLAB, facilitating the academic research project's objectives. This innovative approach streamlined the research process, enabling efficient data exchange and computation between the two distinct platforms.</p>
+<p>The professor mentioned that I would be thanked in the acknowledgements section of the resulting article—and they followed through. 
+I'm literally in the acknowledgements part of <a href="https://www.tandfonline.com/doi/full/10.1080/00038628.2023.2269549#:~:text=Tu%C4%9Frul%20Agrikli">the published paper</a>.</p>
+    </article>
+    
+    <article id="indigoshell">
+      <h1>INDIGOSHELL</h1>
+      <p>A desktop shell written as a widget engine rather than as a bar with features bolted on. A configurable bottom bar, popup windows, toast command-runners with dialog-tree pipelines, an interactive floating terminal, a StatusNotifierItem system tray and a built-in <code>org.freedesktop.Notifications</code> daemon — all in a single Python process on top of GTK 3 and PyGObject.</p>
+<video class="docimg img-center" src="/static/media/indigoshell.mp4" autoplay loop muted playsinline controls></video>
+
+<p>It runs on a bare-Xorg qtile setup, where nothing else was going to supply these pieces, and it is styled out of the box with the INDIGO Cyberpunk palette the rest of my work borrows from.</p>
+<h3>The bar</h3>
+<p>A transparent dock-strut at the screen edge, composed declaratively — <code>Box([…])</code>, <code>Spacer()</code> — rather than configured through a schema. Widgets include workspaces with an urgent-ring blink, CPU / RAM / temperature meters, volume, network, a media widget with a cava equaliser background and beat pulse, a clock with a battery underline, scrambling beat-synced lyrics, and an identity tag with pulsing corner brackets.</p>
+<h3>Popups and the terminal</h3>
+<p>Popups host real programs rather than reimplementing them: <code>fastfetch</code>, <code>sptlrx</code>, <code>spotify-player</code>, <code>nmtui</code>, alongside a network panel, a hardware panel with CPU/RAM history and live GPU readouts, a calendar and a systray panel.</p>
+<p><code>indigoshell open terminal</code> summons a floating <code>$SHELL</code> in the top right wearing the bar's theme, closed with <code>exit</code>, Ctrl-D or mod+q — one keybind to get a shell in front of you and one gesture to put it away.</p>
+<h3>Where it is going</h3>
+<p>Being rewritten onto xcffib, Skia and dbus-fast with direct EGL/GL rendering and a single asyncio loop, plus a plugin system that merges third-party panels into one settings surface.</p>
+<p>Roughly 36,000 lines. Unpublished.</p>
+    </article>
+    
+    <article id="astrophysics-website">
+      <h1>ASTROPHYSICS DATA PLATFORM</h1>
+      <p><img class="docimg img-right" alt="" src="/static/media/astro-data-display.png" width="1325" height="1226" /></p>
+<p>The goal of this project was to enhance an existing academic website developed for astrophysicist teachers at my university. The website consisted of two servers, with one server responsible for gathering measurements from NASA and performing calculations to detect cosmic events, while the other server displayed the results and facilitated data queries.</p>
+<p>However, there were several challenges that needed to be addressed to improve the efficiency and usability of the system.</p>
+<h3>The Challenges</h3>
+<p>The existing system required manual data transfers between servers, which was time-consuming and prone to human error. The user interface was outdated, making it difficult for professors to efficiently search and analyze data. Additionally, there was no proper database integration for managing the calculated results.</p>
+<h3>The Solution</h3>
+<p><strong>Automated Data Transfer:</strong> I developed a solution that automated the data transfer process using Python and FTP. This eliminated the need for manual transfers between servers, saving time and reducing the risk of human error.</p>
+<p><img class="docimg img-left" alt="" src="/static/media/astro-search.png" width="1372" height="1112" /></p>
+<p><strong>Modern UI:</strong> I revamped the website's user interface by replacing the outdated UI with a modern Material UI framework. This upgrade enhanced the overall user experience and enabled the implementation of advanced search and display functionalities.</p>
+<p><strong>Database Integration:</strong> To facilitate data management, I integrated a database into the website. This allowed for seamless storage, retrieval, and presentation of the calculated data, improving the overall efficiency and accessibility of the system.</p>
+<hr>
+<p>Throughout the project, I utilized various technologies, including Bash, Python, SQL, and PHP, to develop and implement the solutions. These tools were instrumental in achieving the project's goals and delivering a more efficient and user-friendly website for astrophysicist teachers.</p>
+    </article>
+    
+    <article id="cs412-project">
+      <h1>INSTAGRAM ANALYTICS WITH MACHINE LEARNING</h1>
+      <p><img class="docimg img-center" alt="" src="/static/media/cs412-trampoline.gif" width="500" height="281" /></p>
+<p>This project was developed for the CS412 Machine Learning course and focused on building predictive models for large-scale Instagram data. The system addresses two core problems: predicting post engagement and classifying accounts based on their content and behavior patterns.</p>
+<p>The overall objective was to explore how statistical features and modern language representations can be combined to model social media dynamics at scale. My primary contribution was the complete design and implementation of the classification pipeline, developed independently.</p>
+<h3>The Challenge</h3>
+<p>The dataset contained thousands of accounts with heterogeneous behavior, noisy metadata, and unstructured textual content. Accurately modeling such data required careful feature engineering and robust representation learning.</p>
+<p>For the classification task, the main challenge was extracting meaningful signals from short, informal, and multilingual text while maintaining generalization across unseen evaluation datasets.</p>
+<h3>The Solution</h3>
+<p><strong>Data Engineering:</strong> Extensive preprocessing pipelines were implemented to clean profiles, normalize engagement statistics, and generate derived behavioral features capturing long-term interaction patterns.</p>
+<p><strong>Text Representation:</strong> User biographies and captions were encoded using modern embedding models, including transformer-based sentence encoders and large-scale semantic representations.</p>
+<p><strong>Classification Pipeline:</strong> I designed and trained multi-class classifiers to categorize Instagram accounts into ten distinct content domains (e.g., fashion, travel, food, entertainment, education). The pipeline combined textual embeddings with structured features for improved accuracy.</p>
+<p><strong>Model Optimization:</strong> Hyperparameters were tuned using automated optimization frameworks, ensuring strong performance across multiple hidden test sets.</p>
+<p><strong>Evaluation Strategy:</strong> Models were validated against several independent datasets provided during the course, emphasizing robustness rather than single-test optimization.</p>
+<h3>Results</h3>
+<p><img class="docimg img-center" alt="" src="/static/media/cs412-results.png" width="576" height="336" /></p>
+<p>The classification system achieved top performance in the course-wide evaluation, ranking first among all project submissions. The model demonstrated consistent generalization across diverse account types and content styles.</p>
+<p>The complete project also included a regression component for engagement prediction, enabling comprehensive analysis of both content category and popularity dynamics.</p>
+<hr>
+<p>The full codebase is available on <a href="https://github.com/Tagrikli/CS412-Term-Project">GitHub</a>.</p>
+<p>I developed the entire classification framework independently, from feature extraction and embedding integration to training, evaluation, and optimization. This work was recognized as the highest-performing classification system in the course.</p>
+<p>The project strengthened my experience in applied machine learning, large-scale data modeling, and modern NLP-based representation learning, while emphasizing reproducibility and rigorous evaluation.</p>
+<p><img class="docimg img-right" alt="" src="/static/media/cs412-msg.jpeg" width="945" height="2048" /></p>
+    </article>
+    
+    <article id="commitly">
+      <h1>COMMITLY – GAMIFIED HABIT TRACKER</h1>
+      <p>Commitly is a cross-platform mobile application developed as part of the CS310 Mobile Application Development course. The project explores how gamification and social accountability can be combined to help users build sustainable habits through shared responsibility and visible progress.</p>
+<p><img class="docimg img-left" alt="" src="/static/media/commitly-home-page.jpeg" width="945" height="2048" />
+<img class="docimg img-right" alt="" src="/static/media/commitly-add-habit-page.jpeg" width="945" height="2048" /></p>
+<p>Unlike traditional habit trackers that focus solely on individual progress, Commitly introduces team-based streaks, where members share collective responsibility. This transforms habit formation into a collaborative process rather than a solitary one.</p>
+<h3>The Challenge</h3>
+<p>The core challenge was designing a system that balances personal motivation with social dynamics while remaining technically robust across platforms. Implementing reliable streak logic, real-time synchronization, and intuitive UI flows required careful architectural decisions.</p>
+<p>Additional complexity came from integrating offline storage with cloud-based synchronization, ensuring consistency between local and remote data sources.</p>
+<h3>The Solution</h3>
+<p><strong>Cross-Platform Architecture:</strong> The application was developed using Flutter and Dart, enabling a unified codebase for Android and iOS with consistent UI behavior.</p>
+<p><strong>Backend Integration:</strong> Firebase Authentication and Firestore were used for real-time data synchronization, user management, and team-based interactions. Local persistence was implemented using SQLite for partial offline support.</p>
+<p><img class="docimg img-left" alt="" src="/static/media/commitly-statistics-page.jpeg" width="945" height="2048" />
+<img class="docimg img-right" alt="" src="/static/media/commitly-achievements-page.jpeg" width="945" height="2048" /></p>
+<p><strong>Gamification System:</strong> An XP and streak mechanism was designed to reinforce positive behavior, providing continuous feedback and long-term motivation.</p>
+<p><strong>Team Streaks:</strong> A shared streak model was implemented where group performance depends on all members, encouraging accountability and peer support.</p>
+<p><strong>Quality Assurance:</strong> The project included unit and widget tests covering core business logic and critical UI flows, ensuring data integrity and interaction reliability.</p>
+<h3>Results</h3>
+<p>The final application delivered a fully functional habit-tracking platform with real-time synchronization, leaderboard support, detailed statistics, and theme customization. Team streaks proved effective in creating sustained engagement among users.</p>
+<p>The project demonstrated the feasibility of building scalable, socially driven productivity tools using modern mobile frameworks and cloud services.</p>
+<hr>
+<p>My primary responsibility in the team was leading testing and quality assurance, validating business logic, UI behavior, and data consistency across different usage scenarios. This role strengthened my experience in systematic validation and production-level debugging.</p>
+<p>Commitly reflects an end-to-end mobile development process, covering system design, cloud integration, automated testing, and collaborative software engineering practices. The source code is available on <a href="https://github.com/erenayar-12/CS310-Group-21">GitHub</a>.</p>
+    </article>
+    
+    <article id="color-recommendation-app">
+      <h1>COLOR-BASED PRODUCT RECOMMENDATION APP</h1>
+      <p><img class="docimg img-right" alt="" src="/static/media/color-picker.gif" width="720" height="1280" /></p>
+<p>Developed an Android application that captures images and enables users to select specific regions to extract color data. Leveraged this to recommend matching nail products from an inventory.</p>
+<h3>The Challenge</h3>
+<p>The biggest challenge was understanding color spaces and color similarity. Different color spaces perceive and calculate color similarity differently, and some don't align with how humans actually perceive colors. This required deep research into color theory to ensure accurate product matching.</p>
+<h3>Solution</h3>
+<p>Built with pure Java in Android Studio, the application integrated computer vision techniques with real-world product mapping. Users could capture or select an image, tap on specific regions to extract colors, and receive recommendations for matching nail products from the inventory.</p>
+<p>The project significantly enhanced my understanding of color spaces and their practical applications in consumer-facing products.</p>
+    </article>
+    
+    <article id="anydictate">
+      <h1>ANYDICTATE</h1>
+      <p><img class="docimg img-center" alt="" src="/static/media/anydictate.png" width="1089" height="653" /></p>
+<p>I have developed a dynamic web application that harnesses the power of Python and the Web Speech API to provide real-time speech-to-text conversion. With this innovative tool, users can effortlessly convert their spoken words into written text.</p>
+<p>The application seamlessly integrates with various platforms, allowing users to input text wherever a cursor can be placed.</p>
+<h3>How It Works</h3>
+<p>Using the Web Speech API, the application records speech input and swiftly converts it into textual format. This text is then sent to the backend, powered by Python, which emulates key presses to effectively simulate typing.</p>
+<p>This unique functionality enables users to effortlessly type anywhere, saving time and streamlining their workflow. By combining the strengths of web technologies and Python, this project offers a versatile solution for those who prefer speech input over traditional typing.</p>
+<hr>
+<p>The seamless integration and real-time transcription capabilities make it a valuable tool for a wide range of applications, from drafting emails and documents to interacting with text-based interfaces.</p>
+    </article>
+    
+    <article id="mtg-arena-monitor">
+      <h1>MTG ARENA LOG MONITOR</h1>
+      <p>A client needed a desktop application to monitor the log file of Magic: The Gathering Arena and selectively display game actions in real time. The project required parsing undocumented but human-readable logs to extract meaningful game events.</p>
+<h3>Requirements</h3>
+<p>The project had specific requirements:</p>
+<ul>
+<li>Build a desktop app using Python with Kivy or Tkinter</li>
+<li>Monitor game log file in real time</li>
+<li>Parse and display relevant game events:<ul>
+<li>Match Start</li>
+<li>DeckList for the match</li>
+<li>Cards drawn by player</li>
+<li>Cards played by player</li>
+<li>Cards played by opponent</li>
+<li>Match End and Match Result</li>
+</ul>
+</li>
+</ul>
+<h3>Solution</h3>
+<p>I developed a Python desktop application that continuously monitored the game's log file, parsing entries to identify and display relevant game events in real time. Working with undocumented log formats required careful analysis and pattern recognition to accurately extract the required information.</p>
+<hr>
+<blockquote>
+<p>Exceptionally focused and dedicated freelancer. Hope to work in future projects.</p>
+<p>— Upwork Client ★★★★★</p>
+</blockquote>
+    </article>
+    
+    <article id="image-metadata-translator">
+      <h1>IMAGE METADATA TRANSLATOR</h1>
+      <p>A client needed a script that could process a folder of images, read their metadata (title, description, keywords), translate the metadata using the DeepL API, and write the translated data back to the images.</p>
+<h3>Requirements</h3>
+<p>The project had specific requirements:</p>
+<ul>
+<li>Allow the user to specify a folder of images, source language, and target language</li>
+<li>Translate EXIF/IPTC metadata fields: Headline, Description, Keywords</li>
+<li>Write the new metadata back to the files without modifying filenames</li>
+<li>Integrate with the DeepL API for translation</li>
+</ul>
+<h3>Solution</h3>
+<p>I wrote a Python script that integrated with the DeepL API to automate this manual process. The code was designed to be straightforward and well-documented, making it easy for the client to run on their Mac via Terminal.</p>
+<p>The script handled all the specified metadata fields and included proper error handling for edge cases that emerged during development.</p>
+<hr>
+<blockquote>
+<p>Tuğrul wrote a script in Python that integrated with a third party API to automate a manual process. His code was straightforward and well-documented. He went out of his way to resolve some unexpected issues and always delivered on time. I would be happy to work with Tuğrul again.</p>
+<p>— Upwork Client ★★★★★</p>
+</blockquote>
+    </article>
+    
+    <article id="premiere-csv-markers">
+      <h1>PREMIERE CSV MARKER IMPORTER</h1>
+      <p>A client needed a tool to import CSV files as markers into Adobe Premiere Pro. The project required handling multiple CSV files with customizable settings for marker limits and color coding.</p>
+<h3>Requirements</h3>
+<p>The project had specific requirements:</p>
+<ul>
+<li>Import multiple CSV files as markers into Adobe Premiere Pro</li>
+<li>Setting to limit the number of markers imported</li>
+<li>Ability to assign different colors for markers from different CSV files</li>
+</ul>
+<h3>Solution</h3>
+<p>I developed a solution that extended an existing open-source project, customizing it to meet the client's specific workflow needs. The tool allowed video editors to efficiently import timestamped markers from external sources, streamlining their post-production process.</p>
+<hr>
+<blockquote>
+<p>Goes an extra mile to offer the optimal solution for clients!</p>
+<p>— Upwork Client ★★★★★</p>
+</blockquote>
+    </article>
+    
+    <article id="yearbook-website">
+      <h1>YEARBOOK WEBSITE</h1>
+      <p><img class="docimg img-center" alt="" src="/static/media/yal.png" width="1150" height="646" /></p>
+<p>I was in my last year in one of the public high schools in Istanbul, <a href="https://yesilkoyanadolu.meb.k12.tr/">Yesilkoy Anadolu Lisesi</a>, where some of my sweetest memories were formed.</p>
+<p>Even though we had internet <em>haha</em>, we were still writing our yearbook entries using a text editor and passing them to the teacher with USB sticks.</p>
+<p>I wasn't aware of any website that eased this process, and even though I should have been studying for my university exam, I thought this would be a good project, and I thought I could manage them both.</p>
+<p>So in a week or so, I set up Apache on a Windows machine that resided in my home, configured the router to forward the required port, got a free dynamic DNS domain, and wrote several PHP pages to make it work.</p>
+<h3>The Workflow</h3>
+<p>There was no registration. I don't remember how I got all of the students' names, but I just hard-coded everyone's name in a big select tag. Then I somehow generated unique passwords for each student and distributed them physically.</p>
+<p>So what they needed to do was only:</p>
+<ul>
+<li>Enter the website.</li>
+<li>Pick themselves and the person they wanted to write to.</li>
+<li>Write their yearbook entry and press the Send/Update button.</li>
+</ul>
+<p>Their entries were sent to the computer and stored in a directory.</p>
+<hr>
+<p>I had a few maintenance issues. Whenever something happened to the computer, I needed to be there to fix it in order to keep the website alive. It was a 24/7 service after all.</p>
+<p>And whenever a new person needed to be added, or someone lost their password, I was there to modify the site and update their passwords.</p>
+<p>So overall, it took some effort and time, but it was a nice thing to have, and I felt useful.</p>
+<p>I wish I had a screenshot, but the only proof that the site existed is this archive... <a href="https://web.archive.org/web/20151212123104/http://yalyillik.wha.la/">yalyillik.wha.la</a></p>
+    </article>
+    
+    <article id="linux-call-recorder">
+      <h1>LINUX PHONE CALL RECORDER</h1>
+      <p>PCMin was a project to build an automatic call recording system for Linux phones. Running as a background daemon, it monitors cellular calls through ModemManager and captures both audio channels – the microphone and the speaker output – saving each side of the conversation as separate WAV files.</p>
+<h3>The Problem</h3>
+<p>Linux phones like the Librem 5 or PinePhone lack the polished ecosystem of their Android and iOS counterparts. Call recording, a feature many take for granted, simply didn't exist in a usable form. The goal was to fill that gap with a lightweight, set-and-forget solution.</p>
+<h3>The Solution</h3>
+<p><strong>D-Bus Integration:</strong> The system hooks into ModemManager via D-Bus, listening for call state changes. When a call transitions to active, recording begins automatically. When it terminates, files are saved with timestamps, direction (incoming/outgoing), and the caller's number.</p>
+<p><strong>Dual Audio Capture:</strong> Using PulseAudio, the application captures from two sources simultaneously – the microphone input and the speaker monitor. This separation preserves audio quality and allows for post-processing if needed.</p>
+<p><strong>GStreamer Pipeline:</strong> Audio encoding is handled through GStreamer, with raw PulseAudio sources piped through caps filters and WAV encoders. The pipeline runs independently for each audio channel, writing to temporary files before moving them to permanent storage.</p>
+<h3>Challenges Faced</h3>
+<p><strong>Audio Source Detection:</strong> PulseAudio sources can change between calls, especially when switching between earpiece and speakerphone. The system repopulates source names before each recording to ensure the correct devices are captured.</p>
+<p><strong>Event-Driven Architecture:</strong> The application needed to run continuously without polling, responding instantly to call events. GLib's main loop combined with D-Bus signal handlers provided the necessary event-driven foundation.</p>
+<p><strong>Resource Constraints:</strong> Linux phones have limited resources. The design avoids unnecessary processing, using temporary files during recording and only performing file operations when the call ends.</p>
+<h3>What I Learned</h3>
+<p>This project deepened my understanding of the Linux audio stack – PulseAudio's source/sink model, monitor devices, and the intricacies of capturing system audio. Working with D-Bus and ModemManager also provided insight into how cellular functionality is exposed to userspace on Linux.</p>
+<p>The experience highlighted the challenges of developing for niche platforms, where documentation is sparse and solutions often require piecing together information from multiple sources.</p>
+<hr>
+<p>Built for the Librem 5, but applicable to any Linux phone running ModemManager and PulseAudio.</p>
+    </article>
+    
+    <article id="info-screen">
+      <h1>RASPBERRY PI INFORMATION DISPLAY</h1>
+      <p><img class="docimg img-center" alt="" src="/static/media/info-screen-light.png" width="1880" height="957" /></p>
+<p>The main goal of this project was to develop a responsive information display system for a Raspberry Pi, which would be connected to a vertical TV. The client's requirements included the integration of various data inputs onto a single page, necessitating the creation of a backend to fetch data from different services via APIs.</p>
+<p>Additionally, the project involved the challenge of displaying an RTSP stream on the screen, which required innovative solutions.</p>
+<h3>Challenges Faced</h3>
+<p><strong>Data Integration:</strong> Integrating data from multiple sources into a single page presented a significant challenge. Each data source had its own API structure and requirements, requiring meticulous backend development.</p>
+<p><strong>RTSP Stream:</strong> One of the client's key requirements was displaying an RTSP stream on the Raspberry Pi. However, web browsers do not natively support RTSP, prompting the need for a creative solution.</p>
+<h3>Solutions Implemented</h3>
+<p><strong>Technology Stack:</strong> Initially, the project was developed using Svelte, but after careful consideration, it was transitioned to jQuery to simplify and optimize the solution.</p>
+<p><strong>Backend Development:</strong> Python, along with Flask, was employed to create a robust backend. Custom modules were developed to retrieve data from various APIs, including services like Ecowitt and Bluriiot, ensuring seamless data integration.</p>
+<p><strong>RTSP Streaming:</strong> To overcome the browser limitations regarding RTSP streams, ffmpeg was leveraged to convert the stream into a JPEG sequence. This inventive approach enabled the smooth display of the RTSP stream on the vertical TV.</p>
+<p><strong>Configurability:</strong> A highly configurable system was designed, allowing for easy adjustments through a configuration file. This file accommodated data types, units, RTSP URL, and credentials for user customization.</p>
+<p><strong>User-Friendly Scripts:</strong> To simplify installation and uninstallation processes, bash scripts were created. These scripts also added menu entries for user convenience, making it effortless to run and configure the system.</p>
+<p><img class="docimg img-right" alt="" src="/static/media/info-screen-dark.png" width="540" height="950" /></p>
+<p>The project resulted in the successful creation of a responsive information display system that met the client's expectations. It effectively integrated data from diverse sources and overcame the challenges associated with RTSP streaming.</p>
+<p>The addition of a dark mode option enhanced user experience, and the system's configurability ensures flexibility for future adaptations.</p>
+<hr>
+<p>Working on this project enhanced my skills in backend development, data integration, and creative problem-solving. It underscored the importance of adaptability and the ability to choose the right technologies for the task at hand.</p>
+<h3>Client Feedback</h3>
+<blockquote>
+<p>From the onset, Tuğrul demonstrated a high level of proficiency and commitment to the project. He was responsible for developing and implementing software to display information on a physical screen using a Raspberry Pi computer. His tasks included working with webcams and APIs to gather and display real-time data on a Samsung iFrame set up in a vertical layout.</p>
+<p>Throughout the project, Tuğrul showcased not only strong technical skills but also excellent collaboration and communication abilities. He was consistently proactive in troubleshooting issues and took the time to collaborate with stakeholders to ensure the project requirements were met effectively and efficiently.</p>
+<p>What impressed me the most was Tuğrul's ability to deliver quality work within the stipulated timeframe. His skill in API integration and real-time data display was evident as the project came together smoothly and met all the predetermined requirements.</p>
+<p>I am extremely satisfied with the work Tuğrul has done and can vouch for his technical skills, work ethic, and professional attitude. I would not hesitate to engage him in future projects and highly recommend him for any endeavors he chooses to pursue.</p>
+<p>— Upwork Client ★★★★★</p>
+</blockquote>
+    </article>
+    
+    <article id="email-automation">
+      <h1>EMAIL PDF EXTRACTION AUTOMATION</h1>
+      <p>A client was receiving 20,000 emails per week, each with a password-protected ZIP file containing a PDF. The password for each ZIP file arrived in a separate email. They needed a robust automation solution to extract all PDFs without missing any.</p>
+<h3>The Challenge</h3>
+<p>This was the first project where I needed to seriously consider data volume and scalability. Processing 20,000 emails weekly required careful attention to performance, error handling, and ensuring no PDFs were missed.</p>
+<h3>Requirements</h3>
+<ul>
+<li>Process ~20,000 emails per week automatically</li>
+<li>Match password emails with their corresponding ZIP file emails</li>
+<li>Extract PDFs from password-protected ZIP attachments</li>
+<li>Organize extracted files locally on a Remote Desktop</li>
+<li>Ensure 100% extraction rate—no PDFs could be missed</li>
+</ul>
+<h3>Solution</h3>
+<p>I built a Python automation system that parsed Gmail content, matched password emails with their corresponding ZIP files, extracted the protected attachments, and organized the data locally. The solution emphasized robustness and secure automation workflows to handle the high volume reliably.</p>
+<p>This project taught me valuable lessons about building scalable systems and the importance of comprehensive error handling when dealing with large-scale data processing.</p>
+    </article>
+    
+    <article id="kimiko">
+      <h1>KIMIKO – BROWSER EXTENSION CHAT PLATFORM</h1>
+      <p><img class="docimg img-right" alt="" src="/static/media/kimiko-demo.png" width="864" height="755" /></p>
+<p>Kimiko was a course project for CS308 at Sabanci University – a Chrome extension that brings real-time chat to any website. The idea was simple: people visiting the same URL could communicate with each other through a sidebar overlay, creating impromptu communities around shared web content.</p>
+<h3>The Concept</h3>
+<p>The extension injects an iframe sidebar into any page the user visits. Each URL becomes a chat room, identified by a hashed version of the address. Users can toggle the sidebar with a double-Shift hotkey, resize it to their preference, and start chatting with others on the same page.</p>
+<p>User profiles persist across sessions, storing avatars, usernames, bios, and social links. Clicking on a user in the chat reveals their profile, enabling a basic social layer on top of the anonymous chat experience.</p>
+<h3>The Architecture</h3>
+<p><strong>Chrome Extension:</strong> A content script injects the sidebar iframe and handles cross-origin communication between the page and the embedded React app. Chrome storage persists user identity and preferences locally.</p>
+<p><strong>React Frontend:</strong> The sidebar UI was built with React and TypeScript, handling message display, user input, profile management, and real-time updates. CSS transitions provided smooth animations for settings and profile panels.</p>
+<p><strong>Node.js Backend:</strong> An Express server with WebSocket support managed real-time message routing. MongoDB stored user profiles and message history per URL hash, enabling conversation persistence.</p>
+<h3>Challenges Faced</h3>
+<p><strong>Cross-Origin Communication:</strong> The extension's content script and the iframe run in different contexts with different origins. Coordinating user identity and profile updates required careful use of postMessage and Chrome's runtime messaging API.</p>
+<p><strong>URL-Based Room Partitioning:</strong> Messages needed to be isolated per URL while maintaining performance. Using murmurhash to generate room identifiers from URLs allowed efficient database queries and quick client-side routing.</p>
+<p><strong>Real-Time Synchronization:</strong> Managing WebSocket connections, handling disconnections gracefully, and ensuring message delivery order required a robust client manager that tracked online users per room.</p>
+<h3>What I Learned</h3>
+<p>This was my first deep dive into browser extension development, and it taught me the intricacies of Chrome's extension APIs, content security policies, and the security considerations of injecting code into arbitrary web pages.</p>
+<p>The project also reinforced lessons about real-time systems – managing WebSocket state, handling edge cases in connection drops, and designing for the asynchronous nature of distributed chat systems.</p>
+<hr>
+<p>A team project developed with classmates for the CS308 Software Engineering course at Sabanci University.</p>
+    </article>
+    
+    <article id="cv">
+      <h1>CURRICULUM VITAE</h1>
+      <div class="cv">
+    <header class="cv-header">
+        <h1>Tuğrul Ağrikli</h1>
+        <p class="cv-tagline">Systems &amp; machine learning engineer — Istanbul, Türkiye</p>
+        <p class="cv-contact">
+            <a href="mailto:tagrikli@proton.me">tagrikli@proton.me</a>
+            <span class="sep">·</span>
+            <a href="https://github.com/zerobitfulladder">github.com/zerobitfulladder</a>
+            <span class="sep">·</span>
+            <a href="https://zerobitfulladder.github.io/">zerobitfulladder.github.io</a>
+        </p>
+        <p class="cv-summary">
+            Ten years of engineering across freelance delivery, academic research tooling, embedded Linux, and machine
+            learning. I tend to solve problems one level below where they appear: building the framework rather than
+            using one, generating the dataset rather than labelling it. Most of my work sits at the seam between
+            deterministic control and stochastic components — planners checked against learned policies, generative
+            models given bounded authority inside a scripted skeleton.
+        </p>
+    </header>
+
+    <section class="cv-section">
+        <h2>Education</h2>
+        <div class="cv-entry">
+            <div class="cv-entry-head">
+                <span class="cv-role">Sabancı University — BSc, Computer Science &amp; Engineering</span>
+                <span class="cv-date">Graduated January 2026</span>
+            </div>
+            <ul>
+                <li>Ranked <strong>first in the machine learning cohort</strong>.</li>
+                <li>
+                    Graduation project: vision-based edge occupancy detection for automated parking safety (detailed
+                    below).
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="cv-section">
+        <h2>Experience</h2>
+
+        <div class="cv-entry">
+            <div class="cv-entry-head">
+                <span class="cv-role">Independent Research &amp; Development</span>
+                <span class="cv-date">2026 — present</span>
+            </div>
+            <ul>
+                <li>
+                    Self-funded period dedicated to building systems end-to-end: a computational framework, a desktop
+                    shell, and an LLM-driven narrative agent architecture (detailed below).
+                </li>
+            </ul>
+        </div>
+
+        <div class="cv-entry">
+            <div class="cv-entry-head">
+                <span class="cv-role">Freelance Software Engineer — Upwork</span>
+                <span class="cv-date">2015 — 2023</span>
+            </div>
+            <ul>
+                <li>
+                    <strong>12 contracts delivered, 5.0 / 5.0 rating.</strong> Clients across research, industrial, and
+                    consumer software.
+                </li>
+                <li>
+                    Built an email ingestion pipeline processing <strong>20,000 messages weekly</strong> with
+                    password-protected archive extraction, at 100% reliability.
+                </li>
+                <li>
+                    Bridged Rhino/Grasshopper to MATLAB over a Flask transport layer for an architectural research
+                    group; <strong>acknowledged in the resulting publication</strong>.
+                </li>
+                <li>
+                    Delivered an astrophysics data platform (Python/PHP/SQL) with automated NASA dataset transfer, a
+                    Raspberry Pi RTSP information-display system, a Linux-phone call-recording daemon over D-Bus and
+                    PulseAudio, and a Chrome extension chat platform on React/TypeScript/WebSocket.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="cv-section">
+        <h2>Selected Systems</h2>
+
+        <div class="cv-entry">
+            <div class="cv-entry-head">
+                <span class="cv-role">Vision-Based Edge Occupancy Detection</span>
+                <span class="cv-date">Graduation project, 2026</span>
+            </div>
+            <ul>
+                <li>
+                    Replaced multi-thousand-euro laser scanners in an automated parking system with a MobileNetV3
+                    classifier running on Raspberry Pi and Jetson.
+                </li>
+                <li>
+                    Built a <strong>Blender synthetic-data pipeline</strong> and a semi-automated labelling tool that
+                    cut annotation from <strong>~200 hours to ~2</strong>.
+                </li>
+                <li>
+                    <strong>98.94% validation accuracy</strong>, false positives down over 70% via synthetic
+                    pre-training, <strong>~96% hardware cost reduction</strong>. Validated on a live parking facility.
+                </li>
+            </ul>
+        </div>
+
+        <div class="cv-entry">
+            <div class="cv-entry-head">
+                <span class="cv-role">AxonForge — node-based computational framework</span>
+                <span class="cv-date">~17,000 LOC · unpublished</span>
+            </div>
+            <ul>
+                <li>
+                    Real-time web UI for defining computational units as nodes, editing their properties live, and
+                    hot-reloading behaviour without restarting the server.
+                </li>
+                <li>
+                    Built as research substrate for dynamic systems, after notebooks and Tk canvases both failed to give
+                    the necessary visual feedback loop.
+                </li>
+            </ul>
+        </div>
+
+        <div class="cv-entry">
+            <div class="cv-entry-head">
+                <span class="cv-role">indigoshell — desktop shell</span>
+                <span class="cv-date">~12,000 LOC · unpublished</span>
+            </div>
+            <ul>
+                <li>
+                    A full GTK3 desktop shell — bar, launcher, notifications, system tray — for a bare-Xorg qtile
+                    setup.
+                </li>
+                <li>
+                    Being rewritten onto <strong>xcffib + Skia + dbus-fast</strong> with direct EGL/GL rendering, a
+                    single asyncio loop, and a plugin system merging third-party panels into one settings surface.
+                </li>
+            </ul>
+        </div>
+
+        <div class="cv-entry">
+            <div class="cv-entry-head">
+                <span class="cv-role">LLM-driven NPC &amp; emotion architecture</span>
+                <span class="cv-date">2026 — present</span>
+            </div>
+            <ul>
+                <li>
+                    Narrative game built around a single LLM-driven character: a deterministic control skeleton with
+                    stochastic rendering slots, so that model failure modes read as characterisation rather than as
+                    defects.
+                </li>
+                <li>
+                    Emotion model grounded in <strong>appraisal theory and the OCC framework</strong>, separating felt
+                    from expressed affect.
+                </li>
+                <li>
+                    Concurrent-task phone-call system in which agents can decline, hang up, and hold competing
+                    objectives.
+                </li>
+            </ul>
+        </div>
+
+        <div class="cv-entry">
+            <div class="cv-entry-head">
+                <span class="cv-role">Warehouse &amp; ASRS automation</span>
+                <span class="cv-date">Ongoing</span>
+            </div>
+            <ul>
+                <li>
+                    Deterministic planner for an automated storage-and-retrieval parking facility: block relocation,
+                    carrier routing, deadlock valves, and liveness guarantees.
+                </li>
+                <li>
+                    Comparative study of <strong>A* against SMDP PPO</strong> for carrier planning, plus a learned
+                    heuristic (PyTorch MLP) trained on reverse-generated states.
+                </li>
+            </ul>
+        </div>
+
+        <div class="cv-entry">
+            <div class="cv-entry-head">
+                <span class="cv-role">Other ongoing work</span>
+            </div>
+            <ul>
+                <li>
+                    <strong>Zenith</strong> — from-scratch learning-architecture research: local receptive fields,
+                    normalised-correlation units, skeleton learning.
+                </li>
+                <li>
+                    <strong>AR spatial computing</strong> — real-time monocular-depth 2D→3D conversion via mesh-warp
+                    DIBR on AR glasses, monitor-as-fiducial world anchoring with SPAAM calibration.
+                </li>
+                <li>
+                    <strong>Haptic guidance glove</strong> for blind users — vision-to-touch navigation cues.
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="cv-section">
+        <h2>Technical</h2>
+        <dl class="cv-skills">
+            <dt>Languages</dt>
+            <dd>Python, C, C++, JavaScript/TypeScript, Dart, Java, GDScript, Bash, SQL</dd>
+
+            <dt>Machine learning</dt>
+            <dd>
+                PyTorch, transfer learning, model compression for edge inference, reinforcement learning (PPO, SMDP),
+                synthetic data generation, NLP &amp; classification
+            </dd>
+
+            <dt>Systems</dt>
+            <dd>
+                Embedded Linux (Raspberry Pi, Jetson), X11/xcffib, D-Bus, PulseAudio/GStreamer, EGL/OpenGL, Skia,
+                asyncio, systemd
+            </dd>
+
+            <dt>Vision &amp; graphics</dt>
+            <dd>OpenCV, monocular depth estimation, camera calibration, Blender pipelines, DIBR / stereo rendering</dd>
+
+            <dt>Application</dt>
+            <dd>Flask, React, Node.js, Flutter, Firebase, Godot, MongoDB, WebSocket</dd>
+
+            <dt>Environment</dt>
+            <dd>Arch Linux, qtile on bare Xorg, neovim, git, uv</dd>
+        </dl>
+    </section>
+
+    <p class="cv-print-hint">
+        <button data-print>Print / save as PDF</button>
+    </p>
+</div>
+    </article>
+    
+    <article id="face">
+      <h1>FACE SCAN</h1>
+      <div class="cap">LIVE SCAN · 3DGS · DRAG TO ORBIT · SHIFT-DRAG PANS · DOUBLE-CLICK RESETS</div>
+<div data-splat="/static/media/face.splat" data-alpha="-0.0730" data-beta="0.0560" data-base="11.271"></div>
+<div class="cap">64,762 GAUSSIANS · LIVE, SHOWN AS CAPTURED</div>
+    </article>
+    
+    <article id="music">
+      <h1>MUSIC</h1>
+      <div class="welcome" data-wrap>Some of my favourite artists and favourite tracks of them that I just can't stop listening over and over and over and over and over and over and over and over and over and over and over and over and over and over and over...</div>
+    </article>
+    
+    <article id="gemma-ray">
+      <h1>GEMMA RAY</h1>
+      <div class="dt">HAVE YOU EVER EVER LOST CONTROL?</div>
+<div class="dm">GEMMA RAY · SPOTIFY PLAYLIST</div>
+<div class="gap"></div>
+<div class="links">
+  <a href="https://open.spotify.com/playlist/55F3o2CO8pJjsVhhoOtDlW">OPEN PLAYLIST IN SPOTIFY &rarr;</a>
+  <a href="https://gemmaray.tv/">ARTIST SITE &rarr;</a>
+</div>
+<div class="gap"></div>
+<div class="bcstack">
+  <div class="bcwrap"><iframe title="GEMMA RAY" loading="lazy" seamless src="https://bandcamp.com/EmbeddedPlayer/album=2559686509/size=small/bgcol=ffffff/linkcol=0687f5/track=4132199552/transparent=true/"></iframe><span class="tint"></span><span class="scan"></span></div>
+  <div class="bcwrap"><iframe title="GEMMA RAY" loading="lazy" seamless src="https://bandcamp.com/EmbeddedPlayer/album=1996921711/size=small/bgcol=ffffff/linkcol=0687f5/track=3266682679/transparent=true/"></iframe><span class="tint"></span><span class="scan"></span></div>
+  <div class="bcwrap"><iframe title="GEMMA RAY" loading="lazy" seamless src="https://bandcamp.com/EmbeddedPlayer/album=1996921711/size=small/bgcol=ffffff/linkcol=0687f5/track=1482714954/transparent=true/"></iframe><span class="tint"></span><span class="scan"></span></div>
+  <div class="bcwrap"><iframe title="GEMMA RAY" loading="lazy" seamless src="https://bandcamp.com/EmbeddedPlayer/album=3889476296/size=small/bgcol=ffffff/linkcol=0687f5/track=1068816564/transparent=true/"></iframe><span class="tint"></span><span class="scan"></span></div>
+  <div class="bcwrap"><iframe title="GEMMA RAY" loading="lazy" seamless src="https://bandcamp.com/EmbeddedPlayer/album=3889476296/size=small/bgcol=ffffff/linkcol=0687f5/track=1794014392/transparent=true/"></iframe><span class="tint"></span><span class="scan"></span></div>
+  <div class="bcwrap"><iframe title="GEMMA RAY" loading="lazy" seamless src="https://bandcamp.com/EmbeddedPlayer/album=3889476296/size=small/bgcol=ffffff/linkcol=0687f5/track=3457795150/transparent=true/"></iframe><span class="tint"></span><span class="scan"></span></div>
+  <div class="bcwrap"><iframe title="GEMMA RAY" loading="lazy" seamless src="https://bandcamp.com/EmbeddedPlayer/album=1627953844/size=small/bgcol=ffffff/linkcol=0687f5/license_id=2660/track=2427326128/transparent=true/"></iframe><span class="tint"></span><span class="scan"></span></div>
+  <div class="bcwrap"><iframe title="GEMMA RAY" loading="lazy" seamless src="https://bandcamp.com/EmbeddedPlayer/album=1627953844/size=small/bgcol=ffffff/linkcol=0687f5/license_id=2660/track=3986796009/transparent=true/"></iframe><span class="tint"></span><span class="scan"></span></div>
+</div>
+    </article>
+    
+    <article id="alexandra-savior">
+      <h1>ALEXANDRA SAVIOR</h1>
+      <div class="dt">SAVING GRACE, COME HERE TO BETRAY ME AGAIN</div>
+<div class="dm">ALEXANDRA SAVIOR · SPOTIFY PLAYLIST</div>
+<div class="gap"></div>
+<div class="links">
+  <a href="https://open.spotify.com/playlist/624vPT8KeOMDQaiE4Tv775">OPEN PLAYLIST IN SPOTIFY &rarr;</a>
+  <a href="https://www.alexandrasavior.com/">ARTIST SITE &rarr;</a>
+</div>
+    </article>
+    
+    <article id="agnes-obel">
+      <h1>AGNES OBEL</h1>
+      <div class="dt">NO LAWS OF TIME</div>
+<div class="dm">AGNES OBEL · SPOTIFY PLAYLIST</div>
+<div class="gap"></div>
+<div class="links">
+  <a href="https://open.spotify.com/playlist/3iUrDk05e3OrBrH1OhQAiL">OPEN PLAYLIST IN SPOTIFY &rarr;</a>
+  <a href="https://www.agnesobel.com/">ARTIST SITE &rarr;</a>
+</div>
+    </article>
+    
+    <article id="wet-leg">
+      <h1>WET LEG</h1>
+      <div class="dt">GOT THE BIG D</div>
+<div class="dm">WET LEG · SPOTIFY PLAYLIST</div>
+<div class="gap"></div>
+<div class="links">
+  <a href="https://open.spotify.com/playlist/4g7oySBURM1faZqqvsYzmH">OPEN PLAYLIST IN SPOTIFY &rarr;</a>
+  <a href="https://wetlegband.com/">ARTIST SITE &rarr;</a>
+</div>
+    </article>
+    
+    <article id="library">
+      <h1>LIBRARY</h1>
+      <p>A reading library: papers and articles I am working through, with the ones
+I keep coming back to marked, and whatever I was in the middle of when I
+last looked.</p>
+<p>It is its own small application rather than a page of this site, so it
+opens on its own.</p>
+<p><a href="/library/">Open the library &rarr;</a></p>
+    </article>
+    
+  </div>
+</noscript>
+
+<script type="module" src="/static/js/main.js"></script>
+</body>
+</html>
